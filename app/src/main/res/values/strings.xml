@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Wokk</string>
+    <string name="loginHeading">Welcome to Wokk</string>
+    <string name="loginSubText">Please login to continue</string>
+    <string name="phoneNumberHeading">Enter your mobile number</string>
+    <string name="phonenumbersubheadingForSignUp">A verification code has been sent your mobile number for verification.</string>
+    <string name="phoneNumberSubHeadingForForgot">A verification code has been sent your registered mobile number for verification.</string>
+    <string name="otpHeading">Enter your otp here</string>
+    <string name="signInHeading">Create account</string>
+    <string name="signInSubHeading">It gives us better view about yourself.</string>
+    <string name="forgotPasswordHeading">Reset your password</string>
+    <string name="already_have_an_account"><font color='#FF0000'>Already have an account? </font><font color='#0057ff'><u>Login</u></font></string>
+    <string name="terms_and_privacy"><font color='#FF0000'>By signing up, you agree to our </font><font color='#0057ff'><u>Terms</u></font><font color='#FF0000'> and </font><font color='#0057ff'><u>Conditions</u></font></string>
+    <string name="editPhoneNumberHint">Enter phone number</string>
+    <string name="editPasswordHint">Enter password</string>
+    <string name="forgotPassword"><u>Forgot password?</u></string>
+    <string name="signInText">Don\'t have an account?</string>
+    <string name="signInClick"><u>Click here</u></string>
+    <string name="signInButton">Sign in</string>
+    <string name="edit"><u>Edit</u></string>
+    <string name="versionName">Version: 1.0.18</string>
+    <string name="demoAddress">10/G Panpara 5th lane,P.O.- Talpukur, Barrackpore, Kolkata</string>
+    <string name="socialConnection">Get connected with us on social networks!</string>
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="seek_to">Jump To</string>
+    <string name="seek_to_hint">Seconds</string>
+    <string name="noInternetText">No internet connection detected. Please check your internet connection</string>
+    <string name="errorone">Validity of your card has expired.</string>
+    <string name="errortwo">Back to profile</string>
+    <string name="errorthree">Contact Wokk Admistration at xyz@gmail.com or call(whatsapp) 1234567890 to renew.</string>
+    <string name="default_notification_channel_id">100</string>
+    <string name="galleryHeading"><b><u>Choose image from</u></b></string>
+</resources>

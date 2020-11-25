@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "366236363733",
+    "firebase_url": "https://wokk-59b85.firebaseio.com",
+    "project_id": "wokk-59b85",
+    "storage_bucket": "wokk-59b85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366236363733:android:8b26fb58e96d5c9403ab5c",
+        "android_client_info": {
+          "package_name": "com.app.wokk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366236363733-84qgjksvqtkrpu35gcd5m9nafam0f5ui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.wokk",
+            "certificate_hash": "4c912158ee08f5e10eec2539b8ef45632b5d391e"
+          }
+        },
+        {
+          "client_id": "366236363733-mu7tkpo8ocq7kbpoo4qln7qkpsfalu6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALFr6gwDHXpWwnRTAycCP5jQIvkRoyzMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366236363733-mu7tkpo8ocq7kbpoo4qln7qkpsfalu6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

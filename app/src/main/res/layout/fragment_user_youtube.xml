@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@null"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/llUpload"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Add Youtube link"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:src="@drawable/upload"
+            android:scaleType="fitCenter"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvYoutube"
+        android:layout_below="@id/llUpload"
+        android:layout_margin="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvEmptyText"
+        android:text="No items available!"
+        android:layout_centerHorizontal="true"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/offBlack"
+        android:layout_below="@id/llUpload"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:textSize="@dimen/_8sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
