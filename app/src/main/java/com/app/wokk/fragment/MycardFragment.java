@@ -109,6 +109,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public int follow_status;
     NestedScrollView scroll;
     public boolean validity_status;
+    public String validityDate;
     public String follow_count,addressColor,emailColor,phoneColor,viewCount,layoutUrl;
     Typeface organistionTypeface,nameTypeface,addressTypeface,emailtypeface,phoneTypeface;
     String[] permissions = {Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE,Manifest.permission.READ_CONTACTS};
@@ -168,6 +169,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                         youtubeDetailsModelArrayList=response.body().youtube_details;
                         viewCount=response.body().view_count;
                         validity_status=response.body().validity_status;
+                        validityDate=response.body().user_details.user_card_valid_until;
                         /*if(viewCount != null)
                             tvViews.setText("Views: "+viewCount);
                         else

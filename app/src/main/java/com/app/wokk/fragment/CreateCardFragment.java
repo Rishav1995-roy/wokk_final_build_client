@@ -371,6 +371,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                         ContainerActivity.follow_status=response.body().follow_status;
                         ContainerActivity.follow_count=response.body().no_of_followers;
                         ContainerActivity.validity_status=response.body().validity_status;
+                        ContainerActivity.validityDate=response.body().user_details.user_card_valid_until;
                         if(getCardResponseDataModel != null){
                             if(getCardResponseDataModel.user_fname != null){
                                 if(getCardResponseDataModel.user_lname != null){

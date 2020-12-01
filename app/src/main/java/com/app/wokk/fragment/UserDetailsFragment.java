@@ -75,7 +75,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
     public View rootView;
     public MyPreference myPreference;
     public LinearLayout llEdit,llProfile;
-    public TextView etName,etLastName,etEmail,etWhatsapp,etContact,etBio,tvGender,etAddress,etpincode,etOrganisationame,tvEdit,etValidity;
+    public TextView etName,etLastName,etEmail,etWhatsapp,etContact,etBio,tvGender,etAddress,etpincode,etOrganisationame,tvEdit,etValidity,tvCardValidityHeading;
     public ImageView ivEdit;
 
 
@@ -91,6 +91,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init(View rootView) {
+        tvCardValidityHeading = rootView.findViewById(R.id.tvCardValidityHeading);
         etOrganisationame = rootView.findViewById(R.id.etOrganisationame);
         etValidity = rootView.findViewById(R.id.etValidity);
         tvGender = rootView.findViewById(R.id.tvGender);
@@ -152,18 +153,25 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
         }else if(ContainerActivity.getCardResponseDataModel.user_gender.equals("2")){
             tvGender.setText("Female");
         }
-        if(ContainerActivity.validity_status){
-            String date=dateFormat(ContainerActivity.getCardResponseDataModel.user_card_valid_until);
-            if(!date.equals("")) {
-                etValidity.setText(date);
-                etValidity.setTextColor(getResources().getColor(R.color.black));
+        if(ContainerActivity.cardDetailsResponseModel !=  null) {
+            tvCardValidityHeading.setVisibility(View.VISIBLE);
+            etValidity.setVisibility(View.VISIBLE);
+            if (ContainerActivity.validity_status) {
+                String date = dateFormat(ContainerActivity.getCardResponseDataModel.user_card_valid_until);
+                if (!date.equals("")) {
+                    etValidity.setText(date);
+                    etValidity.setTextColor(getResources().getColor(R.color.black));
+                }
+            } else {
+                String date = dateFormat(ContainerActivity.getCardResponseDataModel.user_card_valid_until);
+                if (!date.equals("")) {
+                    etValidity.setText("Card expired on " + date);
+                    etValidity.setTextColor(getResources().getColor(R.color.orange));
+                }
             }
         }else{
-            String date=dateFormat(ContainerActivity.getCardResponseDataModel.user_card_valid_until);
-            if(!date.equals("")) {
-                etValidity.setText("Card expired on "+date);
-                etValidity.setTextColor(getResources().getColor(R.color.orange));
-            }
+            tvCardValidityHeading.setVisibility(View.GONE);
+            etValidity.setVisibility(View.GONE);
         }
 
     }
@@ -384,6 +392,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
                         ContainerActivity.follow_status=response.body().follow_status;
                         ContainerActivity.follow_count=response.body().no_of_followers;
                         ContainerActivity.validity_status=response.body().validity_status;
+                        ContainerActivity.validityDate=response.body().user_details.user_card_valid_until;
                         ProfileFragment.tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ ContainerActivity.getCardResponseDataModel.user_pin);
                         ProfileFragment.tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
                         Fragment newFragment = ProfileFragment.newInstance();

@@ -69,6 +69,7 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
     public static CardDetailsResponseModel cardDetailsResponseModel;
     public static String layoutUrl,viewCount,follow_count;
     public static boolean validity_status;
+    public static String validityDate;
     public static ArrayList<AllLayoutsResponseModel> layoutList;
     public static ArrayList<GalleryResponseModel> galleryList;
     public static ArrayList<YoutubeDetailsModel> youtubeDetailsModelArrayList;
@@ -154,21 +155,25 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
                             btnCreateVisitingCard.setVisibility(View.VISIBLE);
                             llNumber.setVisibility(View.GONE);
                         }
-                        if(!validity_status){
-                            customAlert("Your card has been expired.");
-                        }
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentTime = df.format(new Date());
-                        long days=Daybetween(currentTime,getCardResponseDataModel.user_card_valid_until,"yyyy-MM-dd");
-                        if(days>0){
-                            if(days<=10){
-                                if(days==1){
-                                    customAlert("Your card will be expired in "+days+" day.");
-                                }else{
-                                    customAlert("Your card will be expired in "+days+" days.");
+                        validityDate=getCardResponseDataModel.user_card_valid_until;
+                        /*if(cardDetailsResponseModel != null) {
+                            if (!validity_status) {
+                                customAlert("Your card has been expired.");
+                            }
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                            String currentTime = df.format(new Date());
+                            validityDate=getCardResponseDataModel.user_card_valid_until;
+                            long days = Daybetween(currentTime, getCardResponseDataModel.user_card_valid_until, "yyyy-MM-dd");
+                            if (days > 0) {
+                                if (days <= 10) {
+                                    if (days == 1) {
+                                        customAlert("Your card will be expired in " + days + " day.");
+                                    } else {
+                                        customAlert("Your card will be expired in " + days + " days.");
+                                    }
                                 }
                             }
-                        }
+                        }*/
                     }else if(code == 9){
                         customAlert("An authentication error occured!");
                     }else{

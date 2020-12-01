@@ -254,6 +254,7 @@ public class UserYoutubeFragment extends BaseFragment {
                         ContainerActivity.follow_status=response.body().follow_status;
                         ContainerActivity.follow_count=response.body().no_of_followers;
                         ContainerActivity.validity_status=response.body().validity_status;
+                        ContainerActivity.validityDate=response.body().user_details.user_card_valid_until;
                         if(id == 1){
                             customAlert("Video has been added successfully.");
                             setUpYoutubeAdapter(ContainerActivity.youtubeDetailsModelArrayList);

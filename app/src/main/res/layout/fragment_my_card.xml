@@ -39,7 +39,7 @@
                             <TextView
                                 android:id="@+id/tvCountryCode"
                                 android:text="India (+91)"
-                                android:textSize="@dimen/_6sdp"
+                                android:textSize="@dimen/_8sdp"
                                 android:textColor="@color/orange"
                                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
                                 android:layout_centerInParent="true"
@@ -67,7 +67,7 @@
                                 android:inputType="number"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginEnd="@dimen/_20sdp"
-                                android:textSize="@dimen/_6sdp"
+                                android:textSize="@dimen/_8sdp"
                                 android:imeOptions="actionDone"
                                 android:background="@null"
                                 android:layout_height="match_parent"/>

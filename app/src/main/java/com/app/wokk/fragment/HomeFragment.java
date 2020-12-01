@@ -48,7 +48,9 @@ import com.google.gson.JsonElement;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -141,7 +143,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 customAlert(getResources().getString(R.string.noInternetText));
             }
+            if(ContainerActivity.cardDetailsResponseModel != null){
+                if (!ContainerActivity.validity_status) {
+                    customAlert("Your card has been expired.");
+                }
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String currentTime = df.format(new Date());
+                long days = Daybetween(currentTime, ContainerActivity.validityDate, "yyyy-MM-dd");
+                if (days > 0) {
+                    if (days <= 10) {
+                        if (days == 1) {
+                            customAlert("Your card will be expired in " + days + " day.");
+                        } else {
+                            customAlert("Your card will be expired in " + days + " days.");
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    public long Daybetween(String date1,String date2,String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        Date Date1 = null,Date2 = null;
+        try{
+            Date1 = sdf.parse(date1);
+            Date2 = sdf.parse(date2);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return (Date2.getTime() - Date1.getTime())/(24*60*60*1000);
     }
 
     private void getServiceList() {
