@@ -182,7 +182,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         @Override
         protected void onPostExecute(Drawable result) {
             super.onPostExecute(result);
-            rlCard.setBackgroundDrawable(result);
+            //rlCard.setBackgroundDrawable(result);
         }
     }
 
@@ -201,11 +201,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             tvemailAddress.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_email_fontsize_mob));
             if(ContainerActivity.getCardResponseDataModel.user_fname != null && ContainerActivity.getCardResponseDataModel.user_lname != null)
                 tvName.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
-            GradientDrawable gd = new GradientDrawable();
+            /*GradientDrawable gd = new GradientDrawable();
             //gd.setColor(Color.RED);
             //gd.setCornerRadius(10);
-            gd.setStroke(25, Color.parseColor(cardDetailsResponseModel.card_border_color));
-            rlCard.setBackgroundDrawable(gd);
+            gd.setStroke(25, Color.parseColor(cardDetailsResponseModel.card_border_color));*/
+            ivcard.setBackgroundColor(Color.parseColor(cardDetailsResponseModel.card_border_color));
             Glide.with(this).load(ContainerActivity.layoutUrl + cardDetailsResponseModel.layout_image).into(ivcard);
             if(ContainerActivity.getCardResponseDataModel.user_address != null && ContainerActivity.getCardResponseDataModel.user_pin != null && !ContainerActivity.getCardResponseDataModel.user_address.equals("null") && !ContainerActivity.getCardResponseDataModel.user_pin.equals("null"))
                 tvCardAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ ContainerActivity.getCardResponseDataModel.user_pin);

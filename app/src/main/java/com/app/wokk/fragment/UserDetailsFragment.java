@@ -459,7 +459,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
         @Override
         protected void onPostExecute(Drawable result) {
             super.onPostExecute(result);
-            ProfileFragment.rlCard.setBackgroundDrawable(result);
+            //ProfileFragment.rlCard.setBackgroundDrawable(result);
         }
     }
 
@@ -501,11 +501,6 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
         if (Objects.requireNonNull(editProfileAlert.etBio.getText()).toString().isEmpty()) {
             customAlert("Please enter about yourself!");
             editProfileAlert.etBio.requestFocus();
-            return false;
-        }
-        if (Objects.requireNonNull(editProfileAlert.etYoutubeLink.getText()).toString().isEmpty()) {
-            customAlert("Please enter your youtube link!");
-            editProfileAlert.etYoutubeLink.requestFocus();
             return false;
         }
         return true;

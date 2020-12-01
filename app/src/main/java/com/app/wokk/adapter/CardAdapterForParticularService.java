@@ -84,11 +84,11 @@ public class CardAdapterForParticularService extends RecyclerView.Adapter<CardVi
             e.printStackTrace();
         }
         holder.rlCard.setBackgroundDrawable(d);*/
-        GradientDrawable gd = new GradientDrawable();
+        /*GradientDrawable gd = new GradientDrawable();
         //gd.setColor(Color.RED);
         //gd.setCornerRadius(10);
-        gd.setStroke(10, Color.parseColor(cardList.get(position).card_border_color));
-        holder.rlCard.setBackgroundDrawable(gd);
+        gd.setStroke(10, Color.parseColor(cardList.get(position).card_border_color));*/
+        holder.ivCard.setBackgroundColor(Color.parseColor(cardList.get(position).card_border_color));
         if(cardList.get(position).user_fname != null && cardList.get(position).user_lname != null)
             holder.tvName.setText(cardList.get(position).user_fname+" "+cardList.get(position).user_lname);
         if(cardList.get(position).user_address != null && cardList.get(position).user_pin != null)

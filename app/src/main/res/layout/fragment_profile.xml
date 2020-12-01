@@ -21,25 +21,29 @@
                 android:background="@color/white"
                 tools:ignore="UselessParent">
 
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:id="@+id/rlCard"
                     android:layout_width="354dp"
                     android:layout_height="188dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp" />-->
 
                 <RelativeLayout
+                    android:id="@+id/rlCard"
                     android:layout_width="350dp"
                     android:layout_height="200dp"
-                    android:layout_marginStart="22dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginEnd="22dp">
+                    android:layout_marginEnd="20dp">
 
                     <ImageView
                         android:id="@+id/ivcard"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:cropToPadding="true"
+                        android:scaleType="centerCrop"
+                        android:padding="2dp"
+                        android:layout_width="350dp"
+                        android:layout_height="200dp" />
 
                     <TextView
                         android:id="@+id/tvOrganisationName"

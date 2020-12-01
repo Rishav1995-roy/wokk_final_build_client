@@ -173,8 +173,10 @@ public class CardListForParticularServiceFragment extends BaseFragment {
 
     private void searchNowList(String toString) {
         ArrayList<AllCardsResponseModel> searchList=new ArrayList<>();
+        ArrayList<AllCardsResponseModel> filterSearchList=new ArrayList<>();
         searchList.clear();
-        for(int i=0;i<cardList.size()-1;i++){
+        filterSearchList.clear();
+        for(int i=0;i<cardList.size();i++){
             if(toString.equals("")){
                 searchList.add(cardList.get(i));
             }else {
@@ -183,7 +185,16 @@ public class CardListForParticularServiceFragment extends BaseFragment {
                 }
             }
         }
-        setAdapter(searchList,ContainerActivity.layoutUrl);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String currentTime = df.format(new Date());
+        Long currentTimeStamp = getTimeStampForDate(currentTime);
+        for(int i=0;i<searchList.size();i++){
+            Long validTime=getTimeStampForDate(searchList.get(i).user_card_valid_until);
+            if(validTime>=currentTimeStamp){
+                filterSearchList.add(searchList.get(i));
+            }
+        }
+        setAdapter(filterSearchList,ContainerActivity.layoutUrl);
     }
 
     private void setAdapter(ArrayList<AllCardsResponseModel> homelist,String url) {
@@ -227,5 +238,14 @@ public class CardListForParticularServiceFragment extends BaseFragment {
         }
 
         return timeLong;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        etPin.setText("");
+        if (etPin.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        }
     }
 }

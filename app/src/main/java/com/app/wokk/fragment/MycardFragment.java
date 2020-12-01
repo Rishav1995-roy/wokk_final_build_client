@@ -87,7 +87,7 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 import static com.app.wokk.activity.ContainerActivity.tvViews;
 
-public class MycardFragment extends BaseFragment implements View.OnClickListener{
+public class MycardFragment extends BaseFragment implements View.OnClickListener {
 
     public static MycardFragment newInstance() {
         return new MycardFragment();
@@ -95,12 +95,12 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
 
     public View rootView;
     public MyPreference myPreference;
-    public RecyclerView rvGallery,rvYoutube;
+    public RecyclerView rvGallery, rvYoutube;
     public EditText etNumber;
-    public RelativeLayout rlSms,rlWhatsappShare,rlFollow,rlWhatsapp,rlShare,rlCall,rlWokkYoutubeLink,rlCard,rlYoutube,rlAlert;
-    public TextView tvOrganisationName,tvName,tvWokkYoutubeLink,tvCardAddress,tvemailAddress,tvphoneNumber,tvEmptyText,tvFollowed,tvEmptyTextYoutube,tvProfile;
-    public LinearLayout llAddress,llMail,llPhoneNumber;
-    public ImageView ivInstagram,ivcard,ivTwitter,ivFollowed,ivFacebook,ivContact, ivAddress, ivMail, ivPhone;
+    public RelativeLayout rlSms, rlWhatsappShare, rlFollow, rlWhatsapp, rlShare, rlCall, rlWokkYoutubeLink, rlCard, rlYoutube, rlAlert;
+    public TextView tvOrganisationName, tvName, tvWokkYoutubeLink, tvCardAddress, tvemailAddress, tvphoneNumber, tvEmptyText, tvFollowed, tvEmptyTextYoutube, tvProfile;
+    public LinearLayout llAddress, llMail, llPhoneNumber;
+    public ImageView ivInstagram, ivcard, ivTwitter, ivFollowed, ivFacebook, ivContact, ivAddress, ivMail, ivPhone;
     public GetCardResponseDataModel getCardResponseDataModel;
     public CardDetailsResponseModel cardDetailsResponseModel;
     public ArrayList<GalleryResponseModel> galleryCardList;
@@ -110,14 +110,14 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     NestedScrollView scroll;
     public boolean validity_status;
     public String validityDate;
-    public String follow_count,addressColor,emailColor,phoneColor,viewCount,layoutUrl;
-    Typeface organistionTypeface,nameTypeface,addressTypeface,emailtypeface,phoneTypeface;
-    String[] permissions = {Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE,Manifest.permission.READ_CONTACTS};
+    public String follow_count, addressColor, emailColor, phoneColor, viewCount, layoutUrl;
+    Typeface organistionTypeface, nameTypeface, addressTypeface, emailtypeface, phoneTypeface;
+    String[] permissions = {Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-        rootView=inflater.inflate(R.layout.fragment_my_card,container,false);
-        myPreference=new MyPreference(getActivity());
+        rootView = inflater.inflate(R.layout.fragment_my_card, container, false);
+        myPreference = new MyPreference(getActivity());
         init(rootView);
         return rootView;
     }
@@ -128,48 +128,48 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
         if (networkCheck) {
             getUserdetails();
-        }else{
+        } else {
             customAlert(getResources().getString(R.string.noInternetText));
         }
     }
 
     private void getUserdetails() {
         showRotateDialog();
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-        apiCredentialModel.apiuser= Constant.apiuser;
-        apiCredentialModel.apipass=Constant.apipass;
-        GetCardClass getCardClass=new GetCardClass();
-        getCardClass.apiCredentialModel=apiCredentialModel;
-        getCardClass.user_id=myPreference.getServiceUserId();
-        getCardClass.logged_in_user_id=myPreference.getUserID();
-        Gson gson=new Gson();
-        JsonElement jsonElement=gson.toJsonTree(getCardClass);
-        Call<GetCardResponseModel> getprofile= RestManager.getInstance().getService().get_profile(jsonElement);
+        ApiCredentialModel apiCredentialModel = new ApiCredentialModel();
+        apiCredentialModel.apiuser = Constant.apiuser;
+        apiCredentialModel.apipass = Constant.apipass;
+        GetCardClass getCardClass = new GetCardClass();
+        getCardClass.apiCredentialModel = apiCredentialModel;
+        getCardClass.user_id = myPreference.getServiceUserId();
+        getCardClass.logged_in_user_id = myPreference.getUserID();
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(getCardClass);
+        Call<GetCardResponseModel> getprofile = RestManager.getInstance().getService().get_profile(jsonElement);
         getprofile.enqueue(new Callback<GetCardResponseModel>() {
             @Override
             public void onResponse(@NotNull Call<GetCardResponseModel> call, @NotNull Response<GetCardResponseModel> response) {
                 hideRotateDialog();
-                try{
+                try {
                     assert response.body() != null;
-                    int code=response.body().code;
-                    if(code == 1){
-                        layoutUrl=response.body().layout_url;
-                        cardDetailsResponseModel=response.body().card_details;
-                        getCardResponseDataModel=response.body().user_details;
-                        follow_status=response.body().follow_status;
-                        follow_count=response.body().no_of_followers;
-                        galleryCardList=new ArrayList<>();
-                        youtubeDetailsModelArrayList=new ArrayList<>();
-                        layoutList=new ArrayList<>();
+                    int code = response.body().code;
+                    if (code == 1) {
+                        layoutUrl = response.body().layout_url;
+                        cardDetailsResponseModel = response.body().card_details;
+                        getCardResponseDataModel = response.body().user_details;
+                        follow_status = response.body().follow_status;
+                        follow_count = response.body().no_of_followers;
+                        galleryCardList = new ArrayList<>();
+                        youtubeDetailsModelArrayList = new ArrayList<>();
+                        layoutList = new ArrayList<>();
                         galleryCardList.clear();
                         layoutList.clear();
                         youtubeDetailsModelArrayList.clear();
-                        galleryCardList=response.body().gallery_details;
-                        layoutList=response.body().all_layouts;
-                        youtubeDetailsModelArrayList=response.body().youtube_details;
-                        viewCount=response.body().view_count;
-                        validity_status=response.body().validity_status;
-                        validityDate=response.body().user_details.user_card_valid_until;
+                        galleryCardList = response.body().gallery_details;
+                        layoutList = response.body().all_layouts;
+                        youtubeDetailsModelArrayList = response.body().youtube_details;
+                        viewCount = response.body().view_count;
+                        validity_status = response.body().validity_status;
+                        validityDate = response.body().user_details.user_card_valid_until;
                         /*if(viewCount != null)
                             tvViews.setText("Views: "+viewCount);
                         else
@@ -177,12 +177,12 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                         setData();
                         setupAdapter(galleryCardList);
                         setUpYoutubeAdapter(youtubeDetailsModelArrayList);
-                    }else if(code == 9){
+                    } else if (code == 9) {
                         customAlert("An authentication error occured!");
-                    }else{
+                    } else {
                         customAlert("Oops, something went wrong!");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     customAlert("Oops, something went wrong!");
                 }
@@ -198,8 +198,8 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void setData() {
-        if(follow_count == null){
-            if(follow_status == 0) {
+        if (follow_count == null) {
+            if (follow_status == 0) {
                 tvFollowed.setText("Follow");
                 ivFollowed.setVisibility(View.VISIBLE);
                 tvFollowed.setTextSize(12.0f);
@@ -211,7 +211,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 rlFollow.setEnabled(true);
                 rlFollow.setFocusable(true);
                 rlCall.setFocusable(true);
-            }else if(follow_status == 1){
+            } else if (follow_status == 1) {
                 tvFollowed.setText("Followed");
                 ivFollowed.setVisibility(View.GONE);
                 tvFollowed.setTextSize(12.0f);
@@ -225,8 +225,8 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 rlFollow.setFocusable(false);
                 rlCall.setFocusable(true);
             }
-        }else{
-            tvFollowed.setText("Followers: "+follow_count);
+        } else {
+            tvFollowed.setText("Followers: " + follow_count);
             ivFollowed.setVisibility(View.GONE);
             //rlFollow.setAlpha(0.4f);
             tvFollowed.setTextSize(10.0f);
@@ -237,14 +237,14 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             rlFollow.setEnabled(false);
             rlFollow.setFocusable(false);
         }
-        if(validity_status) {
+        if (validity_status) {
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
-            GradientDrawable gd = new GradientDrawable();
+            /*GradientDrawable gd = new GradientDrawable();
             //gd.setColor(Color.RED);
             //gd.setCornerRadius(10);
-            gd.setStroke(25, Color.parseColor(cardDetailsResponseModel.card_border_color));
-            rlCard.setBackgroundDrawable(gd);
+            gd.setStroke(10, Color.parseColor(cardDetailsResponseModel.card_border_color));*/
+            ivcard.setBackgroundColor(Color.parseColor(cardDetailsResponseModel.card_border_color));
             Glide.with(Objects.requireNonNull(getActivity())).load(layoutUrl + cardDetailsResponseModel.layout_image).into(ivcard);
             //new LoadBackground(layoutUrl + cardDetailsResponseModel.layout_image, "androidfigure").execute();
             if (getCardResponseDataModel.user_fname != null && getCardResponseDataModel.user_lname != null)
@@ -593,49 +593,49 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 }
                 //phoneFont=cardDetailsResponseModel.card_phone_font;
             }
-        }else{
+        } else {
             scroll.setVisibility(View.GONE);
             rlAlert.setVisibility(View.VISIBLE);
         }
     }
 
     private void init(View rootView) {
-        rlAlert=rootView.findViewById(R.id.rlAlert);
-        scroll=rootView.findViewById(R.id.scroll);
-        tvProfile=rootView.findViewById(R.id.tvProfile);
-        ivPhone=rootView.findViewById(R.id.ivPhone);
-        tvEmptyTextYoutube=rootView.findViewById(R.id.tvEmptyTextYoutube);
-        rvYoutube=rootView.findViewById(R.id.rvYoutube);
-        rlYoutube=rootView.findViewById(R.id.rlYoutube);
-        ivMail=rootView.findViewById(R.id.ivMail);
-        ivAddress=rootView.findViewById(R.id.ivAddress);
-        ivcard=rootView.findViewById(R.id.ivcard);
-        tvFollowed=rootView.findViewById(R.id.tvFollowed);
-        ivFacebook=rootView.findViewById(R.id.ivFirstStar);
-        ivTwitter=rootView.findViewById(R.id.ivTwitter);
-        ivInstagram=rootView.findViewById(R.id.ivInstagram);
-        ivContact=rootView.findViewById(R.id.ivContact);
-        ivFollowed=rootView.findViewById(R.id.ivFollowed);
-        llPhoneNumber=rootView.findViewById(R.id.llPhoneNumber);
-        llMail=rootView.findViewById(R.id.llMail);
-        llAddress=rootView.findViewById(R.id.llAddress);
-        tvEmptyText=rootView.findViewById(R.id.tvEmptyText);
-        tvphoneNumber=rootView.findViewById(R.id.tvphoneNumber);
-        tvemailAddress=rootView.findViewById(R.id.tvemailAddress);
-        tvCardAddress=rootView.findViewById(R.id.tvCardAddress);
-        tvWokkYoutubeLink=rootView.findViewById(R.id.tvWokkYoutubeLink);
-        tvName=rootView.findViewById(R.id.tvName);
-        tvOrganisationName=rootView.findViewById(R.id.tvOrganisationName);
-        rlCard=rootView.findViewById(R.id.rlCard);
-        rlWokkYoutubeLink=rootView.findViewById(R.id.rlWokkYoutubeLink);
-        rlCall=rootView.findViewById(R.id.rlCall);
-        rlShare=rootView.findViewById(R.id.rlShare);
-        rlWhatsapp=rootView.findViewById(R.id.rlWhatsapp);
-        rlFollow=rootView.findViewById(R.id.rlFollow);
-        rlWhatsappShare=rootView.findViewById(R.id.rlWhatsappShare);
-        rlSms=rootView.findViewById(R.id.rlSms);
-        etNumber=rootView.findViewById(R.id.etNumber);
-        rvGallery=rootView.findViewById(R.id.rvGallery);
+        rlAlert = rootView.findViewById(R.id.rlAlert);
+        scroll = rootView.findViewById(R.id.scroll);
+        tvProfile = rootView.findViewById(R.id.tvProfile);
+        ivPhone = rootView.findViewById(R.id.ivPhone);
+        tvEmptyTextYoutube = rootView.findViewById(R.id.tvEmptyTextYoutube);
+        rvYoutube = rootView.findViewById(R.id.rvYoutube);
+        rlYoutube = rootView.findViewById(R.id.rlYoutube);
+        ivMail = rootView.findViewById(R.id.ivMail);
+        ivAddress = rootView.findViewById(R.id.ivAddress);
+        ivcard = rootView.findViewById(R.id.ivcard);
+        tvFollowed = rootView.findViewById(R.id.tvFollowed);
+        ivFacebook = rootView.findViewById(R.id.ivFirstStar);
+        ivTwitter = rootView.findViewById(R.id.ivTwitter);
+        ivInstagram = rootView.findViewById(R.id.ivInstagram);
+        ivContact = rootView.findViewById(R.id.ivContact);
+        ivFollowed = rootView.findViewById(R.id.ivFollowed);
+        llPhoneNumber = rootView.findViewById(R.id.llPhoneNumber);
+        llMail = rootView.findViewById(R.id.llMail);
+        llAddress = rootView.findViewById(R.id.llAddress);
+        tvEmptyText = rootView.findViewById(R.id.tvEmptyText);
+        tvphoneNumber = rootView.findViewById(R.id.tvphoneNumber);
+        tvemailAddress = rootView.findViewById(R.id.tvemailAddress);
+        tvCardAddress = rootView.findViewById(R.id.tvCardAddress);
+        tvWokkYoutubeLink = rootView.findViewById(R.id.tvWokkYoutubeLink);
+        tvName = rootView.findViewById(R.id.tvName);
+        tvOrganisationName = rootView.findViewById(R.id.tvOrganisationName);
+       // rlCard = rootView.findViewById(R.id.rlCard);
+        rlWokkYoutubeLink = rootView.findViewById(R.id.rlWokkYoutubeLink);
+        rlCall = rootView.findViewById(R.id.rlCall);
+        rlShare = rootView.findViewById(R.id.rlShare);
+        rlWhatsapp = rootView.findViewById(R.id.rlWhatsapp);
+        rlFollow = rootView.findViewById(R.id.rlFollow);
+        rlWhatsappShare = rootView.findViewById(R.id.rlWhatsappShare);
+        rlSms = rootView.findViewById(R.id.rlSms);
+        etNumber = rootView.findViewById(R.id.etNumber);
+        rvGallery = rootView.findViewById(R.id.rvGallery);
         clickEvent();
     }
 
@@ -653,27 +653,35 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tvProfile:
                 Fragment profileFragment = ProfileFragment.newInstance();
                 FragmentTransaction profileTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
                 profileTransaction.replace(R.id.frameContainerChild, profileFragment);
-                profileTransaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left);
+                profileTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
                 profileTransaction.addToBackStack(null);
                 profileTransaction.commit();
                 break;
             case R.id.rlWhatsapp:
-                Intent waIntent = new Intent(Intent.ACTION_SEND);
-                waIntent.setType("text/plain");
-                waIntent.setPackage("com.whatsapp");
-                waIntent.putExtra(Intent.EXTRA_TEXT, "https://wokk.co.in/card/"+getCardResponseDataModel.user_token);
-                startActivity(Intent.createChooser(waIntent, "Share visiting card with"));
+                if (myPreference.getUserID().equals(myPreference.getServiceUserId())) {
+                    Intent waIntent = new Intent(Intent.ACTION_SEND);
+                    waIntent.setType("text/plain");
+                    waIntent.setPackage("com.whatsapp");
+                    waIntent.putExtra(Intent.EXTRA_TEXT, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token);
+                    startActivity(Intent.createChooser(waIntent, "Share visiting card with"));
+                } else {
+                    String number = "+91" + getCardResponseDataModel.user_phone;
+                    String url = "https://api.whatsapp.com/send?phone=" + number;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
                 break;
             case R.id.rlWhatsappShare:
                 hideKeyBoardRelativeLayout(rlWhatsappShare);
-                if(etNumber.getText().toString().isEmpty()){
+                if (etNumber.getText().toString().isEmpty()) {
                     customAlert("Please enter a mobile number to continue!");
-                }else {
+                } else {
                     PackageManager packageManager = Objects.requireNonNull(getContext()).getPackageManager();
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     try {
@@ -697,7 +705,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My visiting card");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://wokk.co.in/card/"+getCardResponseDataModel.user_token);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token);
                 startActivity(Intent.createChooser(sharingIntent, "Share visiting card via"));
                 break;
             case R.id.rlCall:
@@ -705,9 +713,9 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.rlSms:
                 hideKeyBoardRelativeLayout(rlSms);
-                if(etNumber.getText().toString().isEmpty()){
+                if (etNumber.getText().toString().isEmpty()) {
                     customAlert("Please enter a mobile number to continue!");
-                }else {
+                } else {
                     requestSmsPermission();
                 }
                 break;
@@ -758,22 +766,22 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
 
     private void doFollow() {
         showRotateDialog();
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-        apiCredentialModel.apiuser=Constant.apiuser;
-        apiCredentialModel.apipass=Constant.apipass;
-        FollowClass followClass=new FollowClass();
-        followClass.apiCredentialModel=apiCredentialModel;
-        followClass.user_id=myPreference.getServiceUserId();
-        followClass.follower_id=myPreference.getUserID();
-        Gson gson=new Gson();
-        JsonElement jsonElement=gson.toJsonTree(followClass);
-        Call<ResponseBody> doFollow=RestManager.getInstance().getService().doFollow(jsonElement);
+        ApiCredentialModel apiCredentialModel = new ApiCredentialModel();
+        apiCredentialModel.apiuser = Constant.apiuser;
+        apiCredentialModel.apipass = Constant.apipass;
+        FollowClass followClass = new FollowClass();
+        followClass.apiCredentialModel = apiCredentialModel;
+        followClass.user_id = myPreference.getServiceUserId();
+        followClass.follower_id = myPreference.getUserID();
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(followClass);
+        Call<ResponseBody> doFollow = RestManager.getInstance().getService().doFollow(jsonElement);
         doFollow.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NotNull Call<ResponseBody> call,@NotNull Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 hideRotateDialog();
-                try{
-                    int status=response.code();
+                try {
+                    int status = response.code();
                     if (status == 200) {
                         tvFollowed.setText("Followed");
                         ivFollowed.setVisibility(View.GONE);
@@ -786,17 +794,17 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                         rlFollow.setEnabled(false);
                         rlFollow.setFocusable(false);
                         rlCall.setFocusable(true);
-                    }else{
+                    } else {
                         customAlert("Oops, something went wrong!");
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     hideRotateDialog();
                     customAlert("Oops, something went wrong!");
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<ResponseBody> call,@NotNull Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 hideRotateDialog();
                 customAlert("Internal server error. Please try after few minutes.");
             }
@@ -810,6 +818,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     private void requestSmsPermission() {
         requestPermissions(permissions, 101);
     }
+
     private void requestContactAccessPermission() {
         requestPermissions(permissions, 102);
     }
@@ -820,20 +829,20 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         if (requestCode == 100) {
             if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:"+getCardResponseDataModel.user_phone));
+                callIntent.setData(Uri.parse("tel:" + getCardResponseDataModel.user_phone));
                 if (callIntent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
                     startActivity(callIntent);
                 }
             } else {
                 requestCallPermission();
             }
-        }else if(requestCode == 101){
+        } else if (requestCode == 101) {
             if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 sendSms();
             } else {
                 requestSmsPermission();
             }
-        }else if(requestCode == 102){
+        } else if (requestCode == 102) {
             if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent, 100);
@@ -846,7 +855,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     private void sendSms() {
         try {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(etNumber.getText().toString(), null, "https://wokk.co.in/card/"+getCardResponseDataModel.user_token, null, null);
+            smsManager.sendTextMessage(etNumber.getText().toString(), null, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token, null, null);
             Toast.makeText(getActivity(), "Message Sent", Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -855,34 +864,34 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void setupAdapter(ArrayList<GalleryResponseModel> galleryImageList) {
-        if(galleryImageList.size() > 0){
+        if (galleryImageList.size() > 0) {
             rvGallery.setVisibility(View.VISIBLE);
             tvEmptyText.setVisibility(View.GONE);
-            rvGallery.setLayoutManager(new GridLayoutManager(getActivity(),3));
-            CardGalleryAdapter cardGalleryAdapter=new CardGalleryAdapter(this,galleryImageList);
+            rvGallery.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            CardGalleryAdapter cardGalleryAdapter = new CardGalleryAdapter(this, galleryImageList);
             rvGallery.setAdapter(cardGalleryAdapter);
-        }else{
+        } else {
             rvGallery.setVisibility(View.GONE);
             tvEmptyText.setVisibility(View.VISIBLE);
         }
     }
 
     private void setUpYoutubeAdapter(ArrayList<YoutubeDetailsModel> youtubeDetailsModelArrayList) {
-        if(youtubeDetailsModelArrayList.size() > 0){
+        if (youtubeDetailsModelArrayList.size() > 0) {
             rvYoutube.setVisibility(View.VISIBLE);
             tvEmptyTextYoutube.setVisibility(View.GONE);
             rvYoutube.setLayoutManager(new LinearLayoutManager(getActivity()));
-            CardYoutubeAdapter cardYoutubeAdapter=new CardYoutubeAdapter(this,youtubeDetailsModelArrayList);
+            CardYoutubeAdapter cardYoutubeAdapter = new CardYoutubeAdapter(this, youtubeDetailsModelArrayList);
             rvYoutube.setAdapter(cardYoutubeAdapter);
-        }else{
+        } else {
             rvYoutube.setVisibility(View.GONE);
             tvEmptyTextYoutube.setVisibility(View.VISIBLE);
         }
     }
 
     public void customAlert(String s) {
-        final CustomAlertWithOneButton customAlertWithOneButton=new CustomAlertWithOneButton(Objects.requireNonNull(getActivity()));
-        if(!customAlertWithOneButton.isShowing()){
+        final CustomAlertWithOneButton customAlertWithOneButton = new CustomAlertWithOneButton(Objects.requireNonNull(getActivity()));
+        if (!customAlertWithOneButton.isShowing()) {
             customAlertWithOneButton.show();
             customAlertWithOneButton.setCanceledOnTouchOutside(false);
             customAlertWithOneButton.setCancelable(false);

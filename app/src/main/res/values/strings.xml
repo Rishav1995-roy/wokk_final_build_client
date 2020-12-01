@@ -18,7 +18,7 @@
     <string name="signInClick"><u>Click here</u></string>
     <string name="signInButton">Sign in</string>
     <string name="edit"><u>Edit</u></string>
-    <string name="versionName">Version: 1.0.18</string>
+    <string name="versionName">Version: 1.0.21</string>
     <string name="demoAddress">10/G Panpara 5th lane,P.O.- Talpukur, Barrackpore, Kolkata</string>
     <string name="socialConnection">Get connected with us on social networks!</string>
     <string name="player_error">Error initializing YouTube player: %s</string>
@@ -29,5 +29,5 @@
     <string name="errortwo">Back to profile</string>
     <string name="errorthree">Contact Wokk Admistration at xyz@gmail.com or call(whatsapp) 1234567890 to renew.</string>
     <string name="default_notification_channel_id">100</string>
-    <string name="galleryHeading"><b><u>Choose image from</u></b></string>
+    <string name="galleryHeading"><b><u>Choose Image From</u></b></string>
 </resources>
