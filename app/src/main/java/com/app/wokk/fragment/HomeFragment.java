@@ -33,6 +33,8 @@ import com.app.wokk.combine.BaseFragment;
 import com.app.wokk.customAlert.CustomAlertWithOneButton;
 import com.app.wokk.model.ApiCredentialModel;
 import com.app.wokk.model.BannerItemModel;
+import com.app.wokk.model.GetCardClass;
+import com.app.wokk.model.GetCardResponseModel;
 import com.app.wokk.model.ServiceClass;
 import com.app.wokk.model.ServiceListDataModel;
 import com.app.wokk.model.ServiceResponseModelClass;
@@ -140,27 +142,64 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
             if (networkCheck) {
                 getServiceList();
+                getUserdetails();
             } else {
                 customAlert(getResources().getString(R.string.noInternetText));
             }
-            if(ContainerActivity.cardDetailsResponseModel != null){
-                if (!ContainerActivity.validity_status) {
-                    customAlert("Your card has been expired.");
-                }
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String currentTime = df.format(new Date());
-                long days = Daybetween(currentTime, ContainerActivity.validityDate, "yyyy-MM-dd");
-                if (days > 0) {
-                    if (days <= 10) {
-                        if (days == 1) {
-                            customAlert("Your card will be expired in " + days + " day.");
-                        } else {
-                            customAlert("Your card will be expired in " + days + " days.");
+        }
+    }
+
+    private void getUserdetails() {
+        //showRotateDialog();
+        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
+        apiCredentialModel.apiuser= Constant.apiuser;
+        apiCredentialModel.apipass=Constant.apipass;
+        GetCardClass getCardClass=new GetCardClass();
+        getCardClass.apiCredentialModel=apiCredentialModel;
+        getCardClass.user_id=myPreference.getUserID();
+        getCardClass.logged_in_user_id=myPreference.getUserID();
+        Gson gson=new Gson();
+        JsonElement jsonElement=gson.toJsonTree(getCardClass);
+        Call<GetCardResponseModel> getprofile= RestManager.getInstance().getService().get_profile(jsonElement);
+        getprofile.enqueue(new Callback<GetCardResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<GetCardResponseModel> call, @NotNull Response<GetCardResponseModel> response) {
+                //hideRotateDialog();
+                try{
+                    assert response.body() != null;
+                    int code=response.body().code;
+                    if(code == 1){
+                        ContainerActivity.cardDetailsResponseModel=response.body().card_details;
+                        ContainerActivity.validity_status=response.body().validity_status;
+                        if(ContainerActivity.cardDetailsResponseModel != null){
+                            if (!ContainerActivity.validity_status) {
+                                customAlert("Your card has been expired.");
+                            }
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                            String currentTime = df.format(new Date());
+                            long days = Daybetween(currentTime, ContainerActivity.validityDate, "yyyy-MM-dd");
+                            if (days > 0) {
+                                if (days <= 10) {
+                                    if (days == 1) {
+                                        customAlert("Your card will be expired in " + days + " day.");
+                                    } else {
+                                        customAlert("Your card will be expired in " + days + " days.");
+                                    }
+                                }
+                            }
                         }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
-        }
+
+            @Override
+            public void onFailure(@NotNull Call<GetCardResponseModel> call, @NotNull Throwable t) {
+                //hideRotateDialog();
+            }
+        });
+
     }
 
     public long Daybetween(String date1,String date2,String pattern) {

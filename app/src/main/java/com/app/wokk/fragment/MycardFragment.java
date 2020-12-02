@@ -202,7 +202,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             if (follow_status == 0) {
                 tvFollowed.setText("Follow");
                 ivFollowed.setVisibility(View.VISIBLE);
-                tvFollowed.setTextSize(12.0f);
+                tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
                 rlFollow.setAlpha(1.0f);
                 rlCall.setAlpha(1.0f);
                 rlFollow.setClickable(true);
@@ -214,7 +214,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             } else if (follow_status == 1) {
                 tvFollowed.setText("Followed");
                 ivFollowed.setVisibility(View.GONE);
-                tvFollowed.setTextSize(12.0f);
+                tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
                 rlFollow.setAlpha(0.4f);
                 rlFollow.setAlpha(1.0f);
                 rlCall.setAlpha(1.0f);
@@ -229,7 +229,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             tvFollowed.setText("Followers: " + follow_count);
             ivFollowed.setVisibility(View.GONE);
             //rlFollow.setAlpha(0.4f);
-            tvFollowed.setTextSize(10.0f);
+            tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._3sdp));
             rlCall.setAlpha(0.4f);
             rlFollow.setClickable(false);
             rlCall.setClickable(false);
@@ -785,7 +785,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                     if (status == 200) {
                         tvFollowed.setText("Followed");
                         ivFollowed.setVisibility(View.GONE);
-                        tvFollowed.setTextSize(12.0f);
+                        tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
                         rlFollow.setAlpha(0.4f);
                         rlCall.setAlpha(1.0f);
                         rlFollow.setClickable(false);
