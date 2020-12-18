@@ -1,21 +1,19 @@
 <resources>
     <string name="app_name">Wokk</string>
-    <string name="loginHeading">Welcome to Wokk</string>
     <string name="loginSubText">Please login to continue</string>
     <string name="phoneNumberHeading">Enter your mobile number</string>
     <string name="phonenumbersubheadingForSignUp">A verification code has been sent your mobile number for verification.</string>
     <string name="phoneNumberSubHeadingForForgot">A verification code has been sent your registered mobile number for verification.</string>
-    <string name="otpHeading">Enter your otp here</string>
-    <string name="signInHeading">Create account</string>
+    <string name="signInHeading">Create your account</string>
     <string name="signInSubHeading">It gives us better view about yourself.</string>
     <string name="forgotPasswordHeading">Reset your password</string>
-    <string name="already_have_an_account"><font color='#FF0000'>Already have an account? </font><font color='#0057ff'><u>Login</u></font></string>
-    <string name="terms_and_privacy"><font color='#FF0000'>By signing up, you agree to our </font><font color='#0057ff'><u>Terms</u></font><font color='#FF0000'> and </font><font color='#0057ff'><u>Conditions</u></font></string>
-    <string name="editPhoneNumberHint">Enter phone number</string>
-    <string name="editPasswordHint">Enter password</string>
+    <string name="already_have_an_account"><font color='#132743'>Already have an account? </font><font color='#DB1D4B'><u>Login</u></font></string>
+    <string name="terms_and_privacy"><font color='#132743'>By signing up, you agree to our </font><font color='#DB1D4B'><u>Terms</u></font><font color='#132743'> and </font><font color='#DB1D4B'><u>Conditions</u></font></string>
+    <string name="editPhoneNumberHint">Phone number</string>
+    <string name="editPasswordHint">Password</string>
     <string name="forgotPassword"><u>Forgot password?</u></string>
     <string name="signInText">Don\'t have an account?</string>
-    <string name="signInClick"><u>Click here</u></string>
+    <string name="signInClick"><u>Sign up</u></string>
     <string name="signInButton">Sign in</string>
     <string name="edit"><u>Edit</u></string>
     <string name="versionName">Version: 1.0.22</string>

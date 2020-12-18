@@ -4,16 +4,16 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000</color>
-    <color name="offBlack">#455154</color>
+    <color name="black">#132743</color>
+    <color name="offBlack">#E5D8D8</color>
     <color name="offWhite">#F4F6F7</color>
     <color name="blue">#1660AB</color>
     <color name="deepBlack">#2E4053</color>
-    <color name="orange">#C31D29</color>
+    <color name="orange">#DB1D4B</color>
     <color name="offGreen">#baf4b2</color>
     <color name="offRed">#ffbaba</color>
     <color name="yellow">#FFC109</color>
     <color name="green">#0FC145</color>
-    <color name="violet">#000</color>
+    <color name="violet">#132743</color>
     <color name="blueViolet">#0057ff</color>
 </resources>

@@ -42,11 +42,9 @@ import retrofit2.Response;
 public class RegistrationActivity extends BaseClass implements View.OnClickListener{
     
     public TextView tvLogin,tvTerms;
-    public Button btnSignUp;
-    public ImageView ivLoadder,ivBack,ivCheck;
+    public ImageView ivLoadder,ivBack,ivCheck,ivSignUp;
     public TextInputEditText etEmail,etPassword,etPhoneNumber;
-    public RelativeLayout rlUsertype;
-    public LinearLayout llSignIn;
+    public RelativeLayout rlSignIn;
     public MyPreference myPreference;
     public boolean termsSelected=false;
 
@@ -63,14 +61,12 @@ public class RegistrationActivity extends BaseClass implements View.OnClickListe
     private void initView() {
         tvLogin=findViewById(R.id.tvLogin);
         tvTerms=findViewById(R.id.tvTerms);
-        btnSignUp=findViewById(R.id.btnSignUp);
-        ivLoadder=findViewById(R.id.ivLoadder);
+        ivSignUp=findViewById(R.id.ivSignUp);
         ivBack=findViewById(R.id.ivBack);
         ivCheck=findViewById(R.id.ivCheck);
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
-        rlUsertype=findViewById(R.id.rlUsertype);
-        llSignIn=findViewById(R.id.llSignIn);
+        rlSignIn=findViewById(R.id.rlSignIn);
         etPhoneNumber=findViewById(R.id.etPhoneNumber);
         if(myPreference.getRegistrationStatus()){
             if(!myPreference.getEmail().equals("")){
@@ -84,18 +80,18 @@ public class RegistrationActivity extends BaseClass implements View.OnClickListe
 
     private void clickEvent() {
         ivBack.setOnClickListener(this);
-        llSignIn.setOnClickListener(this);
+        rlSignIn.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
         tvTerms.setOnClickListener(this);
         ivCheck.setOnClickListener(this);
-        btnSignUp.setOnClickListener(this);
+        ivSignUp.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.llSignIn:
-                hideKeyBoardLinearlayout(llSignIn);
+            case R.id.rlSignIn:
+                hideKeyBoardRelativeLayout(rlSignIn);
                 break;
             case R.id.ivBack:
                 //myPreference.setOtpLoad(true);
@@ -127,8 +123,8 @@ public class RegistrationActivity extends BaseClass implements View.OnClickListe
                     termsSelected=false;
                 }
                 break;
-            case R.id.btnSignUp:
-                hideKeyBoardButton(btnSignUp);
+            case R.id.ivSignUp:
+                hideKeyBoardImageView(ivSignUp);
                 if(validation()){
                     boolean networkCheck = NetworkCheck.getInstant(getApplicationContext()).isConnectingToInternet();
                     if (networkCheck) {

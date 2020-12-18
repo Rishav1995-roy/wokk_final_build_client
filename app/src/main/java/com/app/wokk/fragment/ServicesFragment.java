@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.wokk.R;
@@ -123,11 +124,9 @@ public class ServicesFragment extends BaseFragment {
         if(homelist.size() != 0){
             recyclerView.setVisibility(View.VISIBLE);
             tvEmptyText.setVisibility(View.GONE);
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             ServicesAdapter servicesAdapter=new ServicesAdapter(this,homelist,url);
             recyclerView.setAdapter(servicesAdapter);
-            recyclerView.addItemDecoration(new GridSpacingItemDecoration(4,
-                    getResources().getDimensionPixelSize(R.dimen.recycler_view_item_width)));
         }else{
             recyclerView.setVisibility(View.GONE);
             tvEmptyText.setVisibility(View.VISIBLE);

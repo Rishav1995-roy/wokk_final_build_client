@@ -3,6 +3,7 @@ package com.app.wokk.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.wokk.R;
@@ -69,8 +72,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public TextView tvCountryCode;
     public EditText etNumber;
     public TextView tvEmptyText;
-    public RelativeLayout rlShare;
-    public RelativeLayout rlSms;
+    public ImageView ivSms,ivShare;
     public RecyclerView recyclerView;
     public static LinearLayout llNumber;
     public MyPreference myPreference;
@@ -261,8 +263,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvCountryCode = rootView.findViewById(R.id.tvCountryCode);
         etNumber = rootView.findViewById(R.id.etNumber);
         tvEmptyText = rootView.findViewById(R.id.tvEmptyText);
-        rlShare = rootView.findViewById(R.id.rlShare);
-        rlSms = rootView.findViewById(R.id.rlSms);
+        ivShare = rootView.findViewById(R.id.ivShare);
+        ivSms = rootView.findViewById(R.id.ivSms);
         llNumber = rootView.findViewById(R.id.llNumber);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         setDemoData();
@@ -273,7 +275,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (homelist.size() != 0) {
             recyclerView.setVisibility(View.VISIBLE);
             tvEmptyText.setVisibility(View.GONE);
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             HomeRecyclerViewAdapter homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(this, homelist, url);
             recyclerView.setAdapter(homeRecyclerViewAdapter);
             myPreference.setLoad(true);
@@ -313,14 +315,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void clickListener() {
-        rlShare.setOnClickListener(this);
-        rlSms.setOnClickListener(this);
+        ivShare.setOnClickListener(this);
+        ivSms.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.rlShare) {
-            hideKeyBoardRelativeLayout(rlShare);
+        if (view.getId() == R.id.ivShare) {
+            hideKeyBoardImageView(ivShare);
             if(etNumber.getText().toString().isEmpty()){
                 customAlert("Please enter a mobile number to continue!");
             }else{
@@ -337,8 +339,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     e.printStackTrace();
                 }
             }
-        } else if (view.getId() == R.id.rlSms) {
-            hideKeyBoardRelativeLayout(rlSms);
+        } else if (view.getId() == R.id.ivSms) {
+            hideKeyBoardImageView(ivSms);
             if(etNumber.getText().toString().isEmpty()){
                 customAlert("Please enter a mobile number to continue!");
             }else {

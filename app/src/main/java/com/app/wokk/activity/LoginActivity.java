@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,9 +56,10 @@ import retrofit2.Response;
 public class LoginActivity extends BaseClass implements View.OnClickListener, LoginModel.View {
 
     public TextInputEditText etPhoneNumber,etPassword;
-    public TextView tvForgot;
-    public LinearLayout llSignIn,llLogin;
-    public Button btnSignIn;
+    public TextView tvForgot,tvLogin;
+    public LinearLayout llSignIn;
+    public RelativeLayout rlLogin,rlSignIn;
+    public ImageView ivLogin;
     public MyPreference myPreference;
     public boolean backPressed;
     LoginModel.Presenter presenter;
@@ -75,16 +80,18 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
         etPassword=findViewById(R.id.etPassword);
         tvForgot=findViewById(R.id.tvForgot);
         llSignIn=findViewById(R.id.llSignIn);
-        llLogin=findViewById(R.id.llLogin);
-        btnSignIn=findViewById(R.id.btnSignIn);
+        rlLogin=findViewById(R.id.rlLogin);
+        rlSignIn=findViewById(R.id.rlSignIn);
+        tvLogin=findViewById(R.id.tvLogin);
+        ivLogin=findViewById(R.id.ivLogin);
         clickEvent();
     }
 
     private void clickEvent() {
         llSignIn.setOnClickListener(this);
-        llLogin.setOnClickListener(this);
+        rlLogin.setOnClickListener(this);
         tvForgot.setOnClickListener(this);
-        btnSignIn.setOnClickListener(this);
+        ivLogin.setOnClickListener(this);
     }
 
     @Override
@@ -102,8 +109,8 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
                 startActivity(signInIntent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
-            case R.id.btnSignIn:
-                hideKeyBoardButton(btnSignIn);
+            case R.id.ivLogin:
+                hideKeyBoardImageView(ivLogin);
                 if(validation()){
                     boolean networkCheck = NetworkCheck.getInstant(getApplicationContext()).isConnectingToInternet();
                     if (networkCheck) {
@@ -114,8 +121,8 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
                     }
                 }
                 break;
-            case R.id.llLogin:
-                hideKeyBoardLinearlayout(llLogin);
+            case R.id.rlLogin:
+                hideKeyBoardRelativeLayout(rlLogin);
                 break;
         }
     }
@@ -150,9 +157,6 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
                 @Override
                 public void onClick(View view) {
                     customAlertWithOneButton.dismiss();
-                    btnSignIn.setEnabled(true);
-                    btnSignIn.setClickable(true);
-                    btnSignIn.setFocusable(true);
                 }
             });
         }

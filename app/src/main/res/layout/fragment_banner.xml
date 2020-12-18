@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
+        android:background="@drawable/curve_bg"
         android:id="@+id/ivBanner"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
@@ -12,6 +13,7 @@
         android:layout_height="match_parent"/>
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtubePlayerView"
+        android:background="@drawable/curve_bg"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

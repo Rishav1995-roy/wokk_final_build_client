@@ -65,6 +65,7 @@ public class BannerFragment extends BaseFragment {
         youTubePlayerView=(YouTubePlayerView)rootView.findViewById(R.id.youtubePlayerView);
         if(tag.toLowerCase().equals("image")){
             ivBanner.setVisibility(View.VISIBLE);
+            ivBanner.setClipToOutline(true);
             youTubePlayerView.setVisibility(View.GONE);
             if(imageUrl != 0) {
                 Glide.with(Objects.requireNonNull(getActivity())).load(imageUrl).apply(requestOptions)
@@ -72,6 +73,7 @@ public class BannerFragment extends BaseFragment {
             }
         }else if(tag.toLowerCase().equals("video")){
             ivBanner.setVisibility(View.GONE);
+            youTubePlayerView.setClipToOutline(true);
             youTubePlayerView.setVisibility(View.VISIBLE);
             if(!videoUrl.equals("")){
                 youTubePlayerView.initialize(new YouTubePlayerListener() {

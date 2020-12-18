@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,9 +56,10 @@ import retrofit2.Response;
 public class OtpActivity extends BaseClass implements View.OnClickListener, OtpModel.View {
 
     public ImageView ivLoadder,ivBack;;
-    public TextView tvResend,tvFourth,tvThird,tvSecond,tvFirst;
+    public TextView tvResend,tvFourth,tvThird,tvSecond,tvFirst,tvSubHeading;
     public View viewOne,viewTwo,viewThree,viewFour;
-    public LinearLayout llOtp,llText;
+    public LinearLayout llText;
+    public RelativeLayout rlOtp;
     public EditText etText;
     public MyPreference myPreference;
     public CountDownTimer countDownTimer;
@@ -76,6 +78,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
 
     private void initView() {
         ivLoadder = findViewById(R.id.ivLoadder);
+        tvSubHeading = findViewById(R.id.tvSubHeading);
         ivBack = findViewById(R.id.ivBack);
         tvResend = findViewById(R.id.tvResend);
         tvFourth = findViewById(R.id.tvFourth);
@@ -86,9 +89,11 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
         viewTwo = findViewById(R.id.viewTwo);
         viewThree = findViewById(R.id.viewThree);
         viewFour = findViewById(R.id.viewFour);
-        llOtp = findViewById(R.id.llOtp);
+        rlOtp = findViewById(R.id.rlOtp);
         llText = findViewById(R.id.llText);
         etText = findViewById(R.id.etText);
+        String lastTwoCharacterOfPhone=myPreference.getPhoneNumber().substring(myPreference.getPhoneNumber().length() - 2);
+        tvSubHeading.setText("We have send an otp on ********"+lastTwoCharacterOfPhone+"\n to verify your account.");
         clickevent();
         etText.requestFocus();
         if (etText.requestFocus()) {
@@ -97,7 +102,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
     }
 
     private void clickevent() {
-        llOtp.setOnClickListener(this);
+        rlOtp.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         tvResend.setOnClickListener(this);
         llText.setOnClickListener(this);
@@ -117,13 +122,13 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                     tvFourth.setText("");
                     viewOne.setBackgroundColor(getResources().getColor(R.color.orange));
                     viewTwo.setBackgroundColor(getResources().getColor(R.color.orange));
-                    viewThree.setBackgroundColor(getResources().getColor(R.color.violet));
-                    viewFour.setBackgroundColor(getResources().getColor(R.color.violet));
+                    viewThree.setBackgroundColor(getResources().getColor(R.color.offBlack));
+                    viewFour.setBackgroundColor(getResources().getColor(R.color.offBlack));
                 }else if(s.toString().length() == 2){
                     viewOne.setBackgroundColor(getResources().getColor(R.color.orange));
                     viewTwo.setBackgroundColor(getResources().getColor(R.color.orange));
                     viewThree.setBackgroundColor(getResources().getColor(R.color.orange));
-                    viewFour.setBackgroundColor(getResources().getColor(R.color.violet));
+                    viewFour.setBackgroundColor(getResources().getColor(R.color.offBlack));
                     tvFirst.setText(String.valueOf(s.charAt(0)));
                     tvSecond.setText(String.valueOf(s.charAt(1)));
                     tvThird.setText("");
@@ -163,9 +168,9 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
             public void afterTextChanged(Editable s) {
                 if (s.toString().isEmpty()) {
                     viewOne.setBackgroundColor(getResources().getColor(R.color.orange));
-                    viewTwo.setBackgroundColor(getResources().getColor(R.color.violet));
-                    viewThree.setBackgroundColor(getResources().getColor(R.color.violet));
-                    viewFour.setBackgroundColor(getResources().getColor(R.color.violet));
+                    viewTwo.setBackgroundColor(getResources().getColor(R.color.offBlack));
+                    viewThree.setBackgroundColor(getResources().getColor(R.color.offBlack));
+                    viewFour.setBackgroundColor(getResources().getColor(R.color.offBlack));
                     tvFirst.setText("");
                     tvSecond.setText("");
                     tvThird.setText("");
@@ -177,7 +182,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
 
     @Override
     public void doSuccess(Response<OtpResponseModel> response) {
-        llOtp.setAlpha(1.0f);
+        rlOtp.setAlpha(1.0f);
         ivBack.setEnabled(true);
         tvFirst.setEnabled(true);
         tvSecond.setEnabled(true);
@@ -255,7 +260,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
 
     @Override
     public void doFailure(int code) {
-        llOtp.setAlpha(1.0f);
+        rlOtp.setAlpha(1.0f);
         ivBack.setEnabled(true);
         tvFirst.setEnabled(true);
         tvSecond.setEnabled(true);
@@ -322,8 +327,8 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                     }
                 }
                 break;
-            case R.id.llOtp:
-                hideKeyBoardLinearlayout(llOtp);
+            case R.id.rlOtp:
+                hideKeyBoardRelativeLayout(rlOtp);
                 break;
             case R.id.tvResend:
                 hideKeyBoardText(tvResend);
@@ -334,9 +339,9 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                     tvThird.setText("");
                     tvFourth.setText("");
                     viewOne.setBackgroundColor(getResources().getColor(R.color.orange));
-                    viewTwo.setBackgroundColor(getResources().getColor(R.color.violet));
-                    viewThree.setBackgroundColor(getResources().getColor(R.color.violet));
-                    viewFour.setBackgroundColor(getResources().getColor(R.color.violet));
+                    viewTwo.setBackgroundColor(getResources().getColor(R.color.offBlack));
+                    viewThree.setBackgroundColor(getResources().getColor(R.color.offBlack));
+                    viewFour.setBackgroundColor(getResources().getColor(R.color.offBlack));
                     doResend();
                 }else{
                     customAlert(getResources().getString(R.string.noInternetText));
@@ -347,7 +352,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
     }
 
     private void doResend() {
-        llOtp.setAlpha(0.4f);
+        rlOtp.setAlpha(0.4f);
         ivBack.setEnabled(false);
         tvFirst.setEnabled(false);
         tvSecond.setEnabled(false);
@@ -372,7 +377,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                 try{
                     assert response.body() != null;
                     int code = response.body().code;
-                    llOtp.setAlpha(1.0f);
+                    rlOtp.setAlpha(1.0f);
                     ivBack.setEnabled(true);
                     tvFirst.setEnabled(true);
                     tvSecond.setEnabled(true);
@@ -387,7 +392,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    llOtp.setAlpha(1.0f);
+                    rlOtp.setAlpha(1.0f);
                     ivBack.setEnabled(true);
                     tvFirst.setEnabled(true);
                     tvSecond.setEnabled(true);
@@ -401,7 +406,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
 
             @Override
             public void onFailure(@NotNull Call<ResendResponseModel> call, @NotNull Throwable t) {
-                llOtp.setAlpha(1.0f);
+                rlOtp.setAlpha(1.0f);
                 ivBack.setEnabled(true);
                 tvFirst.setEnabled(true);
                 tvSecond.setEnabled(true);

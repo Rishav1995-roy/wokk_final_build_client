@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/orange"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:id="@+id/drawerLayout"
     android:layout_height="match_parent">
@@ -13,7 +13,7 @@
             layout="@layout/layout_toolbar"/>
         <FrameLayout
             android:id="@+id/frameContainerChild"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_50sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -55,6 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:fontFamily="@font/gidole_regular"
                             android:id="@+id/tvUser"
                             android:textColor="@color/white"
                             style="@style/TextAppearance.MaterialComponents.Body2"
@@ -79,12 +80,13 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Home"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -103,12 +105,13 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Services"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -127,12 +130,13 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profile"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -151,12 +155,13 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My card"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -175,12 +180,13 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit Card"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -202,9 +208,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Create Card"
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <LinearLayout
@@ -226,9 +233,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Policy"
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     style="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
             <RelativeLayout
@@ -251,11 +259,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Logout"
+                    android:fontFamily="@font/gidole_regular"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     android:layout_marginStart="@dimen/_5sdp"
                     style="@style/TextAppearance.MaterialComponents.Body2"/>
                 <TextView
+                    android:fontFamily="@font/gidole_regular"
                     android:id="@+id/tvVersionName"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_15sdp"
