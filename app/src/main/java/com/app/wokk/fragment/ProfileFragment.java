@@ -132,11 +132,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         rlCard=rootView.findViewById(R.id.rlCard);
         btnCreateCard=rootView.findViewById(R.id.btnCreateCard);
         if(cardDetailsResponseModel != null) {
-            ContainerActivity.rlMyCardViews.setVisibility(View.VISIBLE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
+            ContainerActivity.rlViews.setVisibility(View.VISIBLE);
+            ContainerActivity.rlCreate.setVisibility(View.GONE);
         }else{
-            ContainerActivity.rlMyCardViews.setVisibility(View.GONE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.VISIBLE);
+            ContainerActivity.rlViews.setVisibility(View.GONE);
+            ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
         }
         clickEvent();
         setUpDataForProfile();

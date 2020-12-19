@@ -867,7 +867,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         if (galleryImageList.size() > 0) {
             rvGallery.setVisibility(View.VISIBLE);
             tvEmptyText.setVisibility(View.GONE);
-            rvGallery.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvGallery.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             CardGalleryAdapter cardGalleryAdapter = new CardGalleryAdapter(this, galleryImageList);
             rvGallery.setAdapter(cardGalleryAdapter);
         } else {

@@ -16,14 +16,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:text="@string/app_name"
-                    style="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:textColor="@color/orange" />
+                    android:src="@drawable/wokk_logo"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
@@ -41,6 +41,7 @@
                         android:inputType="textEmailAddress"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_20sdp"
+                        android:fontFamily="@font/gidole_regular"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
@@ -52,7 +53,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,6 +72,7 @@
                         android:inputType="textEmailAddress"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_20sdp"
+                        android:fontFamily="@font/gidole_regular"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
@@ -82,7 +84,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,6 +98,7 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:singleLine="true"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Enter email address"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -112,7 +115,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,6 +126,7 @@
                     android:minHeight="@dimen/_40sdp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
+                        android:fontFamily="@font/gidole_regular"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -143,7 +147,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,6 +157,7 @@
                     android:layout_marginEnd="@dimen/_20sdp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPin"
+                        android:fontFamily="@font/gidole_regular"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -173,7 +178,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -186,6 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Enter organisation name"
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -203,7 +209,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
                 <RelativeLayout
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -216,6 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="Gender: "
+                        android:fontFamily="@font/gidole_regular"
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp" />
@@ -245,6 +252,7 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_toEndOf="@id/ivMale"
                             android:text="Male"
+                            android:fontFamily="@font/gidole_regular"
                             style="@style/TextAppearance.MaterialComponents.Body2"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
@@ -275,6 +283,7 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_toEndOf="@id/ivFemale"
                             android:text="Female"
+                            android:fontFamily="@font/gidole_regular"
                             style="@style/TextAppearance.MaterialComponents.Body2"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
@@ -286,6 +295,7 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="top"
+                    android:fontFamily="@font/gidole_regular"
                     android:background="@drawable/black_bg"
                     android:hint="Enter about yourself"
                     android:textColorHint="@color/offBlack"
@@ -323,13 +333,14 @@
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/violet" />
+                    android:background="@color/offBlack" />
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:background="@drawable/button_background"
                     android:text="Save"
+                    android:fontFamily="@font/gidole_regular"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     style="@style/TextAppearance.MaterialComponents.Button"

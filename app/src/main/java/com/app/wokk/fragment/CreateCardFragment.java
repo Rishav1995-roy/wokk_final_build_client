@@ -137,11 +137,11 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         if(getCardResponseDataModel.user_organization_name != null)
             etOrganisationame.setText(getCardResponseDataModel.user_organization_name);
         if(ContainerActivity.cardDetailsResponseModel != null) {
-            ContainerActivity.rlMyCardViews.setVisibility(View.VISIBLE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
+            ContainerActivity.rlViews.setVisibility(View.VISIBLE);
+            ContainerActivity.rlCreate.setVisibility(View.GONE);
         }else{
-            ContainerActivity.rlMyCardViews.setVisibility(View.GONE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.VISIBLE);
+            ContainerActivity.rlViews.setVisibility(View.GONE);
+            ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
         }
         clickEvent();
     }
@@ -367,7 +367,18 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                         ContainerActivity.youtubeDetailsModelArrayList=response.body().youtube_details;
                         ContainerActivity.layoutList=response.body().all_layouts;
                         getCardResponseDataModel=response.body().user_details;
-                        ContainerActivity.tvViews.setText("Views: "+viewCount);
+                        viewCount=response.body().view_count;
+                        if(viewCount != null){
+                            if(Integer.parseInt(viewCount)>1){
+                                ContainerActivity.tvViews.setText("Views");
+                            }else{
+                                ContainerActivity.tvViews.setText("View");
+                            }
+                            ContainerActivity.tvViewCount.setText(viewCount);
+                        }else{
+                            ContainerActivity.tvViews.setText("View");
+                            ContainerActivity.tvViewCount.setText("0");
+                        }
                         ContainerActivity.follow_status=response.body().follow_status;
                         ContainerActivity.follow_count=response.body().no_of_followers;
                         ContainerActivity.validity_status=response.body().validity_status;

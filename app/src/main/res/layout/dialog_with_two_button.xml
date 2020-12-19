@@ -5,22 +5,21 @@
     <RelativeLayout
         android:layout_centerInParent="true"
         android:background="@drawable/alert_background"
-        android:layout_width="@dimen/_220sdp"
-        android:layout_height="@dimen/_160sdp">
-        <TextView
-            android:text="@string/app_name"
-            android:textColor="@color/orange"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_180sdp">
+        <ImageView
+            android:src="@drawable/wokk_logo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_70sdp"/>
         <TextView
             android:id="@+id/tvDesc"
             android:textColor="@color/orange"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/gidole_regular"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_60sdp"
@@ -43,8 +42,9 @@
                 android:id="@+id/btncancel"
                 android:background="@drawable/button_background"
                 android:text="Cancel"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>
@@ -56,8 +56,9 @@
                 android:id="@+id/btnOk"
                 android:background="@drawable/button_background"
                 android:text="Ok"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>

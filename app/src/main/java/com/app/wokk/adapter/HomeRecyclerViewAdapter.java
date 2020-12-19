@@ -43,7 +43,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecylerVie
             Glide.with(context).load(url+homeModelList.get(position).service_image).into(holder.ivItemPic);
         }
         holder.tvTitle.setText(homeModelList.get(position).service_name);
-        holder.ivItemPic.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyPreference myPreference=new MyPreference(context.requireActivity());

@@ -21,64 +21,66 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:src="@drawable/wokk_logo" />
-
-    <Button
-        android:id="@+id/btnCreateVisitingCard"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rlCreate"
+        android:layout_width="@dimen/_70sdp"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@drawable/visiting_card_bg"
-        android:paddingStart="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_5sdp"
-        android:text="Create Card"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_8sdp"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnEditcard"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@drawable/visiting_card_bg"
-        android:paddingStart="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_5sdp"
-        android:text="Edit Card"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_8sdp"
-        android:visibility="gone" />
+        android:layout_height="@dimen/_50sdp">
+        <ImageView
+            android:id="@+id/ivcreate"
+            android:src="@drawable/create"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"/>
+        <TextView
+            android:textSize="@dimen/_8sdp"
+            android:layout_below="@id/ivcreate"
+            android:text="Create card"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:fontFamily="@font/gidole_regular"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlMyCardViews"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
+        android:id="@+id/rlViews"
+        android:layout_width="@dimen/_70sdp"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@drawable/mycard_view_background"
-        android:visibility="gone">
-
+        android:layout_height="@dimen/_50sdp">
+        <RelativeLayout
+            android:id="@+id/rlView"
+            android:background="@drawable/views_box"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp">
+            <TextView
+                android:id="@+id/tvViewCount"
+                android:textColor="@color/white"
+                android:fontFamily="@font/gidole_regular"
+                android:textSize="@dimen/_8sdp"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/tvViews"
+            android:textSize="@dimen/_8sdp"
+            android:layout_below="@id/rlView"
+            android:fontFamily="@font/gidole_regular"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:textColor="@color/orange"
-            android:textSize="@dimen/_8sdp" />
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 

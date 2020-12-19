@@ -112,11 +112,11 @@ public class ServicesFragment extends BaseFragment {
         tvEmptyText=rootView.findViewById(R.id.tvEmptyText);
         recyclerView=rootView.findViewById(R.id.recyclerView);
         if(ContainerActivity.cardDetailsResponseModel != null) {
-            ContainerActivity.rlMyCardViews.setVisibility(View.VISIBLE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
+            ContainerActivity.rlViews.setVisibility(View.VISIBLE);
+            ContainerActivity.rlCreate.setVisibility(View.GONE);
         }else{
-            ContainerActivity.rlMyCardViews.setVisibility(View.GONE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.VISIBLE);
+            ContainerActivity.rlViews.setVisibility(View.GONE);
+            ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
         }
     }
 

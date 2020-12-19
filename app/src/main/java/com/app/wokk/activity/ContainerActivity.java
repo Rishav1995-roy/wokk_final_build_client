@@ -52,9 +52,9 @@ import static com.app.wokk.fragment.HomeFragment.llNumber;
 public class ContainerActivity extends BaseClass implements View.OnClickListener {
 
     public static ImageView ivMenu;
-    public static Button btnCreateVisitingCard,btnEditcard;
-    public static RelativeLayout rlMyCardViews;
-    public static TextView tvViews,tvUser;
+    public static Button btnCreateVisitingCard;
+    public static RelativeLayout rlMyCardViews,rlCreate,rlViews;
+    public static TextView tvViews,tvUser,tvViewCount;
     public FrameLayout frameContainerParent,frameContainerChild;
     public DrawerLayout drawerLayout;
     public View drawerContainer,drawerContent;
@@ -140,40 +140,29 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
                         layoutList=response.body().all_layouts;
                         getCardResponseDataModel=response.body().user_details;
                         validity_status=response.body().validity_status;
-                        if(viewCount != null)
-                            tvViews.setText("Views: "+viewCount);
-                        else
-                            tvViews.setText("Views: 0");
                         follow_status=response.body().follow_status;
                         follow_count=response.body().no_of_followers;
                         if(cardDetailsResponseModel != null) {
-                            rlMyCardViews.setVisibility(View.VISIBLE);
-                            btnCreateVisitingCard.setVisibility(View.GONE);
+                            rlViews.setVisibility(View.VISIBLE);
+                            if(viewCount != null){
+                                if(Integer.parseInt(viewCount)>1){
+                                    tvViews.setText("Views");
+                                }else{
+                                    tvViews.setText("View");
+                                }
+                                tvViewCount.setText(viewCount);
+                            }else{
+                                tvViews.setText("View");
+                                tvViewCount.setText("0");
+                            }
+                            rlCreate.setVisibility(View.GONE);
                             llNumber.setVisibility(View.VISIBLE);
                         }else{
-                            rlMyCardViews.setVisibility(View.GONE);
-                            btnCreateVisitingCard.setVisibility(View.VISIBLE);
+                            rlViews.setVisibility(View.GONE);
+                            rlCreate.setVisibility(View.VISIBLE);
                             llNumber.setVisibility(View.GONE);
                         }
                         validityDate=getCardResponseDataModel.user_card_valid_until;
-                        /*if(cardDetailsResponseModel != null) {
-                            if (!validity_status) {
-                                customAlert("Your card has been expired.");
-                            }
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                            String currentTime = df.format(new Date());
-                            validityDate=getCardResponseDataModel.user_card_valid_until;
-                            long days = Daybetween(currentTime, getCardResponseDataModel.user_card_valid_until, "yyyy-MM-dd");
-                            if (days > 0) {
-                                if (days <= 10) {
-                                    if (days == 1) {
-                                        customAlert("Your card will be expired in " + days + " day.");
-                                    } else {
-                                        customAlert("Your card will be expired in " + days + " days.");
-                                    }
-                                }
-                            }
-                        }*/
                     }else if(code == 9){
                         customAlert("An authentication error occured!");
                     }else{
@@ -194,26 +183,13 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
 
     }
 
-    public long Daybetween(String date1,String date2,String pattern) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        Date Date1 = null,Date2 = null;
-        try{
-            Date1 = sdf.parse(date1);
-            Date2 = sdf.parse(date2);
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return (Date2.getTime() - Date1.getTime())/(24*60*60*1000);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         ivMenu=findViewById(R.id.ivMenu);
-        btnCreateVisitingCard=findViewById(R.id.btnCreateVisitingCard);
-        btnEditcard=findViewById(R.id.btnEditcard);
+        rlCreate=findViewById(R.id.rlCreate);
+        tvViewCount=findViewById(R.id.tvViewCount);
         tvViews=findViewById(R.id.tvViews);
-        rlMyCardViews=findViewById(R.id.rlMyCardViews);
+        rlViews=findViewById(R.id.rlViews);
         tvVersionName=findViewById(R.id.tvVersionName);
         rlLogout=findViewById(R.id.rlLogout);
         llHome=findViewById(R.id.llHome);
@@ -261,8 +237,7 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
         llServices.setOnClickListener(this);
         llHome.setOnClickListener(this);
         rlLogout.setOnClickListener(this);
-        btnCreateVisitingCard.setOnClickListener(this);
-        btnEditcard.setOnClickListener(this);
+        rlCreate.setOnClickListener(this);
         llProfile.setOnClickListener(this);
         llMyCard.setOnClickListener(this);
         llCreateCard.setOnClickListener(this);
@@ -384,20 +359,13 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
                 }
                 customTwoButtonAlert("Do want to logout?");
                 break;
-            case R.id.btnCreateVisitingCard:
-                hideKeyBoardButton(btnCreateVisitingCard);
+            case R.id.rlCreate:
+                hideKeyBoardRelativeLayout(rlCreate);
                 Fragment createcardFragment = CreateCardFragment.newInstance();
                 FragmentTransaction createcardTransaction = getSupportFragmentManager().beginTransaction();
                 createcardTransaction.replace(R.id.frameContainerChild, createcardFragment);
                 createcardTransaction.addToBackStack(null);
                 createcardTransaction.commit();
-                break;
-            case R.id.btnEditcard:
-                hideKeyBoardButton(btnEditcard);
-                Intent intentEdit = new Intent(this, CardEditActivity.class);
-                intentEdit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                startActivity(intentEdit);
                 break;
         }
     }

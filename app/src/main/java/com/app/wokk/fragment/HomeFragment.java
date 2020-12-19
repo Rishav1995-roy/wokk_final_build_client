@@ -101,16 +101,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         init(rootView);
         myPreference = new MyPreference(getActivity());
         if (ContainerActivity.cardDetailsResponseModel != null) {
-            ContainerActivity.rlMyCardViews.setVisibility(View.VISIBLE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
+            ContainerActivity.rlViews.setVisibility(View.VISIBLE);
+            ContainerActivity.rlCreate.setVisibility(View.GONE);
             llNumber.setVisibility(View.VISIBLE);
         } else {
-            ContainerActivity.rlMyCardViews.setVisibility(View.GONE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.VISIBLE);
+            ContainerActivity.rlViews.setVisibility(View.GONE);
+            ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
             llNumber.setVisibility(View.GONE);
         }
-
-
         return rootView;
     }
 

@@ -7,16 +7,13 @@
         android:layout_centerInParent="true"
         android:background="@drawable/alert_background"
         android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_200sdp">
-        <TextView
+        android:layout_height="@dimen/_250sdp">
+        <ImageView
             android:id="@+id/tvappname"
-            android:text="@string/app_name"
-            android:textColor="@color/orange"
+            android:src="@drawable/wokk_logo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_70sdp"/>
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitle"
             android:layout_below="@id/tvappname"
@@ -26,8 +23,9 @@
             android:hint="Enter title"
             android:background="@null"
             android:textColor="@color/black"
-            android:textColorHint="@color/orange"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColorHint="@color/offBlack"
+            android:fontFamily="@font/gidole_regular"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:textSize="@dimen/_12sdp"
             android:inputType="text"
             android:singleLine="true"
@@ -39,7 +37,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
-            android:background="@color/orange"
+            android:background="@color/offBlack"
             android:layout_height="@dimen/_1ssp"/>
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCaption"
@@ -50,9 +48,10 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:hint="Enter your youtube link"
             android:background="@null"
-            android:textColorHint="@color/orange"
+            android:textColorHint="@color/offBlack"
             android:textColor="@color/black"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:fontFamily="@font/gidole_regular"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:textSize="@dimen/_12sdp"
             android:inputType="text"
             android:imeOptions="actionDone"
@@ -63,7 +62,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
-            android:background="@color/orange"
+            android:background="@color/offBlack"
             android:layout_height="@dimen/_1ssp"/>
         <LinearLayout
             android:weightSum="2"
@@ -82,8 +81,9 @@
                 android:id="@+id/btncancel"
                 android:background="@drawable/button_background"
                 android:text="Cancel"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>
@@ -95,8 +95,9 @@
                 android:id="@+id/btnOk"
                 android:background="@drawable/button_background"
                 android:text="Ok"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>

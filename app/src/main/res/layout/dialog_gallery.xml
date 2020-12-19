@@ -40,6 +40,7 @@
             android:layout_height="@dimen/_15sdp"/>
         <TextView
             android:text="Previous"
+            android:fontFamily="@font/gidole_regular"
             android:textColor="@color/white"
             android:textSize="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_2sdp"
@@ -58,6 +59,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="Next"
+            android:fontFamily="@font/gidole_regular"
             android:textColor="@color/white"
             android:textSize="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_2sdp"
@@ -71,20 +73,22 @@
             android:layout_height="@dimen/_15sdp"/>
     </LinearLayout>
     <TextView
+        android:fontFamily="@font/gidole_regular"
         android:id="@+id/tvTitle"
         android:layout_below="@id/rlImage"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_centerHorizontal="true"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="@dimen/_15sdp"
         android:textColor="@color/orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tvCaption"
+        android:fontFamily=""
         android:layout_below="@id/tvTitle"
         android:textColor="@color/orange"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        style="@style/TextAppearance.MaterialComponents.Body2"
         android:textSize="@dimen/_12sdp"
         android:layout_margin="@dimen/_15sdp"
         android:layout_width="wrap_content"

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Edit"
             style="@style/TextAppearance.MaterialComponents.Body2"
-            android:textColor="@color/blue" />
+            android:textColor="@color/orange" />
 
         <ImageView
             android:id="@+id/ivEdit"

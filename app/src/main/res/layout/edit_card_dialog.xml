@@ -7,16 +7,16 @@
         android:layout_centerInParent="true"
         android:background="@drawable/alert_background"
         android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_160sdp">
-        <TextView
+        android:layout_height="@dimen/_180sdp">
+        <ImageView
             android:id="@+id/tvappname"
-            android:text="@string/app_name"
+            android:src="@drawable/wokk_logo"
             android:textColor="@color/orange"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_70sdp"/>
         <TextView
             android:id="@+id/tvHeading"
             android:layout_marginTop="@dimen/_40sdp"
@@ -33,11 +33,12 @@
             android:layout_below="@id/tvHeading"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:background="@null"
+            android:fontFamily="@font/gidole_regular"
             android:textColor="@color/black"
-            android:textColorHint="@color/orange"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColorHint="@color/offBlack"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:textSize="@dimen/_12sdp"
             android:inputType="text"
             android:imeOptions="actionDone"
@@ -48,7 +49,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
-            android:background="@color/orange"
+            android:background="@color/offBlack"
             android:layout_height="@dimen/_1ssp"/>
         <LinearLayout
             android:weightSum="2"
@@ -67,8 +68,9 @@
                 android:id="@+id/btncancel"
                 android:background="@drawable/button_background"
                 android:text="Cancel"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>
@@ -80,8 +82,9 @@
                 android:id="@+id/btnOk"
                 android:background="@drawable/button_background"
                 android:text="Ok"
+                android:fontFamily="@font/gidole_regular"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="0.94"
                 android:layout_height="@dimen/_30sdp"/>

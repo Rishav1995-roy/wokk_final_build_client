@@ -15,115 +15,124 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/_10sdp"
                     android:background="@color/white"
                     tools:ignore="UselessParent">
+
                     <LinearLayout
                         android:id="@+id/llNumber"
-                        android:weightSum="3"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd= "20dp"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_25sdp"
-                        android:baselineAligned="false">
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="20dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
                         <RelativeLayout
-                            android:layout_weight="0.55"
                             android:layout_width="0dp"
-                            android:background="@drawable/black_bg"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.60"
+                            android:background="@drawable/curve_color_bg">
+
                             <TextView
                                 android:id="@+id/tvCountryCode"
-                                android:text="India (+91)"
-                                android:textSize="@dimen/_8sdp"
-                                android:textStyle="bold"
-                                android:textColor="@color/orange"
-                                style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                                android:layout_centerInParent="true"
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/gidole_regular"
+                                android:text="India (+91)"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_8sdp" />
                         </RelativeLayout>
+
                         <View
-                            android:layout_weight="0.05"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight="1.25"
-                            android:background="@drawable/black_bg"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.50"
+                            android:background="@drawable/curve_color_bg">
+
                             <EditText
                                 android:id="@+id/etNumber"
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
                                 android:layout_width="match_parent"
-                                android:maxLength="10"
-                                android:hint="10 digit num"
-                                android:textStyle="bold"
-                                android:textColor="@color/orange"
-                                android:textColorHint="@color/orange"
-                                android:textAlignment="center"
-                                style="@style/TextAppearance.MaterialComponents.Body2"
-                                android:inputType="number"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginEnd="@dimen/_20sdp"
-                                android:textSize="@dimen/_8sdp"
-                                android:imeOptions="actionDone"
                                 android:background="@null"
-                                android:layout_height="match_parent"/>
+                                android:fontFamily="@font/gidole_regular"
+                                android:hint="10 digit num"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:textAlignment="center"
+                                android:textColor="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="@dimen/_8sdp" />
+
                             <ImageView
                                 android:id="@+id/ivContact"
-                                android:scaleType="fitCenter"
-                                android:padding="@dimen/_3sdp"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentEnd="true"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/contact"
                                 android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:adjustViewBounds="true"
+                                android:padding="@dimen/_3sdp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/contact" />
                         </RelativeLayout>
+
                         <View
-                            android:layout_weight="0.05"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
                         <RelativeLayout
                             android:id="@+id/rlSms"
-                            android:layout_weight="0.50"
                             android:layout_width="0dp"
-                            android:background="@drawable/black_bg"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.40"
+                            android:background="@null">
+
                             <ImageView
-                                android:src="@drawable/sms"
-                                android:adjustViewBounds="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:scaleType="fitCenter"
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:layout_marginBottom="@dimen/_5sdp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/sms" />
                         </RelativeLayout>
-                        <View
-                            android:layout_weight="0.10"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+
                         <RelativeLayout
                             android:id="@+id/rlWhatsappShare"
-                            android:layout_weight="0.50"
                             android:layout_width="0dp"
-                            android:background="@drawable/black_bg"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.40"
+                            android:background="@null">
+
                             <ImageView
-                                android:src="@drawable/whatsapp_share"
-                                android:adjustViewBounds="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:layout_marginBottom="@dimen/_5sdp"
-                                android:layout_centerInParent="true"
+                                android:adjustViewBounds="true"
                                 android:scaleType="fitCenter"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"/>
+                                android:src="@drawable/whatsapp_share" />
                         </RelativeLayout>
                     </LinearLayout>
                     <!--<RelativeLayout
@@ -136,19 +145,20 @@
                         android:layout_height="200dp"/>-->
                     <RelativeLayout
                         android:id="@+id/rlInner"
+                        android:layout_width="350dp"
+                        android:layout_height="200dp"
                         android:layout_below="@id/llNumber"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         android:layout_marginTop="14dp"
-                        android:layout_width="350dp"
-                        android:layout_height="200dp">
+                        android:layout_marginEnd="20dp">
+
                         <ImageView
                             android:id="@+id/ivcard"
-                            android:cropToPadding="true"
-                            android:scaleType="centerCrop"
-                            android:padding="2dp"
                             android:layout_width="350dp"
-                            android:layout_height="200dp"/>
+                            android:layout_height="200dp"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="centerCrop" />
 
                         <TextView
                             android:id="@+id/tvOrganisationName"
@@ -232,225 +242,252 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="@dimen/_2sdp"
-                                android:maxWidth="@dimen/_100sdp"/>
+                                android:maxWidth="@dimen/_100sdp" />
                         </LinearLayout>
                     </RelativeLayout>
 
                     <LinearLayout
                         android:id="@+id/llButtons"
-                        android:layout_below="@id/rlInner"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:weightSum="4"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp">
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_below="@id/rlInner"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="20dp"
+                        android:weightSum="4">
+
                         <RelativeLayout
                             android:id="@+id/rlFollow"
-                            android:layout_weight="1"
-                            android:background="@drawable/follow_button_bg"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/follow_button_bg">
+
                             <TextView
                                 android:id="@+id/tvFollowed"
-                                android:text="Follow"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:textColor="@color/white"
                                 style="@style/TextAppearance.MaterialComponents.Button"
-                                android:textAllCaps="false"
-                                android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:text="Follow"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white" />
+
                             <ImageView
                                 android:id="@+id/ivFollowed"
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/heart"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/_5sdp"
-                                android:layout_width="@dimen/_11sdp"
-                                android:layout_height="@dimen/_11sdp"/>
+                                android:src="@drawable/heart" />
                         </RelativeLayout>
+
                         <View
-                            android:layout_weight="0.05"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
                         <RelativeLayout
                             android:id="@+id/rlWhatsapp"
-                            android:layout_weight="0.90"
-                            android:background="@drawable/whatsaap_button_bg"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.90"
+                            android:background="@drawable/whatsaap_button_bg">
+
                             <TextView
-                                android:text="W-app"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:textColor="@color/white"
                                 style="@style/TextAppearance.MaterialComponents.Button"
-                                android:textAllCaps="false"
-                                android:textSize="@dimen/_9sdp"
-                                android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:text="W-app"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_9sdp" />
+
                             <ImageView
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/whatsapp"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/_5sdp"
-                                android:layout_width="@dimen/_11sdp"
-                                android:layout_height="@dimen/_11sdp"/>
+                                android:src="@drawable/whatsapp" />
                         </RelativeLayout>
+
                         <View
-                            android:layout_weight="0.05"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
                         <RelativeLayout
                             android:id="@+id/rlShare"
-                            android:layout_weight="0.95"
-                            android:background="@drawable/share_button_bg"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.95"
+                            android:background="@drawable/share_button_bg">
+
                             <TextView
-                                android:text="Share"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:textColor="@color/white"
                                 style="@style/TextAppearance.MaterialComponents.Button"
-                                android:textAllCaps="false"
-                                android:textSize="@dimen/_9sdp"
-                                android:layout_marginStart="@dimen/_8sdp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text="Share"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_9sdp" />
+
                             <ImageView
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/share"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/_8sdp"
-                                android:layout_width="@dimen/_11sdp"
-                                android:layout_height="@dimen/_11sdp"/>
+                                android:src="@drawable/share" />
                         </RelativeLayout>
+
                         <View
-                            android:layout_weight="0.05"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
                         <RelativeLayout
                             android:id="@+id/rlCall"
-                            android:layout_weight="1"
-                            android:background="@drawable/call_button_bg"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/call_button_bg">
+
                             <TextView
-                                android:text="Call"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:textColor="@color/black"
                                 style="@style/TextAppearance.MaterialComponents.Button"
-                                android:textAllCaps="false"
-                                android:textSize="@dimen/_9sdp"
-                                android:layout_marginStart="@dimen/_12sdp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_12sdp"
+                                android:text="Call"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_9sdp" />
+
                             <ImageView
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/phone"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/_12sdp"
-                                android:layout_width="@dimen/_11sdp"
-                                android:layout_height="@dimen/_11sdp"/>
+                                android:src="@drawable/phone" />
                         </RelativeLayout>
                     </LinearLayout>
+
                     <RelativeLayout
                         android:id="@+id/rlWokkYoutubeLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_below="@id/llButtons"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_width="match_parent"
+                        android:layout_marginEnd="20dp"
                         android:background="@drawable/black_bg"
-                        android:layout_height="@dimen/_30sdp">
+                        android:visibility="gone">
+
                         <TextView
                             android:id="@+id/tvWokkYoutubeLink"
-                            android:text="Wokk Youtube Link"
-                            android:textColor="@color/black"
-                            android:layout_centerInParent="true"
-                            android:textSize="@dimen/_12sdp"
                             style="@style/TextAppearance.MaterialComponents.Body2"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Wokk Youtube Link"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
                     </RelativeLayout>
+
                     <TextView
                         android:id="@+id/tvGallery"
-                        android:text="Gallery"
-                        android:textColor="@color/orange"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rlWokkYoutubeLink"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        style="@style/TextAppearance.MaterialComponents.Headline6"
-                        android:layout_below="@id/rlWokkYoutubeLink"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="Gallery"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:id="@+id/rlGallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/tvGallery"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_marginEnd="20dp">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvGallery"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent" />
+
                         <TextView
-                            android:visibility="gone"
                             android:id="@+id/tvEmptyText"
-                            android:text="No items available."
-                            android:textColor="@color/offBlack"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_20sdp"
-                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:text="No items available."
+                            android:textColor="@color/offBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
+
                     <TextView
                         android:id="@+id/tvYoutube"
-                        android:text="Youtube Links"
-                        android:textColor="@color/orange"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rlGallery"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:textStyle="bold"
-                        style="@style/TextAppearance.MaterialComponents.Headline6"
-                        android:layout_below="@id/rlGallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="Youtube Links"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:id="@+id/rlYoutube"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/tvYoutube"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_marginBottom="@dimen/_10sdp">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvYoutube"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent" />
+
                         <TextView
-                            android:visibility="gone"
                             android:id="@+id/tvEmptyTextYoutube"
-                            android:text="No items available."
-                            android:textColor="@color/offBlack"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_10sdp"
-                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:text="No items available."
+                            android:textColor="@color/offBlack"
                             android:textSize="@dimen/_8sdp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>
+
                 <TextView
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@string/socialConnection"

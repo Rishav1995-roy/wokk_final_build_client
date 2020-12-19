@@ -144,11 +144,11 @@ public class CardListForParticularServiceFragment extends BaseFragment {
         recyclerView=rootView.findViewById(R.id.recyclerView);
         etPin=rootView.findViewById(R.id.etPin);
         if(ContainerActivity.cardDetailsResponseModel != null) {
-            ContainerActivity.rlMyCardViews.setVisibility(View.VISIBLE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
+            ContainerActivity.rlViews.setVisibility(View.VISIBLE);
+            ContainerActivity.rlCreate.setVisibility(View.GONE);
         }else{
-            ContainerActivity.rlMyCardViews.setVisibility(View.GONE);
-            ContainerActivity.btnCreateVisitingCard.setVisibility(View.VISIBLE);
+            ContainerActivity.rlViews.setVisibility(View.GONE);
+            ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
         }
         etPin.addTextChangedListener(new TextWatcher() {
             @Override
