@@ -21,23 +21,24 @@ public class CustomGalleryAlert extends Dialog {
     public ImageView ivClose;
     public TextView tvTitle;
     public TextView tvCaption;
+    public RelativeLayout parent;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_gallery);
-        Objects.requireNonNull(getWindow()).setBackgroundDrawable((Drawable) (new ColorDrawable(TRANSPARENT)));
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-        getWindow().setGravity(Gravity.TOP);
         ivImage=findViewById(R.id.ivImage);
         llPrevious=findViewById(R.id.llPrevious);
         llNext=findViewById(R.id.llNext);
         ivClose=findViewById(R.id.ivClose);
         tvTitle=findViewById(R.id.tvTitle);
         tvCaption=findViewById(R.id.tvCaption);
+        parent=findViewById(R.id.parent);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
     }
     public CustomGalleryAlert(@NonNull Context context) {
-        super(context);
+        super(context,R.style.my_dialoge_style);
     }
 }

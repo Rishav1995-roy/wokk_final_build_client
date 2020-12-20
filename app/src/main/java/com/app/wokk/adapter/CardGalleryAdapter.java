@@ -1,5 +1,7 @@
 package com.app.wokk.adapter;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +13,7 @@ import com.app.wokk.customAlert.CustomGalleryAlert;
 import com.app.wokk.fragment.MycardFragment;
 import com.app.wokk.model.GalleryModel;
 import com.app.wokk.model.GalleryResponseModel;
+import com.app.wokk.utility.OnSwipeTouchListener;
 import com.app.wokk.viewHolder.GalleryViewHolder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -62,6 +65,30 @@ public class CardGalleryAdapter extends RecyclerView.Adapter<GalleryViewHolder> 
         Glide.with(context).load(galleryModelArrayList.get(position).gallery_image_url).into(customGalleryAlert.ivImage);
         customGalleryAlert.tvTitle.setText(galleryModelArrayList.get(position).gallery_title);
         customGalleryAlert.tvCaption.setText(galleryModelArrayList.get(position).gallery_caption);
+        customGalleryAlert.ivImage.setOnTouchListener(new OnSwipeTouchListener(context.getContext()) {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onSwipeLeft() {
+                Log.e("swipe:","left");
+                loadNextImage(position,galleryModelArrayList,customGalleryAlert);
+            }
+
+            @Override
+            public void onSwipeTop() {
+
+            }
+
+            @Override
+            public void onSwipeBottom() {
+
+            }
+
+            @Override
+            public void onSwipeRight() {
+                loadPreviousImage(position,galleryModelArrayList,customGalleryAlert);
+            }
+        });
+
         if(position == (galleryModelArrayList.size()-1)){
             customGalleryAlert.llNext.setVisibility(View.GONE);
         }else{
