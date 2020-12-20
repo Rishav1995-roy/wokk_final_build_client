@@ -42,8 +42,21 @@ public interface ApiService {
     @POST(Constant.Get_Service_list)
     Call<ServiceResponseModelClass> get_service(@Body JsonElement jsonElement);
 
+    @Multipart
     @POST(Constant.Create_Card)
-    Call<ResponseBody>  create_card(@Body JsonElement jsonElement);
+    Call<ResponseBody>  create_card(@Part(Constant.CreateCard.Api_USER)RequestBody apiuser,
+                                    @Part(Constant.CreateCard.Api_Pass)RequestBody apipass,
+                                    @Part(Constant.CreateCard.User_Id)RequestBody user_id,
+                                    @Part(Constant.CreateCard.First_Name)RequestBody fname,
+                                    @Part(Constant.CreateCard.Last_Name)RequestBody lname,
+                                    @Part(Constant.CreateCard.Address)RequestBody address,
+                                    @Part(Constant.CreateCard.Pin)RequestBody pin,
+                                    @Part(Constant.CreateCard.Email)RequestBody email,
+                                    @Part(Constant.CreateCard.Gender)RequestBody gender,
+                                    @Part(Constant.CreateCard.Service_ID)RequestBody service,
+                                    @Part(Constant.CreateCard.OrganisationName)RequestBody org_name,
+                                    @Part(Constant.CreateCard.OrganisationDescription)RequestBody org_desc,
+                                    @Part MultipartBody.Part card_image);
 
     @Multipart
     @POST(Constant.Add_Gallery)
@@ -61,8 +74,49 @@ public interface ApiService {
     @POST(Constant.Delete_Gallery)
     Call<ResponseBody> delete_gallery(@Body JsonElement jsonElement);
 
+    @Multipart
     @POST(Constant.Edit_Card)
-    Call<ResponseBody> edit_card(@Body JsonElement jsonElement);
+    Call<ResponseBody> edit_card(@Part(Constant.EditCard.Api_USER)RequestBody apiuser,
+                                 @Part(Constant.EditCard.Api_Pass)RequestBody apipass,
+                                 @Part(Constant.EditCard.User_Id)RequestBody user_id,
+                                 @Part(Constant.EditCard.Layout_ID)RequestBody card_layout_id,
+                                 @Part(Constant.EditCard.Org_Color)RequestBody card_org_color,
+                                 @Part(Constant.EditCard.Org_Font)RequestBody card_org_font,
+                                 @Part(Constant.EditCard.Org_top)RequestBody card_org_top_mob,
+                                 @Part(Constant.EditCard.Org_left)RequestBody card_org_left_mob,
+                                 @Part(Constant.EditCard.Org_show)RequestBody card_org_show,
+                                 @Part(Constant.EditCard.Name_color)RequestBody card_name_color,
+                                 @Part(Constant.EditCard.Name_font)RequestBody card_name_font,
+                                 @Part(Constant.EditCard.Name_left)RequestBody card_name_top_mob,
+                                 @Part(Constant.EditCard.Name_top)RequestBody card_name_left_mob,
+                                 @Part(Constant.EditCard.Name_show)RequestBody card_name_show,
+                                 @Part(Constant.EditCard.Address_color)RequestBody card_address_color,
+                                 @Part(Constant.EditCard.Address_font)RequestBody card_address_font,
+                                 @Part(Constant.EditCard.Address_top)RequestBody card_address_top_mob,
+                                 @Part(Constant.EditCard.Address_left)RequestBody card_address_left_mob,
+                                 @Part(Constant.EditCard.Address_show)RequestBody card_address_show,
+                                 @Part(Constant.EditCard.Email_color)RequestBody card_email_color,
+                                 @Part(Constant.EditCard.Email_font)RequestBody card_email_font,
+                                 @Part(Constant.EditCard.Email_top)RequestBody card_email_top_mob,
+                                 @Part(Constant.EditCard.Email_left)RequestBody card_email_left_mob,
+                                 @Part(Constant.EditCard.Email_show)RequestBody card_email_show,
+                                 @Part(Constant.EditCard.Phone_color)RequestBody card_phone_color,
+                                 @Part(Constant.EditCard.Phone_font)RequestBody card_phone_font,
+                                 @Part(Constant.EditCard.Phone_top)RequestBody card_phone_top_mob,
+                                 @Part(Constant.EditCard.Phone_left)RequestBody card_phone_left_mob,
+                                 @Part(Constant.EditCard.Phone_show)RequestBody card_phone_show,
+                                 @Part(Constant.EditCard.User_fname)RequestBody user_fname,
+                                 @Part(Constant.EditCard.User_lname)RequestBody user_lname,
+                                 @Part(Constant.EditCard.User_address)RequestBody user_address,
+                                 @Part(Constant.EditCard.User_email)RequestBody user_email,
+                                 @Part(Constant.EditCard.User_org_name)RequestBody user_organization_name,
+                                 @Part(Constant.EditCard.Border_color)RequestBody card_border_color,
+                                 @Part(Constant.EditCard.Phone_fontsize)RequestBody card_phone_fontsize_mob,
+                                 @Part(Constant.EditCard.Address_fontsize)RequestBody card_address_fontsize_mob,
+                                 @Part(Constant.EditCard.Email_fontsize)RequestBody card_email_fontsize_mob,
+                                 @Part(Constant.EditCard.Name_fontsize)RequestBody card_name_fontsize_mob,
+                                 @Part(Constant.EditCard.Org_fontsize)RequestBody card_org_fontsize_mob,
+                                 @Part MultipartBody.Part card_image);
 
     @POST(Constant.Edit_profile)
     Call<ResponseBody> edit_profile(@Body JsonElement jsonElement);

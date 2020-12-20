@@ -11,6 +11,7 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -20,12 +21,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,6 +67,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -71,6 +75,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,6 +89,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
     public MyPreference myPreference;
     public File pic;
+    public File card_pic;
     public TextView tvOrganisationName,tvphoneNumber,tvName,tvAddress,tvemailAddress,tvAttributeFont,tvEmptyText;
     public LinearLayout llAddress,llMail,llPhoneNumber,llEdit,llChangeLayout,llSave,llPreview,llSideView,llLowerView,lllogo;
     public RelativeLayout rlCard,rlUsertype,rlRecyclerView,rlColorHolder,rlBorderColorHolder,rlBorder;
@@ -97,7 +105,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     DisplayMetrics metrics;
     int tendp;
     int twentydp;
-    String[] permissions = { android.Manifest.permission.READ_EXTERNAL_STORAGE};
+    String[] permissions = { android.Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +121,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         heightInProtait = metrics.heightPixels;
         widthInProtait =metrics.widthPixels;
         myPreference=new MyPreference(this);
+        //requestPermission();
         initView();
     }
 
@@ -1151,7 +1160,32 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 }
                 break;
             case R.id.llSave:
-                doEdit();
+                Bitmap bitmap=Bitmap.createBitmap(rlCard.getWidth(),rlCard.getHeight(),Bitmap.Config.ARGB_8888);
+                Canvas canvas=new Canvas(bitmap);
+                Drawable drawable=rlCard.getBackground();
+                if(drawable != null){
+                    drawable.draw(canvas);
+                }else{
+                    canvas.drawColor(Color.WHITE);
+                }
+                rlCard.draw(canvas);
+                        /*rlCard.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = rlCard.getDrawingCache();*/
+                try {
+                    card_pic = File.createTempFile("card", ".png", Environment.getExternalStorageDirectory());
+                    FileOutputStream ostream = new FileOutputStream(card_pic);
+                    if(bitmap == null){
+                        Log.d("tag","true");
+                    }
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                    ostream.close();
+                    rlCard.invalidate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    rlCard.setDrawingCacheEnabled(false);
+                }
+                doEdit(card_pic);
                 break;
             case R.id.llChangeLayout:
                 Intent intent = new Intent(CardEditActivity.this, LayoutSelectActivity.class);
@@ -1338,7 +1372,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         }
     }
 
-    private void doEdit() {
+    private void doEdit(File card_pic) {
         showRotateDialog();
         int marginleftOragnisation= (int) tvOrganisationName.getX();
         int margintopOragnisation= (int) tvOrganisationName.getY();
@@ -1350,114 +1384,247 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         int marginBottomMail=(int) llMail.getY();
         int marginRightPhone=(int) llPhoneNumber.getX();
         int marginBottomPhone=(int) llPhoneNumber.getY();
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-        apiCredentialModel.apiuser= Constant.apiuser;
-        apiCredentialModel.apipass=Constant.apipass;
-        EditCardClass editCardClass=new EditCardClass();
-        editCardClass.apiCredentialModel=apiCredentialModel;
-        editCardClass.user_id=myPreference.getUserID();
-        editCardClass.card_layout_id=layoutId;
-        editCardClass.card_org_color=organisationColor;
+//        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
+//        apiCredentialModel.apiuser= Constant.apiuser;
+//        apiCredentialModel.apipass=Constant.apipass;
+//        EditCardClass editCardClass=new EditCardClass();
+//        editCardClass.apiCredentialModel=apiCredentialModel;
+//        editCardClass.user_id=myPreference.getUserID();
+//        editCardClass.card_layout_id=layoutId;
+//        editCardClass.card_org_color=organisationColor;
+//        if(organisationFont != null)
+//            editCardClass.card_org_font=organisationFont;
+//        else
+//            editCardClass.card_org_font="";
+//        editCardClass.card_org_top_mob=String.valueOf(margintopOragnisation);
+//        editCardClass.card_org_left_mob=String.valueOf(marginleftOragnisation);
+//        if(oraganisationVisibility)
+//            editCardClass.card_org_show="1";
+//        else
+//            editCardClass.card_org_show="0";
+//        editCardClass.card_name_color=nameColor;
+//        if(nameFont != null)
+//            editCardClass.card_name_font=nameFont;
+//        else
+//            editCardClass.card_name_font="";
+//        editCardClass.card_name_top_mob=String.valueOf(marginTopName);
+//        editCardClass.card_name_left_mob=String.valueOf(marginLeftName);
+//        if(nameVisibility)
+//            editCardClass.card_name_show="1";
+//        else
+//            editCardClass.card_name_show="0";
+//        editCardClass.card_address_color=addressColor;
+//        if(addressFont != null)
+//            editCardClass.card_address_font=addressFont;
+//        else
+//            editCardClass.card_address_font="";
+//        editCardClass.card_address_top_mob=String.valueOf(marginBottomAddress);
+//        editCardClass.card_address_left_mob=String.valueOf(marginLeftAddress);
+//        if(addressVisibility)
+//            editCardClass.card_address_show="1";
+//        else
+//            editCardClass.card_address_show="0";
+//        editCardClass.card_email_color=emailColor;
+//        if(emailFont != null)
+//            editCardClass.card_email_font=emailFont;
+//        else
+//            editCardClass.card_email_font="";
+//        editCardClass.card_email_top_mob=String.valueOf(marginBottomMail);
+//        editCardClass.card_email_left_mob=String.valueOf(marginRightMail);
+//        if(emailVisibility)
+//            editCardClass.card_email_show="1";
+//        else
+//            editCardClass.card_email_show="0";
+//        editCardClass.card_phone_color=phoneColor;
+//        if(phoneFont != null)
+//            editCardClass.card_phone_font=phoneFont;
+//        else
+//            editCardClass.card_phone_font="";
+//        editCardClass.card_phone_left_mob=String.valueOf(marginRightPhone);
+//        editCardClass.card_phone_top_mob=String.valueOf(marginBottomPhone);
+//        if(phoneVisibility)
+//            editCardClass.card_phone_show="1";
+//        else
+//            editCardClass.card_phone_show="0";
+//        String[] namearray=tvName.getText().toString().split(" ");
+//        editCardClass.user_fname=namearray[0];
+//        if(namearray.length>2){
+//            if(!namearray[1].isEmpty() && !namearray[2].isEmpty()){
+//                editCardClass.user_lname=namearray[1]+" "+namearray[2];
+//            }else if(!namearray[1].isEmpty()){
+//                editCardClass.user_lname=namearray[1];
+//            }else{
+//                editCardClass.user_lname="";
+//            }
+//        }else{
+//            if(!namearray[1].isEmpty()){
+//                editCardClass.user_lname=namearray[1];
+//            }else{
+//                editCardClass.user_lname="";
+//            }
+//        }
+//
+//        String[] addressArray=tvAddress.getText().toString().split("-");
+//        editCardClass.user_address=addressArray[0];
+//        editCardClass.user_email=tvemailAddress.getText().toString();
+//        editCardClass.user_organization_name=tvOrganisationName.getText().toString();
+//        editCardClass.card_border_color=borderColor;
+//        if(addressFontValue!= null)
+//            editCardClass.card_address_fontsize_mob=addressFontValue;
+//        else
+//            editCardClass.card_address_fontsize_mob=cardDetailsResponseModel.card_address_fontsize_mob;
+//        if(phoneFontvalue != null)
+//            editCardClass.card_phone_fontsize_mob=phoneFontvalue;
+//        else
+//            editCardClass.card_phone_fontsize_mob=cardDetailsResponseModel.card_phone_fontsize_mob;
+//        if(organisationFontvalue != null)
+//            editCardClass.card_org_fontsize_mob=organisationFontvalue;
+//        else
+//            editCardClass.card_org_fontsize_mob=cardDetailsResponseModel.card_org_fontsize_mob;
+//        if(nameFontValue != null)
+//            editCardClass.card_name_fontsize_mob=nameFontValue;
+//        else
+//            editCardClass.card_name_fontsize_mob=cardDetailsResponseModel.card_name_fontsize_mob;
+//        if(emailFontvalue != null)
+//            editCardClass.card_email_fontsize_mob=emailFontvalue;
+//        else
+//            editCardClass.card_email_fontsize_mob=cardDetailsResponseModel.card_email_fontsize_mob;
+//        Gson gson=new Gson();
+//        JsonElement jsonElement=gson.toJsonTree(editCardClass);
+        RequestBody apiUser=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
+        RequestBody apiPass=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
+        RequestBody userId=RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
+        RequestBody layoutid=RequestBody.create(MediaType.parse("multipart/form-data"), layoutId);
+        RequestBody orgcolor=RequestBody.create(MediaType.parse("multipart/form-data"), organisationColor);
+        RequestBody orgfont=null;
         if(organisationFont != null)
-            editCardClass.card_org_font=organisationFont;
+            orgfont= RequestBody.create(MediaType.parse("multipart/form-data"),organisationFont);
         else
-            editCardClass.card_org_font="";
-        editCardClass.card_org_top_mob=String.valueOf(margintopOragnisation);
-        editCardClass.card_org_left_mob=String.valueOf(marginleftOragnisation);
-        if(oraganisationVisibility)
-            editCardClass.card_org_show="1";
-        else
-            editCardClass.card_org_show="0";
-        editCardClass.card_name_color=nameColor;
+            orgfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
+        RequestBody orgtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(margintopOragnisation));
+        RequestBody orgleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginleftOragnisation));
+        RequestBody orgvisibility = null;
+        if(oraganisationVisibility){
+            orgvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else {
+            orgvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
+        RequestBody namecolor=RequestBody.create(MediaType.parse("multipart/form-data"), nameColor);
+        RequestBody namefont=null;
         if(nameFont != null)
-            editCardClass.card_name_font=nameFont;
+            namefont= RequestBody.create(MediaType.parse("multipart/form-data"),nameFont);
         else
-            editCardClass.card_name_font="";
-        editCardClass.card_name_top_mob=String.valueOf(marginTopName);
-        editCardClass.card_name_left_mob=String.valueOf(marginLeftName);
-        if(nameVisibility)
-            editCardClass.card_name_show="1";
-        else
-            editCardClass.card_name_show="0";
-        editCardClass.card_address_color=addressColor;
+            namefont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
+        RequestBody nametop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginTopName));
+        RequestBody nameleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftName));
+        RequestBody namevisibility = null;
+        if(nameVisibility){
+            namevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else {
+            namevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
+        RequestBody addcolor=RequestBody.create(MediaType.parse("multipart/form-data"), addressColor);
+        RequestBody addfont=null;
         if(addressFont != null)
-            editCardClass.card_address_font=addressFont;
+            addfont= RequestBody.create(MediaType.parse("multipart/form-data"),addressFont);
         else
-            editCardClass.card_address_font="";
-        editCardClass.card_address_top_mob=String.valueOf(marginBottomAddress);
-        editCardClass.card_address_left_mob=String.valueOf(marginLeftAddress);
-        if(addressVisibility)
-            editCardClass.card_address_show="1";
+            addfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
+        RequestBody addtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomAddress));
+        RequestBody addleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftAddress));
+        RequestBody addvisibility = null;
+        if(addressVisibility){
+            addvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else {
+            addvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
+        RequestBody emailcolor=RequestBody.create(MediaType.parse("multipart/form-data"), emailColor);
+        RequestBody emailfont=null;
+        if(emailfont != null)
+            emailfont= RequestBody.create(MediaType.parse("multipart/form-data"),emailFont);
         else
-            editCardClass.card_address_show="0";
-        editCardClass.card_email_color=emailColor;
-        if(emailFont != null)
-            editCardClass.card_email_font=emailFont;
-        else
-            editCardClass.card_email_font="";
-        editCardClass.card_email_top_mob=String.valueOf(marginBottomMail);
-        editCardClass.card_email_left_mob=String.valueOf(marginRightMail);
-        if(emailVisibility)
-            editCardClass.card_email_show="1";
-        else
-            editCardClass.card_email_show="0";
-        editCardClass.card_phone_color=phoneColor;
+            emailfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
+        RequestBody emailtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomMail));
+        RequestBody emailleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightMail));
+        RequestBody emailvisibility = null;
+        if(emailVisibility){
+            emailvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else {
+            emailvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
+        RequestBody phonecolor=RequestBody.create(MediaType.parse("multipart/form-data"), phoneColor);
+        RequestBody phonefont=null;
         if(phoneFont != null)
-            editCardClass.card_phone_font=phoneFont;
+            phonefont= RequestBody.create(MediaType.parse("multipart/form-data"),phoneFont);
         else
-            editCardClass.card_phone_font="";
-        editCardClass.card_phone_left_mob=String.valueOf(marginRightPhone);
-        editCardClass.card_phone_top_mob=String.valueOf(marginBottomPhone);
-        if(phoneVisibility)
-            editCardClass.card_phone_show="1";
-        else
-            editCardClass.card_phone_show="0";
+           phonefont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
+        RequestBody phonetop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomPhone));
+        RequestBody phoneleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightPhone));
+        RequestBody phonevisibility = null;
+        if(emailVisibility){
+            phonevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else {
+            phonevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
+        RequestBody userfname=null;
+        RequestBody userlName=null;
         String[] namearray=tvName.getText().toString().split(" ");
-        editCardClass.user_fname=namearray[0];
+        userfname=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[0]);
         if(namearray.length>2){
             if(!namearray[1].isEmpty() && !namearray[2].isEmpty()){
-                editCardClass.user_lname=namearray[1]+" "+namearray[2];
+                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]+" "+namearray[2]);
             }else if(!namearray[1].isEmpty()){
-                editCardClass.user_lname=namearray[1];
+                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]);
             }else{
-                editCardClass.user_lname="";
+                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
             }
         }else{
             if(!namearray[1].isEmpty()){
-                editCardClass.user_lname=namearray[1];
+                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]);
             }else{
-                editCardClass.user_lname="";
+                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
             }
         }
-
         String[] addressArray=tvAddress.getText().toString().split("-");
-        editCardClass.user_address=addressArray[0];
-        editCardClass.user_email=tvemailAddress.getText().toString();
-        editCardClass.user_organization_name=tvOrganisationName.getText().toString();
-        editCardClass.card_border_color=borderColor;
-        if(addressFontValue!= null)
-            editCardClass.card_address_fontsize_mob=addressFontValue;
-        else
-            editCardClass.card_address_fontsize_mob=cardDetailsResponseModel.card_address_fontsize_mob;
-        if(phoneFontvalue != null)
-            editCardClass.card_phone_fontsize_mob=phoneFontvalue;
-        else
-            editCardClass.card_phone_fontsize_mob=cardDetailsResponseModel.card_phone_fontsize_mob;
-        if(organisationFontvalue != null)
-            editCardClass.card_org_fontsize_mob=organisationFontvalue;
-        else
-            editCardClass.card_org_fontsize_mob=cardDetailsResponseModel.card_org_fontsize_mob;
-        if(nameFontValue != null)
-            editCardClass.card_name_fontsize_mob=nameFontValue;
-        else
-            editCardClass.card_name_fontsize_mob=cardDetailsResponseModel.card_name_fontsize_mob;
-        if(emailFontvalue != null)
-            editCardClass.card_email_fontsize_mob=emailFontvalue;
-        else
-            editCardClass.card_email_fontsize_mob=cardDetailsResponseModel.card_email_fontsize_mob;
-        Gson gson=new Gson();
-        JsonElement jsonElement=gson.toJsonTree(editCardClass);
-        Call<ResponseBody> doEdit= RestManager.getInstance().getService().edit_card(jsonElement);
+        RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"),addressArray[0]);
+        RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"),tvemailAddress.getText().toString());
+        RequestBody bordercolor=RequestBody.create(MediaType.parse("multipart/form-data"),borderColor);
+        RequestBody org=RequestBody.create(MediaType.parse("multipart/form-data"),tvOrganisationName.getText().toString());
+        RequestBody phoneFont = null;
+        if(phoneFontvalue != null){
+            phoneFont=RequestBody.create(MediaType.parse("multipart/form-data"), phoneFontvalue);
+        }else {
+            phoneFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_phone_fontsize_mob);
+        }
+        RequestBody nameFont = null;
+        if(nameFontValue != null){
+            nameFont=RequestBody.create(MediaType.parse("multipart/form-data"), nameFontValue);
+        }else {
+            nameFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_name_fontsize_mob);
+        }
+        RequestBody addressFont = null;
+        if(addressFont != null){
+            addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), addressFontValue);
+        }else {
+            addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_address_fontsize_mob);
+        }
+        RequestBody emailFont = null;
+        if(emailFont != null){
+            emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), emailFontvalue);
+        }else {
+            emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_email_fontsize_mob);
+        }
+        RequestBody orgFont = null;
+        if(organisationFontvalue != null){
+            orgFont=RequestBody.create(MediaType.parse("multipart/form-data"), organisationFontvalue);
+        }else {
+            orgFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_org_fontsize_mob);
+        }
+        MultipartBody.Part image = null;
+        if (card_pic != null) {
+            RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), card_pic);
+            image = MultipartBody.Part.createFormData("card_image", "card.png", propertyImage);
+        }
+        Call<ResponseBody> doEdit= RestManager.getInstance().getService().edit_card(apiUser,apiPass,userId,layoutid,orgcolor,orgfont,orgtop,orgleft,orgvisibility,namecolor,namefont,nametop,nameleft,namevisibility,addcolor,addfont,addtop,addleft,addvisibility,emailcolor,emailfont,emailtop,emailleft,emailvisibility,phonecolor,phonefont,phonetop,phoneleft,phonevisibility,userfname,userlName,address,email,org,bordercolor,phoneFont,addressFont,emailFont,nameFont,orgFont,image);
         doEdit.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call,@NotNull Response<ResponseBody> response) {

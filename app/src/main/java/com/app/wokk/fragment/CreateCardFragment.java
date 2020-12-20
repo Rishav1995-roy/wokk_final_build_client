@@ -1,8 +1,19 @@
 package com.app.wokk.fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +56,15 @@ import com.google.gson.JsonElement;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +78,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     public static CreateCardFragment newInstance() {
         return new CreateCardFragment();
     }
-
+    public File pic;
     public View rootView;
     public MyPreference myPreference;
     public TextInputEditText etFirstName,etLastname,etPhoneNumber,etEmail,etAddress,etPin,etOrganisationame,etDescription;
@@ -75,6 +92,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     public static boolean userTypeSelected=false;
     public static String serviceID;
     public ArrayList<ServiceListDataModel> servicesList;
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
@@ -87,6 +105,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     }
 
     private void init(View rootView) {
+        servicesList=new ArrayList<>();
         llAddress=rootView.findViewById(R.id.llAddress);
         llMail=rootView.findViewById(R.id.llMail);
         llPhoneNumber=rootView.findViewById(R.id.llPhoneNumber);
@@ -139,7 +158,30 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             ContainerActivity.rlViews.setVisibility(View.GONE);
             ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
         }
+        tvphoneNumber.setText(etPhoneNumber.getText().toString());
+        RelativeLayout.LayoutParams phoneParams = (RelativeLayout.LayoutParams) llPhoneNumber.getLayoutParams();
+        phoneParams.topMargin=290;
+        phoneParams.leftMargin=390;
+        llPhoneNumber.setLayoutParams(phoneParams);
         clickEvent();
+        requestPermission();
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, 100);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            } else {
+                requestPermission();
+            }
+        }
     }
 
     @Override
@@ -154,7 +196,6 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     }
 
     private void getServiceList() {
-        showRotateDialog();
         ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
         apiCredentialModel.apiuser= Constant.apiuser;
         apiCredentialModel.apipass=Constant.apipass;
@@ -166,12 +207,10 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         getService.enqueue(new Callback<ServiceResponseModelClass>() {
             @Override
             public void onResponse(@NotNull Call<ServiceResponseModelClass> call, @NotNull Response<ServiceResponseModelClass> response) {
-                hideRotateDialog();
                 try{
                     assert response.body() != null;
                     int code=response.body().code;
                     if(code ==1){
-                        servicesList=new ArrayList<>();
                         servicesList.clear();
                         servicesList=response.body().data;
                     }else if(code == 9){
@@ -186,7 +225,6 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
 
             @Override
             public void onFailure(@NotNull Call<ServiceResponseModelClass> call,@NotNull Throwable t) {
-                hideRotateDialog();
                 customAlert("Internal server error. Please try after few minutes.");
             }
         });
@@ -198,6 +236,110 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         rlFemale.setOnClickListener(this);
         rlOther.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
+        etLastname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    tvName.setText(etFirstName.getText().toString()+" "+etLastname.getText().toString());
+                    RelativeLayout.LayoutParams tvNameParams = (RelativeLayout.LayoutParams) tvName.getLayoutParams();
+                    tvNameParams.topMargin=146;
+                    tvNameParams.leftMargin=36;
+                    tvName.setLayoutParams(tvNameParams);
+                }
+            }
+        });
+        etOrganisationame.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    tvOrganisationName.setText(etOrganisationame.getText().toString());
+                    RelativeLayout.LayoutParams tvOrganisationParams = (RelativeLayout.LayoutParams) tvOrganisationName.getLayoutParams();
+                    tvOrganisationParams.topMargin=62;
+                    tvOrganisationParams.leftMargin=29;
+                    tvOrganisationName.setLayoutParams(tvOrganisationParams);
+                }
+            }
+        });
+        etPin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    tvCardAddress.setText(etAddress.getText().toString()+" "+etPin.getText().toString());
+                    RelativeLayout.LayoutParams addressParams = (RelativeLayout.LayoutParams) llAddress.getLayoutParams();
+                    addressParams.topMargin=270;
+                    addressParams.leftMargin=36;
+                    llAddress.setLayoutParams(addressParams);
+                }
+            }
+        });
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    tvemailAddress.setText(etEmail.getText().toString());
+                    RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
+                    mailParams.leftMargin=390;
+                    mailParams.topMargin=200;
+                    llMail.setLayoutParams(mailParams);
+                }
+            }
+        });
+        if(!etEmail.getText().toString().isEmpty()){
+            tvemailAddress.setText(etEmail.getText().toString());
+            RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
+            mailParams.leftMargin=390;
+            mailParams.topMargin=200;
+            llMail.setLayoutParams(mailParams);
+        }
+    }
+
+    private String getFilename() {
+        File file = new File("card");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String uriSting = (file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".png");
+        return uriSting;
     }
 
     @Override
@@ -207,7 +349,33 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                 if(validation()){
                     boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
                     if (networkCheck) {
-                        doCreate();
+                        Bitmap bitmap=Bitmap.createBitmap(rlCard.getWidth(),rlCard.getHeight(),Bitmap.Config.ARGB_8888);
+                        Canvas canvas=new Canvas(bitmap);
+                        Drawable drawable=rlCard.getBackground();
+                        if(drawable != null){
+                            drawable.draw(canvas);
+                        }else{
+                            canvas.drawColor(Color.WHITE);
+                        }
+                        rlCard.draw(canvas);
+                        /*rlCard.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = rlCard.getDrawingCache();*/
+                        String file = getFilename();
+                        try {
+                            pic = File.createTempFile("card", ".png", Environment.getExternalStorageDirectory());
+                            FileOutputStream ostream = new FileOutputStream(pic);
+                            if(bitmap == null){
+                                Log.d("tag","true");
+                            }
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                            ostream.close();
+                            rlCard.invalidate();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            rlCard.setDrawingCacheEnabled(false);
+                        }
+                        doCreate(pic);
                     }else{
                         customAlert(getResources().getString(R.string.noInternetText));
                     }
@@ -277,9 +445,64 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void doCreate() {
+    private void doCreate(File pic) {
         showRotateDialog();
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
+        RequestBody apiUser=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
+        RequestBody apiPass=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
+        RequestBody userId=RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
+        RequestBody firstName=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etFirstName.getText()).toString());
+        RequestBody lastname=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etLastname.getText()).toString());
+        RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etAddress.getText()).toString());
+        RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etEmail.getText()).toString());
+        RequestBody gender = null;
+        if(ivOther.getTag().toString().toLowerCase().equals("selected")){
+            gender=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }else if(ivMale.getTag().toString().toLowerCase().equals("selected")){
+            gender=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        }else if(ivFemale.getTag().toString().toLowerCase().equals("selected")){
+            gender=RequestBody.create(MediaType.parse("multipart/form-data"), "2");
+        }
+        RequestBody serviceId=RequestBody.create(MediaType.parse("multipart/form-data"), serviceID);
+        RequestBody organisationname=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etOrganisationame.getText()).toString());
+        RequestBody organisationDescription=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etDescription.getText()).toString());
+        RequestBody pin=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etPin.getText()).toString());
+        MultipartBody.Part image = null;
+        if (pic != null) {
+            RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), pic);
+            image = MultipartBody.Part.createFormData("card_image", "card.png", propertyImage);
+        }
+        Call<ResponseBody> do_create_card= RestManager.getInstance().getService().create_card(apiUser,apiPass,userId,firstName,lastname,address,pin,email,gender,serviceId,organisationname,organisationDescription,image);
+        do_create_card.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                try {
+                    assert response.body() != null;
+                    String val = response.body().string();
+                    JSONObject jsonObject = new JSONObject(val);
+                    if (jsonObject.optInt("code") == 1) {
+                        getProfile();
+                    }else if(jsonObject.optInt("code") == 9){
+                        hideRotateDialog();
+                        customAlert("Authentication error occurred.");
+                    }else{
+                        hideRotateDialog();
+                        customAlert("Oops, something went wrong!");
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    hideRotateDialog();
+                    customAlert("Oops, something went wrong!");
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                hideRotateDialog();
+                customAlert("Internal server error. Please try after few minutes.");
+            }
+        });
+        /*ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
         apiCredentialModel.apiuser= Constant.apiuser;
         apiCredentialModel.apipass=Constant.apipass;
         CreateCardClass createCardClass=new CreateCardClass();
@@ -331,7 +554,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                 hideRotateDialog();
                 customAlert("Internal server error. Please try after few minutes.");
             }
-        });
+        });*/
     }
 
     private void getProfile() {

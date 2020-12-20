@@ -49,4 +49,8 @@ public class EditProfileClass {
     @Expose
     public String user_bio;
 
+    @SerializedName("user_organization_desc")
+    @Expose
+    public String user_organization_desc;
+
 }

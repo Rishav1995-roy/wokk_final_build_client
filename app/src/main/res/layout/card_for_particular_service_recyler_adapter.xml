@@ -7,10 +7,8 @@
     <RelativeLayout
         android:id="@+id/rlCard"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_20sdp">
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_10sdp">
 
         <ImageView
             android:id="@+id/ivCard"

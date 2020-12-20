@@ -131,12 +131,16 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
             etAddress.setText(ContainerActivity.getCardResponseDataModel.user_address);
         else
             etAddress.setText("");
+        if(ContainerActivity.getCardResponseDataModel.user_organization_desc != null && !ContainerActivity.getCardResponseDataModel.user_organization_desc.equals(""))
+            etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_desc);
+        else
+            etOrganisatiodescription.setText("");
         if(ContainerActivity.getCardResponseDataModel.user_organization_name != null && !ContainerActivity.getCardResponseDataModel.user_organization_name.equals(""))
             etOrganisationame.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
         else
             etOrganisationame.setText("");
-        if(ContainerActivity.getCardResponseDataModel.user_organization_name != null && !ContainerActivity.getCardResponseDataModel.user_organization_name.equals(""))
-            etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
+        if(ContainerActivity.getCardResponseDataModel.user_organization_desc != null && !ContainerActivity.getCardResponseDataModel.user_organization_desc.equals(""))
+            etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_desc);
         else
             etOrganisatiodescription.setText("");
         if(ContainerActivity.getCardResponseDataModel.user_pin != null && !ContainerActivity.getCardResponseDataModel.user_pin.equals(""))
@@ -252,6 +256,10 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
             editProfileAlert.etYoutubeLink.setText(ContainerActivity.getCardResponseDataModel.user_youtube);
         else
             editProfileAlert.etYoutubeLink.setText("");
+        if(ContainerActivity.getCardResponseDataModel.user_organization_desc != null)
+            editProfileAlert.etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_desc);
+        else
+            editProfileAlert.etOrganisatiodescription.setText("");
         if(ContainerActivity.getCardResponseDataModel.user_gender.equals("1")){
             editProfileAlert.ivMale.setImageResource(R.drawable.check);
             editProfileAlert.ivMale.setTag("selected");
@@ -334,6 +342,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
         }
         editProfileClass.user_organization_name= Objects.requireNonNull(editProfileAlert.etOrganisationame.getText()).toString();
         editProfileClass.user_youtube= Objects.requireNonNull(editProfileAlert.etYoutubeLink.getText()).toString();
+        editProfileClass.user_organization_desc= Objects.requireNonNull(editProfileAlert.etOrganisatiodescription.getText()).toString();
         editProfileClass.user_bio= Objects.requireNonNull(editProfileAlert.etBio.getText()).toString();
         Gson gson=new Gson();
         JsonElement jsonElement=gson.toJsonTree(editProfileClass);

@@ -1,11 +1,15 @@
 package com.app.wokk.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -74,6 +78,7 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
     public static ArrayList<GalleryResponseModel> galleryList;
     public static ArrayList<YoutubeDetailsModel> youtubeDetailsModelArrayList;
     public static int follow_status;
+    String[] permissions = {android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -83,7 +88,28 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_container);
         myPreference=new MyPreference(this);
+        galleryList=new ArrayList<>();
+        layoutList=new ArrayList<>();
+        youtubeDetailsModelArrayList=new ArrayList<>();
+        requestPermission();
         initView();
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, 100);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            } else {
+                requestPermission();
+            }
+        }
     }
 
     @Override
@@ -126,9 +152,6 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
                     assert response.body() != null;
                     int code=response.body().code;
                     if(code == 1){
-                        galleryList=new ArrayList<>();
-                        layoutList=new ArrayList<>();
-                        youtubeDetailsModelArrayList=new ArrayList<>();
                         galleryList.clear();
                         layoutList.clear();
                         youtubeDetailsModelArrayList.clear();
@@ -422,4 +445,8 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
         rotateDialog = null;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

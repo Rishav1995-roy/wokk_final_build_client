@@ -9,16 +9,16 @@
         android:id="@+id/tvname"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        style="@style/TextAppearance.MaterialComponents.Body2"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:textSize="@dimen/_10sdp"
-        android:textColor="@color/orange"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <View
         android:id="@+id/view"
-        android:background="@color/orange"
+        android:background="@color/offBlack"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1ssp"/>
 

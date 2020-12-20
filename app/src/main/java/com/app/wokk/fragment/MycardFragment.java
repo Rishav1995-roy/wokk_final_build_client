@@ -59,6 +59,9 @@ import com.app.wokk.model.GalleryResponseModel;
 import com.app.wokk.model.GetCardClass;
 import com.app.wokk.model.GetCardResponseDataModel;
 import com.app.wokk.model.GetCardResponseModel;
+import com.app.wokk.model.ServiceClass;
+import com.app.wokk.model.ServiceListDataModel;
+import com.app.wokk.model.ServiceResponseModelClass;
 import com.app.wokk.model.YoutubeDetailsModel;
 import com.app.wokk.preference.MyPreference;
 import com.app.wokk.retrofit.Constant;
@@ -106,6 +109,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public CardDetailsResponseModel cardDetailsResponseModel;
     public ArrayList<GalleryResponseModel> galleryCardList;
     public ArrayList<YoutubeDetailsModel> youtubeDetailsModelArrayList;
+    public static ArrayList<ServiceListDataModel> servicesList;
     public ArrayList<AllLayoutsResponseModel> layoutList;
     public int follow_status;
     NestedScrollView scroll;
@@ -127,10 +131,50 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         super.onResume();
         boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
         if (networkCheck) {
-            getUserdetails();
+            getServiceList();
         } else {
             customAlert(getResources().getString(R.string.noInternetText));
         }
+    }
+
+    private void getServiceList() {
+        showRotateDialog();
+        ApiCredentialModel apiCredentialModel = new ApiCredentialModel();
+        apiCredentialModel.apiuser = Constant.apiuser;
+        apiCredentialModel.apipass = Constant.apipass;
+        ServiceClass serviceClass = new ServiceClass();
+        serviceClass.apiCredentialModel = apiCredentialModel;
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(serviceClass);
+        Call<ServiceResponseModelClass> getService = RestManager.getInstance().getService().get_service(jsonElement);
+        getService.enqueue(new Callback<ServiceResponseModelClass>() {
+            @Override
+            public void onResponse(@NotNull Call<ServiceResponseModelClass> call, @NotNull Response<ServiceResponseModelClass> response) {
+                hideRotateDialog();
+                try {
+                    assert response.body() != null;
+                    int code = response.body().code;
+                    if (code == 1) {
+                        servicesList = new ArrayList<>();
+                        servicesList.clear();
+                        servicesList = response.body().data;
+                        getUserdetails();
+                    } else if (code == 9) {
+                        customAlert("An authentication error occured!");
+                    } else {
+                        customAlert("Oops, something went wrong!");
+                    }
+                } catch (Exception e) {
+                    customAlert("Oops, something went wrong!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ServiceResponseModelClass> call, @NotNull Throwable t) {
+                hideRotateDialog();
+                customAlert("Internal server error. Please try after few minutes.");
+            }
+        });
     }
 
     private void getUserdetails() {
@@ -227,7 +271,15 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         if (validity_status) {
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
-            if (cardDetailsResponseModel.card_phone_show.equals("0")) {
+            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).into(ivCard);
+            tvCardHolderName.setText(getCardResponseDataModel.user_fname+" "+getCardResponseDataModel.user_lname+", "+getCardResponseDataModel.user_organization_name);
+            for(int i=0;i<servicesList.size();i++){
+                if(servicesList.get(i).service_id.equals(getCardResponseDataModel.user_service_id)){
+                    tvUserType.setText(servicesList.get(i).service_name);
+                }
+            }
+            tvUserDecsp.setText(getCardResponseDataModel.user_organization_desc);
+            if (cardDetailsResponseModel.card_phone_show.equals("1")) {
                 ivCardHolderPhone.setVisibility(View.VISIBLE);
                 ivCardHolderWhatsapp.setVisibility(View.VISIBLE);
             } else {
@@ -241,6 +293,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void init(View rootView) {
+        ivCard = rootView.findViewById(R.id.ivCard);
         tvUserDecsp = rootView.findViewById(R.id.tvUserDecsp);
         rlAlert = rootView.findViewById(R.id.rlAlert);
         scroll = rootView.findViewById(R.id.scroll);

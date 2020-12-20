@@ -21,113 +21,114 @@
             android:id="@+id/rlCard"
             android:layout_centerInParent="true"
             android:layout_width="@dimen/_352sdp"
-            android:layout_height="@dimen/_202sdp"/>
-        <RelativeLayout
-            android:layout_width="@dimen/_350sdp"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_centerInParent="true">
-            <ImageView
-                android:id="@+id/ivCard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:singleLine="true"
-                android:id="@+id/tvOrganisationName"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold" />
-
-            <TextView
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:id="@+id/tvName"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:id="@+id/llAddress"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+            android:layout_height="@dimen/_202sdp">
+            <RelativeLayout
+                android:layout_width="@dimen/_350sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_centerInParent="true">
                 <ImageView
-                    android:id="@+id/ivAddress"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_gravity="center_vertical"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/location" />
+                    android:id="@+id/ivCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
                 <TextView
-                    android:id="@+id/tvAddress"
+                    android:singleLine="true"
+                    android:id="@+id/tvOrganisationName"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:maxWidth="@dimen/_120sdp"
-                    android:maxLines="4" />
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/cardLogo"
-                android:adjustViewBounds="true"
-                android:layout_marginStart="@dimen/_90sdp"
-                android:layout_marginTop="@dimen/_90sdp"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"/>
-            <LinearLayout
-                android:id="@+id/llMail"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/ivMail"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_gravity="center_vertical"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/at" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvemailAddress"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:id="@+id/tvName"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:id="@+id/llAddress"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:maxWidth="@dimen/_100sdp"/>
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/llPhoneNumber"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivAddress"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/location" />
 
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:maxWidth="@dimen/_120sdp"
+                        android:maxLines="4" />
+                </LinearLayout>
                 <ImageView
-                    android:id="@+id/ivPhone"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_gravity="center_vertical"
+                    android:id="@+id/cardLogo"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/call" />
-
-                <TextView
-                    android:id="@+id/tvphoneNumber"
+                    android:layout_marginStart="@dimen/_90sdp"
+                    android:layout_marginTop="@dimen/_90sdp"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+                <LinearLayout
+                    android:id="@+id/llMail"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:maxWidth="@dimen/_100sdp"/>
-            </LinearLayout>
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivMail"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/at" />
+
+                    <TextView
+                        android:id="@+id/tvemailAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:maxWidth="@dimen/_100sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPhoneNumber"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivPhone"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/call" />
+
+                    <TextView
+                        android:id="@+id/tvphoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:maxWidth="@dimen/_100sdp"/>
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout
@@ -334,7 +335,7 @@
         android:background="#FAE7DF"
         android:orientation="horizontal"
         android:layout_width="@dimen/_450sdp"
-        android:weightSum="6"
+        android:weightSum="5"
         android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/llEdit"
@@ -367,6 +368,7 @@
             android:layout_height="match_parent"
             android:background="@color/orange"/>
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lllogo"
             android:layout_width="0dp"
             android:layout_weight="0.995"

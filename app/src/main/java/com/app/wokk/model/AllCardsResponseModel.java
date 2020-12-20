@@ -189,6 +189,10 @@ public class AllCardsResponseModel {
     @Expose
     public String card_email_left_mob;
 
+    @SerializedName("card_image_url")
+    @Expose
+    public String card_image_url;
+
     @SerializedName("card_email_show")
     @Expose
     public String card_email_show;

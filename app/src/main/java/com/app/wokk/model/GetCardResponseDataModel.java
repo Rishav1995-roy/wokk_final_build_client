@@ -11,6 +11,10 @@ public class GetCardResponseDataModel {
     @Expose
     public String user_id;
 
+    @SerializedName("user_organization_desc")
+    @Expose
+    public String user_organization_desc;
+
     @SerializedName("user_card_valid_until")
     @Expose
     public String user_card_valid_until;

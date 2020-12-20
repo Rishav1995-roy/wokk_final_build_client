@@ -9,456 +9,482 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="Create Card"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/orange"
-                android:textSize="@dimen/_15sdp"
-                android:fontFamily="@font/gidole_regular" />
-
+            android:layout_height="wrap_content">
             <LinearLayout
+                android:translationZ="1dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFirstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:maxLines="1"
-                    android:hint="First name"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gidole_regular"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etLastname"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Last name"
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@id/etEmail"
-                    android:inputType="textPersonName"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gidole_regular"
-                    android:maxLines="1"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPhoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Phone number"
-                    android:imeOptions="actionNext"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:maxLength="10"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gidole_regular"
-                    android:maxLines="1"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Email id"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gidole_regular"
-                    android:maxLines="1"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:minHeight="@dimen/_40sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Address"
-                    android:fontFamily="@font/gidole_regular"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="3"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:minHeight="@dimen/_40sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPin"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Enter your pincode"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:maxLines="1"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etOrganisationame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Organisation name"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Organisation name"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <RelativeLayout
-                android:id="@+id/rlUsertype"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvuserType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:ellipsize="end"
-                    android:text="Select service type"
-                    android:textColor="@color/offBlack"
-                    android:textSize="@dimen/_12sdp" />
-
-                <ImageView
-                    android:id="@+id/ivDown"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/down"
-                    android:tag="down" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1ssp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/offBlack" />
-
-            <RelativeLayout
-                android:id="@+id/rlRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@drawable/user_type_recycler_view_bg"
-                android:visibility="gone">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvuserType"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:id="@+id/tvEmptyText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_20sdp"
+                    android:text="Create Card"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_15sdp"
+                    android:fontFamily="@font/gidole_regular" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:maxLines="1"
+                        android:hint="First name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gidole_regular"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLastname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Last name"
+                        android:imeOptions="actionNext"
+                        android:nextFocusForward="@id/etEmail"
+                        android:inputType="textPersonName"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gidole_regular"
+                        android:maxLines="1"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Phone number"
+                        android:imeOptions="actionNext"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:maxLength="10"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gidole_regular"
+                        android:maxLines="1"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Email id"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gidole_regular"
+                        android:maxLines="1"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:minHeight="@dimen/_40sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Address"
+                        android:fontFamily="@font/gidole_regular"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="3"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:minHeight="@dimen/_40sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Enter your pincode"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etOrganisationame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Organisation name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Organisation description"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <RelativeLayout
+                    android:id="@+id/rlUsertype"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvuserType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ellipsize="end"
+                        android:text="Select service type"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/offBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <ImageView
+                        android:id="@+id/ivDown"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:src="@drawable/down"
+                        android:tag="down" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/offBlack" />
+
+                <RelativeLayout
+                    android:id="@+id/rlRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/user_type_recycler_view_bg"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvuserType"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/tvEmptyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:text="No items available."
+                        android:textColor="@color/offBlack"
+                        android:fontFamily="@font/gidole_regular"
+                        android:textSize="@dimen/_8sdp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:text="Gender: "
+                    android:fontFamily="@font/gidole_regular"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <RelativeLayout
+                    android:id="@+id/rlOther"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivOther"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:adjustViewBounds="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/uncheck"
+                        android:tag="unselected" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@id/ivOther"
+                        android:fontFamily="@font/gidole_regular"
+                        android:text="Do not specify gender"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlMale"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMale"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:adjustViewBounds="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/uncheck"
+                        android:tag="unselected" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@id/ivMale"
+                        android:text="Male"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlFemale"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivFemale"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/uncheck"
+                        android:tag="unselected" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@id/ivFemale"
+                        android:text="Female"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:text="No items available."
-                    android:textColor="@color/offBlack"
-                    android:fontFamily="@font/gidole_regular"
-                    android:textSize="@dimen/_8sdp"
-                    android:visibility="gone" />
-            </RelativeLayout>
+                    android:animateLayoutChanges="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:text="Gender: "
-                android:fontFamily="@font/gidole_regular"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
+                    <Button
+                        android:id="@+id/btnCreate"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/button_background"
+                        android:text="Create card"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/gidole_regular"
+                        style="@style/TextAppearance.MaterialComponents.Button"
+                        android:textSize="@dimen/_12sdp" />
+                </RelativeLayout>
+            </LinearLayout>
             <RelativeLayout
-                android:id="@+id/rlOther"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivOther"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:adjustViewBounds="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/uncheck"
-                    android:tag="unselected" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_toEndOf="@id/ivOther"
-                    android:fontFamily="@font/gidole_regular"
-                    android:text="Do not specify gender"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlMale"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivMale"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:adjustViewBounds="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/uncheck"
-                    android:tag="unselected" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_toEndOf="@id/ivMale"
-                    android:text="Male"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlFemale"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivFemale"
-                    android:layout_centerVertical="true"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/uncheck"
-                    android:tag="unselected" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_toEndOf="@id/ivFemale"
-                    android:text="Female"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rlCard"
+                android:background="@drawable/create_card_bg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -474,6 +500,7 @@
 
                 <TextView
                     android:id="@+id/tvName"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     style="@style/TextAppearance.MaterialComponents.Headline1"
                     android:layout_width="wrap_content"
@@ -496,6 +523,7 @@
 
                     <TextView
                         android:id="@+id/tvCardAddress"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
@@ -524,12 +552,13 @@
                     <TextView
                         android:id="@+id/tvemailAddress"
                         android:textSize="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_2sdp"
-                        android:maxWidth="@dimen/_100sdp" />
+                        android:layout_marginStart="@dimen/_2sdp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -550,6 +579,8 @@
                     <TextView
                         android:id="@+id/tvphoneNumber"
                         android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black"
+                        android:maxLines="1"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -558,28 +589,9 @@
                         android:maxWidth="@dimen/_100sdp" />
                 </LinearLayout>
             </RelativeLayout>
+        </FrameLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:animateLayoutChanges="true">
 
-                <Button
-                    android:id="@+id/btnCreate"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/button_background"
-                    android:text="Create card"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Button"
-                    android:textSize="@dimen/_12sdp" />
-            </RelativeLayout>
-        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

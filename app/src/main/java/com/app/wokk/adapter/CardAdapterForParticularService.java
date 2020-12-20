@@ -71,12 +71,11 @@ public class CardAdapterForParticularService extends RecyclerView.Adapter<CardVi
     @Override
     public void onBindViewHolder(@NonNull CardViewHolderForService holder,final int position) {
         Drawable d=null;
-        Glide.with(context).load(url + cardList.get(position).layout_image).into(holder.ivCard);
+        Glide.with(context).load(cardList.get(position).card_image_url).into(holder.ivCard);
         if(cardList.get(position).view_count != null)
             holder.tvViewCount.setText(cardList.get(position).view_count);
         else
             holder.tvViewCount.setText("0");
-        holder.ivCard.setBackgroundColor(Color.parseColor(cardList.get(position).card_border_color));
         holder.rlCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

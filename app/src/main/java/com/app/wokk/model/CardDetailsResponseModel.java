@@ -19,6 +19,10 @@ public class CardDetailsResponseModel {
     @Expose
     public String card_layout_id;
 
+    @SerializedName("card_image_url")
+    @Expose
+    public String card_image_url;
+
     @SerializedName("card_org_color")
     @Expose
     public String card_org_color;

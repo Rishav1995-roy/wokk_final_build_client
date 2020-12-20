@@ -155,6 +155,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private void setUpDataForProfile() {
         if(cardDetailsResponseModel != null){
             ivcard.setVisibility(View.VISIBLE);
+            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).into(ivcard);
+            tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ContainerActivity.getCardResponseDataModel.user_pin);
+            tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
             btnEditCard.setVisibility(View.VISIBLE);
             btnCreateCard.setVisibility(View.GONE);
         }else{

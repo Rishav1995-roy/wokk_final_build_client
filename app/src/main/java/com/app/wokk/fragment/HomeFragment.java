@@ -67,6 +67,7 @@ import retrofit2.Response;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public View rootView;
+    public static boolean load=false;
     public AutoViewpager viewPager;
     public TabLayout tabDots;
     public TextView tvCountryCode;
@@ -378,15 +379,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public void customAlert(String s) {
         final CustomAlertWithOneButton customAlertWithOneButton = new CustomAlertWithOneButton(Objects.requireNonNull(getActivity()));
-        if (!customAlertWithOneButton.isShowing()) {
-            customAlertWithOneButton.show();
-            customAlertWithOneButton.tvDesc.setText(s);
-            customAlertWithOneButton.btnOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    customAlertWithOneButton.dismiss();
-                }
-            });
+        if(!load) {
+            if (!customAlertWithOneButton.isShowing()) {
+                customAlertWithOneButton.show();
+                load=true;
+                customAlertWithOneButton.tvDesc.setText(s);
+                customAlertWithOneButton.btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        customAlertWithOneButton.dismiss();
+                        load=false;
+                    }
+                });
+            } else {
+                customAlertWithOneButton.dismiss();
+            }
         }
     }
 
