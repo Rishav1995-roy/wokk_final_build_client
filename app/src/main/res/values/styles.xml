@@ -24,4 +24,12 @@
         <attr name="avp_duration" format="integer" />
     </declare-styleable>
 
+    <style name="my_dialoge_style" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>
