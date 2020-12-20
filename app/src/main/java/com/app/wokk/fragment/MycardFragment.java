@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,10 +98,10 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public MyPreference myPreference;
     public RecyclerView rvGallery, rvYoutube;
     public EditText etNumber;
-    public RelativeLayout rlSms, rlWhatsappShare, rlFollow, rlWhatsapp, rlShare, rlCall, rlWokkYoutubeLink, rlCard, rlYoutube, rlAlert;
-    public TextView tvOrganisationName, tvName, tvWokkYoutubeLink, tvCardAddress, tvemailAddress, tvphoneNumber, tvEmptyText, tvFollowed, tvEmptyTextYoutube, tvProfile;
-    public LinearLayout llAddress, llMail, llPhoneNumber;
-    public ImageView ivInstagram, ivcard, ivTwitter, ivFollowed, ivFacebook, ivContact, ivAddress, ivMail, ivPhone;
+    public RelativeLayout rlYoutube, rlAlert,rlSms,rlWhatsappShare;
+    public Button btnFollow,btnShare;
+    public TextView tvEmptyText, tvEmptyTextYoutube, tvProfile,tvCardHolderName,tvUserType,tvUserDecsp;
+    public ImageView ivInstagram, ivCard, ivTwitter, ivFacebook,ivCardHolderPhone,ivContact,ivCardHolderWhatsapp;
     public GetCardResponseDataModel getCardResponseDataModel;
     public CardDetailsResponseModel cardDetailsResponseModel;
     public ArrayList<GalleryResponseModel> galleryCardList;
@@ -110,8 +111,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     NestedScrollView scroll;
     public boolean validity_status;
     public String validityDate;
-    public String follow_count, addressColor, emailColor, phoneColor, viewCount, layoutUrl;
-    Typeface organistionTypeface, nameTypeface, addressTypeface, emailtypeface, phoneTypeface;
+    public String follow_count, viewCount, layoutUrl;
     String[] permissions = {Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -170,10 +170,6 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                         viewCount = response.body().view_count;
                         validity_status = response.body().validity_status;
                         validityDate = response.body().user_details.user_card_valid_until;
-                        /*if(viewCount != null)
-                            tvViews.setText("Views: "+viewCount);
-                        else
-                            tvViews.setText("Views: 0");*/
                         setData();
                         setupAdapter(galleryCardList);
                         setUpYoutubeAdapter(youtubeDetailsModelArrayList);
@@ -200,438 +196,69 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     private void setData() {
         if (follow_count == null) {
             if (follow_status == 0) {
-                tvFollowed.setText("Follow");
-                ivFollowed.setVisibility(View.VISIBLE);
-                tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
-                rlFollow.setAlpha(1.0f);
-                rlCall.setAlpha(1.0f);
-                rlFollow.setClickable(true);
-                rlCall.setClickable(true);
-                rlCall.setEnabled(true);
-                rlFollow.setEnabled(true);
-                rlFollow.setFocusable(true);
-                rlCall.setFocusable(true);
+                btnFollow.setText("Follow");
+                btnFollow.setClickable(true);
+                btnFollow.setEnabled(true);
+                btnFollow.setFocusable(true);
+                btnFollow.setAlpha(1.0f);
             } else if (follow_status == 1) {
-                tvFollowed.setText("Followed");
-                ivFollowed.setVisibility(View.GONE);
-                tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
-                rlFollow.setAlpha(0.4f);
-                rlFollow.setAlpha(1.0f);
-                rlCall.setAlpha(1.0f);
-                rlFollow.setClickable(false);
-                rlCall.setClickable(true);
-                rlCall.setEnabled(true);
-                rlFollow.setEnabled(false);
-                rlFollow.setFocusable(false);
-                rlCall.setFocusable(true);
+                btnFollow.setText("Followed");
+                btnFollow.setClickable(false);
+                btnFollow.setEnabled(false);
+                btnFollow.setFocusable(false);
+                btnFollow.setAlpha(0.4f);
             }
         } else {
-            tvFollowed.setText("Followers: " + follow_count);
-            ivFollowed.setVisibility(View.GONE);
-            //rlFollow.setAlpha(0.4f);
-            tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._3sdp));
-            rlCall.setAlpha(0.4f);
-            rlFollow.setClickable(false);
-            rlCall.setClickable(false);
-            rlCall.setEnabled(false);
-            rlFollow.setEnabled(false);
-            rlFollow.setFocusable(false);
+            btnFollow.setText("Followers: " + follow_count);
+            btnFollow.setClickable(false);
+            btnFollow.setEnabled(false);
+            btnFollow.setFocusable(false);
+            btnFollow.setAlpha(0.4f);
+            btnFollow.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
+            ivCardHolderWhatsapp.setAlpha(0.4f);
+            ivCardHolderWhatsapp.setClickable(false);
+            ivCardHolderWhatsapp.setEnabled(false);
+            ivCardHolderWhatsapp.setFocusable(false);
+            ivCardHolderPhone.setAlpha(0.4f);
+            ivCardHolderPhone.setClickable(false);
+            ivCardHolderPhone.setEnabled(false);
+            ivCardHolderPhone.setFocusable(false);
         }
         if (validity_status) {
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
-            /*GradientDrawable gd = new GradientDrawable();
-            //gd.setColor(Color.RED);
-            //gd.setCornerRadius(10);
-            gd.setStroke(10, Color.parseColor(cardDetailsResponseModel.card_border_color));*/
-            ivcard.setBackgroundColor(Color.parseColor(cardDetailsResponseModel.card_border_color));
-            Glide.with(Objects.requireNonNull(getActivity())).load(layoutUrl + cardDetailsResponseModel.layout_image).into(ivcard);
-            //new LoadBackground(layoutUrl + cardDetailsResponseModel.layout_image, "androidfigure").execute();
-            if (getCardResponseDataModel.user_fname != null && getCardResponseDataModel.user_lname != null)
-                tvName.setText(getCardResponseDataModel.user_fname + " " + getCardResponseDataModel.user_lname);
-            if (getCardResponseDataModel.user_address != null && getCardResponseDataModel.user_pin != null)
-                tvCardAddress.setText(getCardResponseDataModel.user_address + " - " + getCardResponseDataModel.user_pin);
-            if (getCardResponseDataModel.user_phone != null)
-                tvphoneNumber.setText(getCardResponseDataModel.user_phone);
-            if (getCardResponseDataModel.user_organization_name != null)
-                tvOrganisationName.setText(getCardResponseDataModel.user_organization_name);
-            if (getCardResponseDataModel.user_email != null)
-                tvemailAddress.setText(getCardResponseDataModel.user_email);
-            RelativeLayout.LayoutParams tvNameParams = (RelativeLayout.LayoutParams) tvName.getLayoutParams();
-            if (cardDetailsResponseModel.card_name_top_mob != null)
-                tvNameParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_top_mob));
-            else
-                tvNameParams.topMargin = 0;
-            if (cardDetailsResponseModel.card_name_left_mob != null)
-                tvNameParams.leftMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_left_mob));
-            else
-                tvNameParams.leftMargin = 0;
-            tvName.setLayoutParams(tvNameParams);
-            RelativeLayout.LayoutParams tvOrganisationParams = (RelativeLayout.LayoutParams) tvOrganisationName.getLayoutParams();
-            if (cardDetailsResponseModel.card_org_top_mob != null)
-                tvOrganisationParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_top_mob));
-            else
-                tvOrganisationParams.topMargin = 0;
-            if (cardDetailsResponseModel.card_org_left_mob != null)
-                tvOrganisationParams.leftMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_left_mob));
-            else
-                tvOrganisationParams.leftMargin = 0;
-            tvOrganisationName.setLayoutParams(tvOrganisationParams);
-            RelativeLayout.LayoutParams addressParams = (RelativeLayout.LayoutParams) llAddress.getLayoutParams();
-            if (cardDetailsResponseModel.card_address_top_mob != null)
-                addressParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_top_mob));
-            else
-                addressParams.topMargin = 0;
-            if (cardDetailsResponseModel.card_address_left_mob != null)
-                addressParams.leftMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_left_mob));
-            else
-                addressParams.leftMargin = 0;
-            llAddress.setLayoutParams(addressParams);
-            RelativeLayout.LayoutParams phoneParams = (RelativeLayout.LayoutParams) llPhoneNumber.getLayoutParams();
-            if (cardDetailsResponseModel.card_phone_top_mob != null)
-                phoneParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_top_mob));
-            else
-                phoneParams.topMargin = 0;
-            if (cardDetailsResponseModel.card_phone_left_mob != null)
-                phoneParams.leftMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_left_mob));
-            else
-                phoneParams.leftMargin = 0;
-            llPhoneNumber.setLayoutParams(phoneParams);
-            RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
-            if (cardDetailsResponseModel.card_email_top_mob != null)
-                mailParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_top_mob));
-            else
-                mailParams.topMargin = 0;
-            if (cardDetailsResponseModel.card_email_left_mob != null)
-                mailParams.leftMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_left_mob));
-            else
-                mailParams.leftMargin = 0;
-            llMail.setLayoutParams(mailParams);
-            if (cardDetailsResponseModel.card_org_color.contains("0") && cardDetailsResponseModel.card_org_color.length() == 4) {
-                tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color + "000"));
-            } else if (cardDetailsResponseModel.card_org_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_org_color.length() == 4) {
-                tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color.toLowerCase() + "fff"));
-            } else {
-                tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color));
-            }
-            if (cardDetailsResponseModel.card_name_color.contains("0") && cardDetailsResponseModel.card_name_color.length() == 4) {
-                tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color + "000"));
-            } else if (cardDetailsResponseModel.card_name_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_name_color.length() == 4) {
-                tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color.toLowerCase() + "fff"));
-            } else {
-                tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color));
-            }
-            if (cardDetailsResponseModel.card_address_color.contains("0") && cardDetailsResponseModel.card_address_color.length() == 4) {
-                tvCardAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color + "000"));
-                addressColor = cardDetailsResponseModel.card_address_color + "000";
-            } else if (cardDetailsResponseModel.card_address_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_address_color.length() == 4) {
-                tvCardAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color.toLowerCase() + "fff"));
-                addressColor = cardDetailsResponseModel.card_address_color + "fff";
-            } else {
-                tvCardAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color));
-                addressColor = cardDetailsResponseModel.card_address_color;
-            }
-            ImageViewCompat.setImageTintMode(ivAddress, PorterDuff.Mode.SRC_ATOP);
-            ImageViewCompat.setImageTintList(ivAddress, ColorStateList.valueOf(Color.parseColor(addressColor)));
-            if (cardDetailsResponseModel.card_email_color.contains("0") && cardDetailsResponseModel.card_email_color.length() == 4) {
-                tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color + "000"));
-                emailColor = cardDetailsResponseModel.card_email_color + "000";
-            } else if (cardDetailsResponseModel.card_email_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_email_color.length() == 4) {
-                tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color.toLowerCase() + "fff"));
-                emailColor = cardDetailsResponseModel.card_email_color + "fff";
-            } else {
-                tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color));
-                emailColor = cardDetailsResponseModel.card_email_color;
-            }
-            ImageViewCompat.setImageTintMode(ivMail, PorterDuff.Mode.SRC_ATOP);
-            ImageViewCompat.setImageTintList(ivMail, ColorStateList.valueOf(Color.parseColor(emailColor)));
-            if (cardDetailsResponseModel.card_phone_color.contains("0") && cardDetailsResponseModel.card_phone_color.length() == 4) {
-                tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color + "000"));
-                phoneColor = cardDetailsResponseModel.card_phone_color + "000";
-            } else if (cardDetailsResponseModel.card_phone_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_phone_color.length() == 4) {
-                tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color.toLowerCase() + "fff"));
-                phoneColor = cardDetailsResponseModel.card_phone_color + "fff";
-            } else {
-                tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color));
-                phoneColor = cardDetailsResponseModel.card_phone_color;
-            }
-            ImageViewCompat.setImageTintMode(ivPhone, PorterDuff.Mode.SRC_ATOP);
-            ImageViewCompat.setImageTintList(ivPhone, ColorStateList.valueOf(Color.parseColor(phoneColor)));
-            tvOrganisationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_org_fontsize_mob));
-            tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_name_fontsize_mob));
-            tvphoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_phone_fontsize_mob));
-            tvCardAddress.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_address_fontsize_mob));
-            tvemailAddress.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_email_fontsize_mob));
-            if (cardDetailsResponseModel.card_org_show.equals("0")) {
-                tvOrganisationName.setVisibility(View.GONE);
-            } else {
-                tvOrganisationName.setVisibility(View.VISIBLE);
-            }
-            if (cardDetailsResponseModel.card_name_show.equals("0")) {
-                tvName.setVisibility(View.GONE);
-            } else {
-                tvName.setVisibility(View.VISIBLE);
-            }
-            if (cardDetailsResponseModel.card_address_show.equals("0")) {
-                llAddress.setVisibility(View.GONE);
-            } else {
-                llAddress.setVisibility(View.VISIBLE);
-            }
-            if (cardDetailsResponseModel.card_email_show.equals("0")) {
-                llMail.setVisibility(View.GONE);
-            } else {
-                llMail.setVisibility(View.VISIBLE);
-            }
             if (cardDetailsResponseModel.card_phone_show.equals("0")) {
-                llPhoneNumber.setVisibility(View.GONE);
-                rlCall.setAlpha(0.4f);
-                rlCall.setClickable(false);
-                rlCall.setEnabled(false);
+                ivCardHolderPhone.setVisibility(View.VISIBLE);
+                ivCardHolderWhatsapp.setVisibility(View.VISIBLE);
             } else {
-                llPhoneNumber.setVisibility(View.VISIBLE);
-                rlCall.setAlpha(1.0f);
-                rlCall.setClickable(true);
-                rlCall.setEnabled(true);
+                ivCardHolderWhatsapp.setVisibility(View.GONE);
+                ivCardHolderPhone.setVisibility(View.GONE);
             }
-            if (cardDetailsResponseModel.card_org_font != null) {
-                if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("courier new, monospace")) {
-                    organistionTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("inconsolata")) {
-                    phoneTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("recursive")) {
-                    organistionTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("cedarville cursive")) {
-                    organistionTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("noto sans")) {
-                    organistionTypeface = getResources().getFont(R.font.notosans_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("poppins")) {
-                    organistionTypeface = getResources().getFont(R.font.poppins_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("open sans")) {
-                    organistionTypeface = getResources().getFont(R.font.opensans_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("roboto")) {
-                    organistionTypeface = getResources().getFont(R.font.roboto_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("montserrat")) {
-                    organistionTypeface = getResources().getFont(R.font.montserrat_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("lato")) {
-                    organistionTypeface = getResources().getFont(R.font.lato_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("source sans pro")) {
-                    organistionTypeface = getResources().getFont(R.font.sourcesanspro_regular);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("raleway, sans-serif")) {
-                    organistionTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
-                    tvOrganisationName.setTypeface(organistionTypeface);
-                }
-                //organisationFont=cardDetailsResponseModel.card_org_font;
-            }
-            if (cardDetailsResponseModel.card_name_font != null) {
-                if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("courier new, monospace")) {
-                    nameTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("inconsolata")) {
-                    nameTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("recursive")) {
-                    nameTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("cedarville cursive")) {
-                    nameTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("noto sans")) {
-                    nameTypeface = getResources().getFont(R.font.notosans_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("poppins")) {
-                    nameTypeface = getResources().getFont(R.font.poppins_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("open sans")) {
-                    nameTypeface = getResources().getFont(R.font.opensans_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("roboto")) {
-                    nameTypeface = getResources().getFont(R.font.roboto_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("montserrat")) {
-                    nameTypeface = getResources().getFont(R.font.montserrat_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("lato")) {
-                    nameTypeface = getResources().getFont(R.font.lato_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("source sans pro")) {
-                    nameTypeface = getResources().getFont(R.font.sourcesanspro_regular);
-                    tvName.setTypeface(nameTypeface);
-                } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("raleway, sans-serif")) {
-                    nameTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
-                    tvName.setTypeface(nameTypeface);
-                }
-                //nameFont=cardDetailsResponseModel.card_name_font;
-            }
-            if (cardDetailsResponseModel.card_email_font != null) {
-                if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("courier new, monospace")) {
-                    emailtypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("inconsolata")) {
-                    emailtypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("recursive")) {
-                    emailtypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("cedarville cursive")) {
-                    emailtypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("noto sans")) {
-                    emailtypeface = getResources().getFont(R.font.notosans_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("poppins")) {
-                    emailtypeface = getResources().getFont(R.font.poppins_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("open sans")) {
-                    emailtypeface = getResources().getFont(R.font.opensans_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("roboto")) {
-                    emailtypeface = getResources().getFont(R.font.roboto_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("montserrat")) {
-                    emailtypeface = getResources().getFont(R.font.montserrat_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("lato")) {
-                    emailtypeface = getResources().getFont(R.font.lato_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("source sans pro")) {
-                    emailtypeface = getResources().getFont(R.font.sourcesanspro_regular);
-                    tvemailAddress.setTypeface(emailtypeface);
-                } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("raleway, sans-serif")) {
-                    emailtypeface = getResources().getFont(R.font.raleway_variablefont_wght);
-                    tvemailAddress.setTypeface(emailtypeface);
-                }
-                //emailFont=cardDetailsResponseModel.card_email_font;
-            }
-            if (cardDetailsResponseModel.card_address_font != null) {
-                if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("courier new, monospace")) {
-                    addressTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("inconsolata")) {
-                    addressTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("recursive")) {
-                    addressTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("cedarville cursive")) {
-                    addressTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("noto sans")) {
-                    addressTypeface = getResources().getFont(R.font.notosans_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("poppins")) {
-                    addressTypeface = getResources().getFont(R.font.poppins_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("open sans")) {
-                    addressTypeface = getResources().getFont(R.font.opensans_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("roboto")) {
-                    addressTypeface = getResources().getFont(R.font.roboto_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("montserrat")) {
-                    addressTypeface = getResources().getFont(R.font.montserrat_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("lato")) {
-                    addressTypeface = getResources().getFont(R.font.lato_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("source sans pro")) {
-                    addressTypeface = getResources().getFont(R.font.sourcesanspro_regular);
-                    tvCardAddress.setTypeface(addressTypeface);
-                } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("raleway, sans-serif")) {
-                    addressTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
-                    tvCardAddress.setTypeface(addressTypeface);
-                }
-                //addressFont=cardDetailsResponseModel.card_address_font;
-            }
-            if (cardDetailsResponseModel.card_phone_font != null) {
-                if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("courier new, monospace")) {
-                    phoneTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("inconsolata")) {
-                    phoneTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("recursive")) {
-                    phoneTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("cedarville cursive")) {
-                    phoneTypeface = getResources().getFont(R.font.courierprime_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("noto sans")) {
-                    phoneTypeface = getResources().getFont(R.font.notosans_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("poppins")) {
-                    phoneTypeface = getResources().getFont(R.font.poppins_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("open sans")) {
-                    phoneTypeface = getResources().getFont(R.font.opensans_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("roboto")) {
-                    phoneTypeface = getResources().getFont(R.font.roboto_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("montserrat")) {
-                    phoneTypeface = getResources().getFont(R.font.montserrat_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("lato")) {
-                    phoneTypeface = getResources().getFont(R.font.lato_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("source sans pro")) {
-                    phoneTypeface = getResources().getFont(R.font.sourcesanspro_regular);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("raleway, sans-serif")) {
-                    phoneTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
-                    tvphoneNumber.setTypeface(phoneTypeface);
-                }
-                //phoneFont=cardDetailsResponseModel.card_phone_font;
-            }
-        } else {
+        }else{
             scroll.setVisibility(View.GONE);
             rlAlert.setVisibility(View.VISIBLE);
         }
     }
 
     private void init(View rootView) {
+        tvUserDecsp = rootView.findViewById(R.id.tvUserDecsp);
         rlAlert = rootView.findViewById(R.id.rlAlert);
         scroll = rootView.findViewById(R.id.scroll);
         tvProfile = rootView.findViewById(R.id.tvProfile);
-        ivPhone = rootView.findViewById(R.id.ivPhone);
         tvEmptyTextYoutube = rootView.findViewById(R.id.tvEmptyTextYoutube);
         rvYoutube = rootView.findViewById(R.id.rvYoutube);
         rlYoutube = rootView.findViewById(R.id.rlYoutube);
-        ivMail = rootView.findViewById(R.id.ivMail);
-        ivAddress = rootView.findViewById(R.id.ivAddress);
-        ivcard = rootView.findViewById(R.id.ivcard);
-        tvFollowed = rootView.findViewById(R.id.tvFollowed);
         ivFacebook = rootView.findViewById(R.id.ivFirstStar);
         ivTwitter = rootView.findViewById(R.id.ivTwitter);
         ivInstagram = rootView.findViewById(R.id.ivInstagram);
         ivContact = rootView.findViewById(R.id.ivContact);
-        ivFollowed = rootView.findViewById(R.id.ivFollowed);
-        llPhoneNumber = rootView.findViewById(R.id.llPhoneNumber);
-        llMail = rootView.findViewById(R.id.llMail);
-        llAddress = rootView.findViewById(R.id.llAddress);
         tvEmptyText = rootView.findViewById(R.id.tvEmptyText);
-        tvphoneNumber = rootView.findViewById(R.id.tvphoneNumber);
-        tvemailAddress = rootView.findViewById(R.id.tvemailAddress);
-        tvCardAddress = rootView.findViewById(R.id.tvCardAddress);
-        tvWokkYoutubeLink = rootView.findViewById(R.id.tvWokkYoutubeLink);
-        tvName = rootView.findViewById(R.id.tvName);
-        tvOrganisationName = rootView.findViewById(R.id.tvOrganisationName);
-       // rlCard = rootView.findViewById(R.id.rlCard);
-        rlWokkYoutubeLink = rootView.findViewById(R.id.rlWokkYoutubeLink);
-        rlCall = rootView.findViewById(R.id.rlCall);
-        rlShare = rootView.findViewById(R.id.rlShare);
-        rlWhatsapp = rootView.findViewById(R.id.rlWhatsapp);
-        rlFollow = rootView.findViewById(R.id.rlFollow);
+        ivCardHolderPhone = rootView.findViewById(R.id.ivCardHolderPhone);
+        btnShare = rootView.findViewById(R.id.btnShare);
+        ivCardHolderWhatsapp = rootView.findViewById(R.id.ivCardHolderWhatsapp);
+        btnFollow = rootView.findViewById(R.id.btnFollow);
+        tvCardHolderName = rootView.findViewById(R.id.tvCardHolderName);
+        tvUserType = rootView.findViewById(R.id.tvUserType);
         rlWhatsappShare = rootView.findViewById(R.id.rlWhatsappShare);
         rlSms = rootView.findViewById(R.id.rlSms);
         etNumber = rootView.findViewById(R.id.etNumber);
@@ -640,13 +267,12 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void clickEvent() {
-        rlWhatsapp.setOnClickListener(this);
+        ivCardHolderWhatsapp.setOnClickListener(this);
         rlWhatsappShare.setOnClickListener(this);
-        rlFollow.setOnClickListener(this);
-        rlShare.setOnClickListener(this);
-        rlCall.setOnClickListener(this);
+        btnFollow.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
+        ivCardHolderPhone.setOnClickListener(this);
         rlSms.setOnClickListener(this);
-        rlWokkYoutubeLink.setOnClickListener(this);
         tvProfile.setOnClickListener(this);
         ivContact.setOnClickListener(this);
     }
@@ -662,7 +288,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 profileTransaction.addToBackStack(null);
                 profileTransaction.commit();
                 break;
-            case R.id.rlWhatsapp:
+            case R.id.ivCardHolderWhatsapp:
                 if (myPreference.getUserID().equals(myPreference.getServiceUserId())) {
                     Intent waIntent = new Intent(Intent.ACTION_SEND);
                     waIntent.setType("text/plain");
@@ -696,19 +322,17 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                     }
                 }
                 break;
-            case R.id.rlFollow:
-                hideKeyBoardRelativeLayout(rlFollow);
+            case R.id.btnFollow:
                 doFollow();
                 break;
-            case R.id.rlShare:
-                hideKeyBoardRelativeLayout(rlShare);
+            case R.id.btnShare:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My visiting card");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token);
                 startActivity(Intent.createChooser(sharingIntent, "Share visiting card via"));
                 break;
-            case R.id.rlCall:
+            case R.id.ivCardHolderPhone:
                 requestCallPermission();
                 break;
             case R.id.rlSms:
@@ -718,9 +342,6 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 } else {
                     requestSmsPermission();
                 }
-                break;
-            case R.id.rlWokkYoutubeLink:
-                customAlert("This section is in under development.");
                 break;
             case R.id.ivContact:
                 hideKeyBoardImageView(ivContact);
@@ -783,17 +404,11 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 try {
                     int status = response.code();
                     if (status == 200) {
-                        tvFollowed.setText("Followed");
-                        ivFollowed.setVisibility(View.GONE);
-                        tvFollowed.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
-                        rlFollow.setAlpha(0.4f);
-                        rlCall.setAlpha(1.0f);
-                        rlFollow.setClickable(false);
-                        rlCall.setClickable(true);
-                        rlCall.setEnabled(true);
-                        rlFollow.setEnabled(false);
-                        rlFollow.setFocusable(false);
-                        rlCall.setFocusable(true);
+                        btnFollow.setText("Followed");
+                        btnFollow.setClickable(false);
+                        btnFollow.setFocusable(false);
+                        btnFollow.setEnabled(false);
+                        btnFollow.setAlpha(0.4f);
                     } else {
                         customAlert("Oops, something went wrong!");
                     }

@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/orange" />
 
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="First Name: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -48,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -57,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Last Name: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -66,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -74,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Address: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -83,6 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -91,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Pincode: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -101,6 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:background="@null"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -109,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Email address: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -118,6 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -126,6 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Organisation Name: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -135,6 +147,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Organisation Description: "
+        android:fontFamily="@font/gidole_regular"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp" />
+
+    <TextView
+        android:id="@+id/etOrganisatiodescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -148,6 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gender: "
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
@@ -157,6 +189,7 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gidole_regular"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
@@ -168,6 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Whatsapp number: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -182,6 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+91"
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/black" />
 
@@ -190,6 +225,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -199,6 +235,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Contact number: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -213,6 +250,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+91"
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/black" />
 
@@ -221,6 +259,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/gidole_regular"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -230,6 +269,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Bio: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -239,6 +279,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/black" />
 
@@ -248,6 +289,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Card Vaild Until: "
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp" />
@@ -256,6 +298,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gidole_regular"
         style="@style/TextAppearance.MaterialComponents.Body2"/>
 
 </LinearLayout>

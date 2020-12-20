@@ -75,7 +75,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
     public View rootView;
     public MyPreference myPreference;
     public LinearLayout llEdit,llProfile;
-    public TextView etName,etLastName,etEmail,etWhatsapp,etContact,etBio,tvGender,etAddress,etpincode,etOrganisationame,tvEdit,etValidity,tvCardValidityHeading;
+    public TextView etOrganisatiodescription,etName,etLastName,etEmail,etWhatsapp,etContact,etBio,tvGender,etAddress,etpincode,etOrganisationame,tvEdit,etValidity,tvCardValidityHeading;
     public ImageView ivEdit;
 
 
@@ -92,6 +92,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
     @SuppressLint("SetJavaScriptEnabled")
     private void init(View rootView) {
         tvCardValidityHeading = rootView.findViewById(R.id.tvCardValidityHeading);
+        etOrganisatiodescription = rootView.findViewById(R.id.etOrganisatiodescription);
         etOrganisationame = rootView.findViewById(R.id.etOrganisationame);
         etValidity = rootView.findViewById(R.id.etValidity);
         tvGender = rootView.findViewById(R.id.tvGender);
@@ -134,6 +135,10 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
             etOrganisationame.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
         else
             etOrganisationame.setText("");
+        if(ContainerActivity.getCardResponseDataModel.user_organization_name != null && !ContainerActivity.getCardResponseDataModel.user_organization_name.equals(""))
+            etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
+        else
+            etOrganisatiodescription.setText("");
         if(ContainerActivity.getCardResponseDataModel.user_pin != null && !ContainerActivity.getCardResponseDataModel.user_pin.equals(""))
             etpincode.setText(ContainerActivity.getCardResponseDataModel.user_pin);
         else
@@ -227,6 +232,10 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
             editProfileAlert.etOrganisationame.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
         else
             editProfileAlert.etOrganisationame.setText("");
+        if(ContainerActivity.getCardResponseDataModel.user_organization_name != null)
+            editProfileAlert.etOrganisatiodescription.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
+        else
+            editProfileAlert.etOrganisatiodescription.setText("");
         if(ContainerActivity.getCardResponseDataModel.user_pin != null)
             editProfileAlert.etPin.setText(ContainerActivity.getCardResponseDataModel.user_pin);
         else

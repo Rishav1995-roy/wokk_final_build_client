@@ -64,26 +64,12 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
 
     public View rootView;
     public MyPreference myPreference;
-    public TextInputEditText etFirstName;
-    public TextInputEditText etLastname;
-    public TextInputEditText etPhoneNumber;
-    public TextInputEditText etEmail;
-    public TextInputEditText etAddress;
-    public TextInputEditText etPin;
-    public TextInputEditText etOrganisationame;
-    public TextView tvuserType;
-    public TextView tvEmptyText;
-    public RelativeLayout rlUsertype;
-    public RelativeLayout rlRecyclerView;
-    public RelativeLayout rlMale;
-    public RelativeLayout rlFemale;
-    public RelativeLayout rlOther;
+    public TextInputEditText etFirstName,etLastname,etPhoneNumber,etEmail,etAddress,etPin,etOrganisationame,etDescription;
+    public TextView tvuserType,tvEmptyText,tvOrganisationName,tvName,tvCardAddress,tvemailAddress,tvphoneNumber;
+    public RelativeLayout rlUsertype,rlRecyclerView,rlMale,rlFemale,rlOther,rlCard;
+    public LinearLayout llAddress,llMail,llPhoneNumber;
     public RecyclerView rvuserType;
-    public ImageView ivLoadder;
-    public ImageView ivOther;
-    public ImageView ivFemale;
-    public ImageView ivMale;
-    public ImageView ivDown;
+    public ImageView ivLoadder,ivOther,ivFemale,ivMale,ivDown;
     public Button btnCreate;
     public boolean genderSelected=false;
     public static boolean userTypeSelected=false;
@@ -101,7 +87,17 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     }
 
     private void init(View rootView) {
+        llAddress=rootView.findViewById(R.id.llAddress);
+        llMail=rootView.findViewById(R.id.llMail);
+        llPhoneNumber=rootView.findViewById(R.id.llPhoneNumber);
+        rlCard=rootView.findViewById(R.id.rlCard);
+        tvCardAddress=rootView.findViewById(R.id.tvCardAddress);
+        tvemailAddress=rootView.findViewById(R.id.tvemailAddress);
+        tvphoneNumber=rootView.findViewById(R.id.tvphoneNumber);
+        tvOrganisationName=rootView.findViewById(R.id.tvOrganisationName);
+        tvName=rootView.findViewById(R.id.tvName);
         btnCreate=rootView.findViewById(R.id.btnCreate);
+        etDescription=rootView.findViewById(R.id.etDescription);
         ivDown=rootView.findViewById(R.id.ivDown);
         ivMale=rootView.findViewById(R.id.ivMale);
         ivFemale=rootView.findViewById(R.id.ivFemale);
@@ -450,6 +446,11 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         if(Objects.requireNonNull(etOrganisationame.getText()).toString().isEmpty()){
             customAlert("Please enter your oraganistion name!");
             etOrganisationame.requestFocus();
+            return false;
+        }
+        if(Objects.requireNonNull(etDescription.getText()).toString().isEmpty()){
+            customAlert("Please enter your oraganistion description!");
+            etDescription.requestFocus();
             return false;
         }
         if(Objects.requireNonNull(etAddress.getText()).toString().isEmpty()){

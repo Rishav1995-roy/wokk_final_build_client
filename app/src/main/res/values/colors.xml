@@ -16,4 +16,5 @@
     <color name="green">#0FC145</color>
     <color name="violet">#132743</color>
     <color name="blueViolet">#0057ff</color>
+    <color name="off">#E2E2E2</color>
 </resources>

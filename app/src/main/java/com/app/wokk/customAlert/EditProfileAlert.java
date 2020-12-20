@@ -22,19 +22,10 @@ import static android.graphics.Color.TRANSPARENT;
 public class EditProfileAlert extends Dialog {
 
     public LinearLayout llEdit;
-    public TextInputEditText etFirstName;
-    public TextInputEditText etLastname;
-    public TextInputEditText etEmail;
-    public TextInputEditText etAddress;
-    public TextInputEditText etPin;
-    public TextInputEditText etOrganisationame;
-    public TextInputEditText etBio;
-    public TextInputEditText etYoutubeLink;
+    public TextInputEditText etFirstName,etOrganisatiodescription,etLastname,etEmail,etAddress,etPin,etOrganisationame,etBio,etYoutubeLink;
     public Button btnSave;
-    public RelativeLayout rlFemale;
-    public RelativeLayout rlMale;
-    public ImageView ivMale;
-    public ImageView ivFemale;
+    public RelativeLayout rlFemale,rlMale;
+    public ImageView ivMale,ivFemale;
     public boolean genderSelected=false;
 
     @Override
@@ -43,6 +34,7 @@ public class EditProfileAlert extends Dialog {
         setContentView(R.layout.dialog_edit_profile);
         Objects.requireNonNull(getWindow()).setBackgroundDrawable((Drawable)(new ColorDrawable(TRANSPARENT)));
         getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        etOrganisatiodescription=findViewById(R.id.etOrganisatiodescription);
         ivFemale=findViewById(R.id.ivFemale);
         ivMale=findViewById(R.id.ivMale);
         ivFemale=findViewById(R.id.ivFemale);

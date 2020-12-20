@@ -1,18 +1,26 @@
 package com.app.wokk.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -24,6 +32,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.ImageViewCompat;
@@ -53,6 +62,8 @@ import com.google.gson.JsonElement;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -70,10 +81,11 @@ import static com.app.wokk.activity.ContainerActivity.cardDetailsResponseModel;
 public class CardEditActivity extends BaseClass implements View.OnClickListener {
 
     public MyPreference myPreference;
+    public File pic;
     public TextView tvOrganisationName,tvphoneNumber,tvName,tvAddress,tvemailAddress,tvAttributeFont,tvEmptyText;
-    public LinearLayout llAddress,llMail,llPhoneNumber,llEdit,llChangeLayout,llSave,llPreview,llSideView,llLowerView;
+    public LinearLayout llAddress,llMail,llPhoneNumber,llEdit,llChangeLayout,llSave,llPreview,llSideView,llLowerView,lllogo;
     public RelativeLayout rlCard,rlUsertype,rlRecyclerView,rlColorHolder,rlBorderColorHolder,rlBorder;
-    public ImageView ivBack,ivDown, ivCard, ivAddress, ivMail, ivPhone;
+    public ImageView ivBack,ivDown, ivCard, ivAddress, ivMail, ivPhone,cardLogo;
     public ToggleButton toggleAttribute;
     public RecyclerView rvFont;
     public EditText etFont;
@@ -85,6 +97,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     DisplayMetrics metrics;
     int tendp;
     int twentydp;
+    String[] permissions = { android.Manifest.permission.READ_EXTERNAL_STORAGE};
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -156,6 +169,8 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
 
     private void initView() {
+        cardLogo=findViewById(R.id.cardLogo);
+        lllogo=findViewById(R.id.lllogo);
         rlBorder=findViewById(R.id.rlBorder);
         etFont=findViewById(R.id.etFont);
         ivPhone=findViewById(R.id.ivPhone);
@@ -630,6 +645,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             }
         });
         llEdit.setOnClickListener(this);
+        lllogo.setOnClickListener(this);
         etFont.setOnClickListener(this);
         llPreview.setOnClickListener(this);
         llSave.setOnClickListener(this);
@@ -637,6 +653,37 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         ivBack.setOnClickListener(this);
         rlBorder.setOnClickListener(this);
         rlCard.setOnClickListener(this);
+        cardLogo.setOnTouchListener(new View.OnTouchListener() {
+            float dX;
+            float dY;
+            int lastAction;
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        textSelectd="";
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        view.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0)
+                                .start();
+                        //lastAction = MotionEvent.ACTION_MOVE;
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (lastAction == MotionEvent.ACTION_DOWN)
+                            //Toast.makeText(DashBoardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                            break;
+
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
         tvOrganisationName.setOnTouchListener(new View.OnTouchListener() {
 
             float dX;
@@ -955,10 +1002,82 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         });
     }
 
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, 100);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 201);
+            } else {
+                requestPermission();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 201:
+                if (resultCode == RESULT_OK) {
+                    assert data != null;
+                    Uri selectedImage = data.getData();
+                    String[] filePath = {MediaStore.Images.Media.DATA};
+                    assert selectedImage != null;
+                    Cursor c = Objects.requireNonNull(CardEditActivity.this).getContentResolver().query(selectedImage, filePath, null, null, null);
+                    assert c != null;
+                    c.moveToFirst();
+                    int columnIndex = c.getColumnIndex(filePath[0]);
+                    String picturePath = c.getString(columnIndex);
+                    c.close();
+                    BitmapFactory.Options Options = new BitmapFactory.Options();
+                    Options.inSampleSize = 4;
+                    Options.inJustDecodeBounds = false;
+                    Bitmap bitmap = (BitmapFactory.decodeFile(picturePath,Options));
+                    Uri uri = getImageUri(Objects.requireNonNull(CardEditActivity.this), bitmap);
+                    pic = new File(getRealPathFromURI(uri));
+                    cardLogo.setImageBitmap(bitmap);
+                }
+                break;
+        }
+    }
+
+    Uri getImageUri(Context inContext, Bitmap inImage){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "image", null);
+        return Uri.parse(path);
+    }
+
+    String getRealPathFromURI(Uri uri){
+        String path = "";
+        if (Objects.requireNonNull(CardEditActivity.this).getContentResolver() != null) {
+            Cursor cursor = Objects.requireNonNull(CardEditActivity.this).getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.lllogo:
+                hideKeyBoardLinearlayout(lllogo);
+                requestPermission();
+                break;
             case R.id.rlCard:
                 textSelectd="";
                 etFont.setClickable(true);
