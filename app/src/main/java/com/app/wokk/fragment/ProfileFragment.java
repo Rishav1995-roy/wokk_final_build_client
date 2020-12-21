@@ -39,6 +39,7 @@ import com.app.wokk.customAlert.CustomAlertWithOneButton;
 import com.app.wokk.preference.MyPreference;
 import com.app.wokk.utility.SwipeDisableViewpager;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -78,7 +79,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void init(View rootView) {
-        showRotateDialog();
         ivcard=rootView.findViewById(R.id.ivCard);
         viewPager=rootView.findViewById(R.id.viewPager);
         ivFirstStar=rootView.findViewById(R.id.ivFirstStar);
@@ -153,9 +153,10 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void setUpDataForProfile() {
-        if(cardDetailsResponseModel != null){
+        if(ContainerActivity.getCardResponseDataModel != null && cardDetailsResponseModel != null){
             ivcard.setVisibility(View.VISIBLE);
-            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).into(ivcard);
+            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(ivcard);
             tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ContainerActivity.getCardResponseDataModel.user_pin);
             tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
             btnEditCard.setVisibility(View.VISIBLE);
@@ -176,7 +177,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
             }
         }
-        hideRotateDialog();
     }
 
     private void setTabIcons() {

@@ -97,11 +97,13 @@
 
                     <TextView
                         android:id="@+id/tvemailAddress"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_2sdp"
-                        android:maxWidth="@dimen/_100sdp"/>
+                        android:maxWidth="@dimen/_180sdp"/>
                 </LinearLayout>
 
                 <LinearLayout

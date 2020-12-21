@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/ivGallery"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_60sdp"/>
         <TextView
@@ -20,7 +20,8 @@
             android:layout_below="@id/ivGallery"
             android:textColor="@color/black"
             android:singleLine="false"
-            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:fontFamily="@font/gidole_regular"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:textSize="@dimen/_10sdp"
             android:maxWidth="@dimen/_60sdp"
             android:textAlignment="center"

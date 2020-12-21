@@ -9,8 +9,9 @@
     <TextView
         android:id="@+id/tvname"
         android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/gidole_regular"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        style="@style/TextAppearance.MaterialComponents.Body2"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:textSize="@dimen/_8sdp"

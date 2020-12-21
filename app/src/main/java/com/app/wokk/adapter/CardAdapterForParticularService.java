@@ -31,6 +31,7 @@ import com.app.wokk.retrofit.Constant;
 import com.app.wokk.retrofit.RestManager;
 import com.app.wokk.viewHolder.CardViewHolderForService;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -71,7 +72,8 @@ public class CardAdapterForParticularService extends RecyclerView.Adapter<CardVi
     @Override
     public void onBindViewHolder(@NonNull CardViewHolderForService holder,final int position) {
         Drawable d=null;
-        Glide.with(context).load(cardList.get(position).card_image_url).into(holder.ivCard);
+        Glide.with(context).load(cardList.get(position).card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).into(holder.ivCard);
         if(cardList.get(position).view_count != null)
             holder.tvViewCount.setText(cardList.get(position).view_count);
         else

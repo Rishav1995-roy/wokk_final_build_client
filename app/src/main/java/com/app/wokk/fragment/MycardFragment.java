@@ -67,6 +67,7 @@ import com.app.wokk.preference.MyPreference;
 import com.app.wokk.retrofit.Constant;
 import com.app.wokk.retrofit.RestManager;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
@@ -271,7 +272,8 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         if (validity_status) {
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
-            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).into(ivCard);
+            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(ivCard);
             tvCardHolderName.setText(getCardResponseDataModel.user_fname+" "+getCardResponseDataModel.user_lname+", "+getCardResponseDataModel.user_organization_name);
             for(int i=0;i<servicesList.size();i++){
                 if(servicesList.get(i).service_id.equals(getCardResponseDataModel.user_service_id)){

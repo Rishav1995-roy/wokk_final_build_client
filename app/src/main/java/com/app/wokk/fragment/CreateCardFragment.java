@@ -236,7 +236,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         rlFemale.setOnClickListener(this);
         rlOther.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
-        etLastname.addTextChangedListener(new TextWatcher() {
+        etFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -451,17 +451,17 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         RequestBody apiPass=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
         RequestBody userId=RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
         RequestBody firstName=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etFirstName.getText()).toString());
-        RequestBody lastname=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etLastname.getText()).toString());
+        RequestBody lastname=RequestBody.create(MediaType.parse("multipart/form-data"), "");
         RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etAddress.getText()).toString());
         RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etEmail.getText()).toString());
-        RequestBody gender = null;
-        if(ivOther.getTag().toString().toLowerCase().equals("selected")){
+        RequestBody gender = RequestBody.create(MediaType.parse("multipart/form-data"), "0");;
+        /*if(ivOther.getTag().toString().toLowerCase().equals("selected")){
             gender=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }else if(ivMale.getTag().toString().toLowerCase().equals("selected")){
             gender=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
         }else if(ivFemale.getTag().toString().toLowerCase().equals("selected")){
             gender=RequestBody.create(MediaType.parse("multipart/form-data"), "2");
-        }
+        }*/
         RequestBody serviceId=RequestBody.create(MediaType.parse("multipart/form-data"), serviceID);
         RequestBody organisationname=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etOrganisationame.getText()).toString());
         RequestBody organisationDescription=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etDescription.getText()).toString());
@@ -661,11 +661,11 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             etFirstName.requestFocus();
             return false;
         }
-        if(Objects.requireNonNull(etLastname.getText()).toString().isEmpty()){
+        /*if(Objects.requireNonNull(etLastname.getText()).toString().isEmpty()){
             customAlert("Please enter your last name!");
             etLastname.requestFocus();
             return false;
-        }
+        }*/
         if(Objects.requireNonNull(etOrganisationame.getText()).toString().isEmpty()){
             customAlert("Please enter your oraganistion name!");
             etOrganisationame.requestFocus();
@@ -700,10 +700,10 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             customAlert("Please a select a user type");
             return false;
         }
-        if(!genderSelected){
+        /*if(!genderSelected){
             customAlert("Please select any one from the gender.");
             return false;
-        }
+        }*/
         return true;
     }
 

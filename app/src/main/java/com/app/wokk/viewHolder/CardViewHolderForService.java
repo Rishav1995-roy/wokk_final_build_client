@@ -1,6 +1,7 @@
 package com.app.wokk.viewHolder;
 
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,7 +17,7 @@ public class CardViewHolderForService extends RecyclerView.ViewHolder {
     public View itemView;
     public TextView tvViewCount;
     public ImageView ivCard;
-    public RelativeLayout rlCard;
+    public FrameLayout rlCard;
     
     public CardViewHolderForService(@NonNull View itemView) {
         super(itemView);

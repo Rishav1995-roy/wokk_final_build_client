@@ -63,8 +63,9 @@
                     android:id="@+id/tvFirst"
                     android:background="@null"
                     android:maxLength="1"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textAlignment="center"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_34sdp"/>
@@ -86,8 +87,9 @@
                     android:background="@null"
                     android:maxLength="1"
                     android:textAlignment="center"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_34sdp"/>
                 <View
@@ -107,7 +109,8 @@
                     android:maxLength="1"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/orange"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/gidole_regular"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_34sdp"/>
@@ -128,7 +131,8 @@
                     android:maxLength="1"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/orange"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_34sdp"/>
                 <View

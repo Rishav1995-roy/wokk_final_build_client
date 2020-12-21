@@ -331,7 +331,7 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
         editProfileClass.apiCredentialModel=apiCredentialModel;
         editProfileClass.user_id=myPreference.getUserID();
         editProfileClass.user_fname= Objects.requireNonNull(editProfileAlert.etFirstName.getText()).toString();
-        editProfileClass.user_lname= Objects.requireNonNull(editProfileAlert.etLastname.getText()).toString();
+        editProfileClass.user_lname= "";
         editProfileClass.user_address= Objects.requireNonNull(editProfileAlert.etAddress.getText()).toString();
         editProfileClass.user_pin= Objects.requireNonNull(editProfileAlert.etPin.getText()).toString();
         editProfileClass.user_email= Objects.requireNonNull(editProfileAlert.etEmail.getText()).toString();
@@ -487,11 +487,11 @@ public class UserDetailsFragment extends BaseFragment implements View.OnClickLis
             editProfileAlert.etFirstName.requestFocus();
             return false;
         }
-        if (Objects.requireNonNull(editProfileAlert.etLastname.getText()).toString().isEmpty()) {
+        /*if (Objects.requireNonNull(editProfileAlert.etLastname.getText()).toString().isEmpty()) {
             customAlert("Please enter your last name!");
             editProfileAlert.etLastname.requestFocus();
             return false;
-        }
+        }*/
         if (Objects.requireNonNull(editProfileAlert.etAddress.getText()).toString().isEmpty()) {
             customAlert("Please enter your address!");
             editProfileAlert.etAddress.requestFocus();

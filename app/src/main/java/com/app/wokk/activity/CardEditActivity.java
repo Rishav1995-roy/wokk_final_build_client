@@ -106,7 +106,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     int tendp;
     int twentydp;
     String[] permissions = { android.Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +177,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initView() {
         cardLogo=findViewById(R.id.cardLogo);
         lllogo=findViewById(R.id.lllogo);
@@ -218,6 +219,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         clickEvent();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setData() {
         if(ContainerActivity.getCardResponseDataModel.user_fname != null && ContainerActivity.getCardResponseDataModel.user_lname != null)
             tvName.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
@@ -1160,6 +1162,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 }
                 break;
             case R.id.llSave:
+                hideKeyBoardLinearlayout(llSave);
+                llPhoneNumber.setBackground(null);
+                tvName.setBackground(null);
+                tvOrganisationName.setBackground(null);
+                llAddress.setBackground(null);
+                llMail.setBackground(null);
                 Bitmap bitmap=Bitmap.createBitmap(rlCard.getWidth(),rlCard.getHeight(),Bitmap.Config.ARGB_8888);
                 Canvas canvas=new Canvas(bitmap);
                 Drawable drawable=rlCard.getBackground();
@@ -1568,8 +1576,9 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         RequestBody userfname=null;
         RequestBody userlName=null;
         String[] namearray=tvName.getText().toString().split(" ");
-        userfname=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[0]);
-        if(namearray.length>2){
+        userfname=RequestBody.create(MediaType.parse("multipart/form-data"), tvName.getText().toString());
+        userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        /*if(namearray.length>2){
             if(!namearray[1].isEmpty() && !namearray[2].isEmpty()){
                 userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]+" "+namearray[2]);
             }else if(!namearray[1].isEmpty()){
@@ -1583,7 +1592,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             }else{
                 userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
             }
-        }
+        }*/
         String[] addressArray=tvAddress.getText().toString().split("-");
         RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"),addressArray[0]);
         RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"),tvemailAddress.getText().toString());

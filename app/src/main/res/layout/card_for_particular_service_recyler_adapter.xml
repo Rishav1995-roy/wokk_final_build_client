@@ -4,19 +4,19 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/rlCard"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_height="@dimen/_200sdp">
 
         <ImageView
             android:id="@+id/ivCard"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <LinearLayout
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -36,6 +36,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="6"
+                android:fontFamily="@font/gidole_regular"
                 android:textStyle="bold"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
@@ -43,6 +44,6 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-    </RelativeLayout>
+    </FrameLayout>
 
 </RelativeLayout>

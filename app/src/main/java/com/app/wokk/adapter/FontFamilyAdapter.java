@@ -1,6 +1,7 @@
 package com.app.wokk.adapter;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.wokk.R;
@@ -54,6 +56,7 @@ public class FontFamilyAdapter extends RecyclerView.Adapter<FontFamilyViewHolder
             holder.view.setVisibility(View.VISIBLE);
         }
         holder.llUserType.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 if(fontList.get(position).toLowerCase().equals("courier new, monospace")){

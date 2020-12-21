@@ -93,6 +93,7 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
         youtubeDetailsModelArrayList=new ArrayList<>();
         requestPermission();
         initView();
+
     }
 
     private void requestPermission() {
@@ -115,12 +116,6 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        boolean networkCheck = NetworkCheck.getInstant(getApplicationContext()).isConnectingToInternet();
-        if (networkCheck) {
-            getUserdetails();
-        }else{
-            customAlert(getResources().getString(R.string.noInternetText));
-        }
         if (myPreference.getFromCardEdit()){
             Fragment profileFragment = ProfileFragment.newInstance();
             FragmentTransaction profileTransaction = getSupportFragmentManager().beginTransaction();
@@ -251,6 +246,12 @@ public class ContainerActivity extends BaseClass implements View.OnClickListener
         transaction.replace(R.id.frameContainerChild, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+        boolean networkCheck = NetworkCheck.getInstant(getApplicationContext()).isConnectingToInternet();
+        if (networkCheck) {
+            getUserdetails();
+        }else{
+            customAlert(getResources().getString(R.string.noInternetText));
+        }
         clickEvent();
     }
 

@@ -13,7 +13,7 @@
     <string name="editPasswordHint">Password</string>
     <string name="forgotPassword"><u>Forgot password?</u></string>
     <string name="signInText">Don\'t have an account?</string>
-    <string name="signInClick"><u>Sign up</u></string>
+    <string name="signInClick"><u>Create account</u></string>
     <string name="signInButton">Sign in</string>
     <string name="edit"><u>Edit</u></string>
     <string name="versionName">Version: 1.0.23</string>

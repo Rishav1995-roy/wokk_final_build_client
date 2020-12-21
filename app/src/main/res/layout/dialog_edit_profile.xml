@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="First name"
+                        android:hint="Proprietor name"
                         android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -56,6 +56,7 @@
                     android:background="@color/offBlack" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_20sdp"
@@ -80,6 +81,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
