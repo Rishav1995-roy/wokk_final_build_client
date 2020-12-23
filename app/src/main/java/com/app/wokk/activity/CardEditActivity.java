@@ -1611,13 +1611,13 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             nameFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_name_fontsize_mob);
         }
         RequestBody addressFont = null;
-        if(addressFont != null){
+        if(addressFontValue != null){
             addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), addressFontValue);
         }else {
             addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_address_fontsize_mob);
         }
         RequestBody emailFont = null;
-        if(emailFont != null){
+        if(emailFontvalue != null){
             emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), emailFontvalue);
         }else {
             emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_email_fontsize_mob);

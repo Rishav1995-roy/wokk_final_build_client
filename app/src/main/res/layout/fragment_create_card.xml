@@ -37,8 +37,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/user"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
 
                     <TextView
+                        android:layout_marginStart="@dimen/_25sdp"
                         android:id="@+id/tvuserType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -104,12 +113,21 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/user"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:maxLines="1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:hint="Proprietor name"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -135,9 +153,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/phone"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etLastname"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -168,9 +194,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/phone"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPhoneNumber"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -201,9 +235,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/at"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -233,9 +275,17 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:minHeight="@dimen/_40sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/location"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -265,13 +315,21 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:minHeight="@dimen/_40sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/location"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPin"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="Enter your pincode"
+                        android:hint="Pincode"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="6"
@@ -297,9 +355,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/organisation"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOrganisationame"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -328,9 +394,17 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/organisation"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDescription"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"

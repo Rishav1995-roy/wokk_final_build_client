@@ -20,8 +20,8 @@
         <RelativeLayout
             android:id="@+id/rlCard"
             android:layout_centerInParent="true"
-            android:layout_width="@dimen/_352sdp"
-            android:layout_height="@dimen/_202sdp">
+            android:layout_width="@dimen/_354sdp"
+            android:layout_height="@dimen/_204sdp">
             <RelativeLayout
                 android:layout_width="@dimen/_350sdp"
                 android:layout_height="@dimen/_200sdp"

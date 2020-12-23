@@ -110,6 +110,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             ContainerActivity.rlCreate.setVisibility(View.VISIBLE);
             llNumber.setVisibility(View.GONE);
         }
+        boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
+        if (networkCheck) {
+            getServiceList();
+            getUserdetails();
+        } else {
+            customAlert(getResources().getString(R.string.noInternetText));
+        }
         return rootView;
     }
 
@@ -139,15 +146,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             if (!timerIsRunning)
                 startTimerForAutoScroll();*/
-
-            boolean networkCheck = NetworkCheck.getInstant(getActivity()).isConnectingToInternet();
-            if (networkCheck) {
-                getServiceList();
-                getUserdetails();
-            } else {
-                customAlert(getResources().getString(R.string.noInternetText));
-            }
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void getUserdetails() {

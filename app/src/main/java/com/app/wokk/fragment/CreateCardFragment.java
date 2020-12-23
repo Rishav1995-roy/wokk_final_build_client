@@ -160,8 +160,8 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         }
         tvphoneNumber.setText(etPhoneNumber.getText().toString());
         RelativeLayout.LayoutParams phoneParams = (RelativeLayout.LayoutParams) llPhoneNumber.getLayoutParams();
-        phoneParams.topMargin=290;
-        phoneParams.leftMargin=390;
+        phoneParams.topMargin=550;
+        phoneParams.leftMargin=700;
         llPhoneNumber.setLayoutParams(phoneParams);
         clickEvent();
         requestPermission();
@@ -252,8 +252,8 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                 if(!s.toString().isEmpty()){
                     tvName.setText(etFirstName.getText().toString()+" "+etLastname.getText().toString());
                     RelativeLayout.LayoutParams tvNameParams = (RelativeLayout.LayoutParams) tvName.getLayoutParams();
-                    tvNameParams.topMargin=146;
-                    tvNameParams.leftMargin=36;
+                    tvNameParams.topMargin=200;
+                    tvNameParams.leftMargin=50;
                     tvName.setLayoutParams(tvNameParams);
                 }
             }
@@ -274,8 +274,8 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                 if(!s.toString().isEmpty()){
                     tvOrganisationName.setText(etOrganisationame.getText().toString());
                     RelativeLayout.LayoutParams tvOrganisationParams = (RelativeLayout.LayoutParams) tvOrganisationName.getLayoutParams();
-                    tvOrganisationParams.topMargin=62;
-                    tvOrganisationParams.leftMargin=29;
+                    tvOrganisationParams.topMargin=100;
+                    tvOrganisationParams.leftMargin=50;
                     tvOrganisationName.setLayoutParams(tvOrganisationParams);
                 }
             }
@@ -294,10 +294,10 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             @Override
             public void afterTextChanged(Editable s) {
                 if(!s.toString().isEmpty()){
-                    tvCardAddress.setText(etAddress.getText().toString()+" "+etPin.getText().toString());
+                    tvCardAddress.setText(etAddress.getText().toString()+"-"+etPin.getText().toString());
                     RelativeLayout.LayoutParams addressParams = (RelativeLayout.LayoutParams) llAddress.getLayoutParams();
-                    addressParams.topMargin=270;
-                    addressParams.leftMargin=36;
+                    addressParams.topMargin=550;
+                    addressParams.leftMargin=50;
                     llAddress.setLayoutParams(addressParams);
                 }
             }
@@ -318,8 +318,8 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                 if(!s.toString().isEmpty()){
                     tvemailAddress.setText(etEmail.getText().toString());
                     RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
-                    mailParams.leftMargin=390;
-                    mailParams.topMargin=200;
+                    mailParams.leftMargin=700;
+                    mailParams.topMargin=450;
                     llMail.setLayoutParams(mailParams);
                 }
             }
@@ -327,8 +327,8 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
         if(!etEmail.getText().toString().isEmpty()){
             tvemailAddress.setText(etEmail.getText().toString());
             RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
-            mailParams.leftMargin=390;
-            mailParams.topMargin=200;
+            mailParams.leftMargin=700;
+            mailParams.topMargin=450;
             llMail.setLayoutParams(mailParams);
         }
     }
@@ -358,9 +358,9 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
                             canvas.drawColor(Color.WHITE);
                         }
                         rlCard.draw(canvas);
-                        /*rlCard.setDrawingCacheEnabled(true);
-                        Bitmap bitmap = rlCard.getDrawingCache();*/
-                        String file = getFilename();
+                        //rlCard.setDrawingCacheEnabled(true);
+                        //Bitmap bitmap = rlCard.getDrawingCache();
+                        //String file = getFilename();
                         try {
                             pic = File.createTempFile("card", ".png", Environment.getExternalStorageDirectory());
                             FileOutputStream ostream = new FileOutputStream(pic);
