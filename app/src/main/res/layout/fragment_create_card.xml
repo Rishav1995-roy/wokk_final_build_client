@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:ellipsize="end"
-                        android:text="Select service type"
+                        android:hint="Select service type"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
@@ -568,6 +568,7 @@
                 android:layout_height="@dimen/_200sdp">
 
                 <TextView
+                    android:singleLine="false"
                     android:id="@+id/tvOrganisationName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -577,6 +578,7 @@
 
                 <TextView
                     android:id="@+id/tvName"
+                    android:singleLine="false"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     style="@style/TextAppearance.MaterialComponents.Headline1"
@@ -593,7 +595,6 @@
                         android:id="@+id/ivAddress"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                        android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/location" />
@@ -621,7 +622,6 @@
                         android:id="@+id/ivMail"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                        android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/at" />

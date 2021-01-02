@@ -90,6 +90,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     public MyPreference myPreference;
     public File pic;
     public File card_pic;
+    String organisationName="";
     public TextView tvOrganisationName,tvphoneNumber,tvName,tvAddress,tvemailAddress,tvAttributeFont,tvEmptyText;
     public LinearLayout llAddress,llMail,llPhoneNumber,llEdit,llChangeLayout,llSave,llPreview,llSideView,llLowerView,lllogo;
     public RelativeLayout rlCard,rlUsertype,rlRecyclerView,rlColorHolder,rlBorderColorHolder,rlBorder;
@@ -1362,7 +1363,10 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                        editCardDialog.dismiss();
                         switch (textSelectd){
                             case "organisation":
-                                textView.setText(editCardDialog.etTitle.getText().toString());
+                                StringBuilder sb = new StringBuilder(editCardDialog.etTitle.getText().toString());
+                                sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+                                organisationName=sb.toString();
+                                textView.setText(organisationName);
                                 break;
                             case "name":
                                 textView.setText(editCardDialog.etTitle.getText().toString());
@@ -1392,113 +1396,6 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         int marginBottomMail=(int) llMail.getY();
         int marginRightPhone=(int) llPhoneNumber.getX();
         int marginBottomPhone=(int) llPhoneNumber.getY();
-//        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-//        apiCredentialModel.apiuser= Constant.apiuser;
-//        apiCredentialModel.apipass=Constant.apipass;
-//        EditCardClass editCardClass=new EditCardClass();
-//        editCardClass.apiCredentialModel=apiCredentialModel;
-//        editCardClass.user_id=myPreference.getUserID();
-//        editCardClass.card_layout_id=layoutId;
-//        editCardClass.card_org_color=organisationColor;
-//        if(organisationFont != null)
-//            editCardClass.card_org_font=organisationFont;
-//        else
-//            editCardClass.card_org_font="";
-//        editCardClass.card_org_top_mob=String.valueOf(margintopOragnisation);
-//        editCardClass.card_org_left_mob=String.valueOf(marginleftOragnisation);
-//        if(oraganisationVisibility)
-//            editCardClass.card_org_show="1";
-//        else
-//            editCardClass.card_org_show="0";
-//        editCardClass.card_name_color=nameColor;
-//        if(nameFont != null)
-//            editCardClass.card_name_font=nameFont;
-//        else
-//            editCardClass.card_name_font="";
-//        editCardClass.card_name_top_mob=String.valueOf(marginTopName);
-//        editCardClass.card_name_left_mob=String.valueOf(marginLeftName);
-//        if(nameVisibility)
-//            editCardClass.card_name_show="1";
-//        else
-//            editCardClass.card_name_show="0";
-//        editCardClass.card_address_color=addressColor;
-//        if(addressFont != null)
-//            editCardClass.card_address_font=addressFont;
-//        else
-//            editCardClass.card_address_font="";
-//        editCardClass.card_address_top_mob=String.valueOf(marginBottomAddress);
-//        editCardClass.card_address_left_mob=String.valueOf(marginLeftAddress);
-//        if(addressVisibility)
-//            editCardClass.card_address_show="1";
-//        else
-//            editCardClass.card_address_show="0";
-//        editCardClass.card_email_color=emailColor;
-//        if(emailFont != null)
-//            editCardClass.card_email_font=emailFont;
-//        else
-//            editCardClass.card_email_font="";
-//        editCardClass.card_email_top_mob=String.valueOf(marginBottomMail);
-//        editCardClass.card_email_left_mob=String.valueOf(marginRightMail);
-//        if(emailVisibility)
-//            editCardClass.card_email_show="1";
-//        else
-//            editCardClass.card_email_show="0";
-//        editCardClass.card_phone_color=phoneColor;
-//        if(phoneFont != null)
-//            editCardClass.card_phone_font=phoneFont;
-//        else
-//            editCardClass.card_phone_font="";
-//        editCardClass.card_phone_left_mob=String.valueOf(marginRightPhone);
-//        editCardClass.card_phone_top_mob=String.valueOf(marginBottomPhone);
-//        if(phoneVisibility)
-//            editCardClass.card_phone_show="1";
-//        else
-//            editCardClass.card_phone_show="0";
-//        String[] namearray=tvName.getText().toString().split(" ");
-//        editCardClass.user_fname=namearray[0];
-//        if(namearray.length>2){
-//            if(!namearray[1].isEmpty() && !namearray[2].isEmpty()){
-//                editCardClass.user_lname=namearray[1]+" "+namearray[2];
-//            }else if(!namearray[1].isEmpty()){
-//                editCardClass.user_lname=namearray[1];
-//            }else{
-//                editCardClass.user_lname="";
-//            }
-//        }else{
-//            if(!namearray[1].isEmpty()){
-//                editCardClass.user_lname=namearray[1];
-//            }else{
-//                editCardClass.user_lname="";
-//            }
-//        }
-//
-//        String[] addressArray=tvAddress.getText().toString().split("-");
-//        editCardClass.user_address=addressArray[0];
-//        editCardClass.user_email=tvemailAddress.getText().toString();
-//        editCardClass.user_organization_name=tvOrganisationName.getText().toString();
-//        editCardClass.card_border_color=borderColor;
-//        if(addressFontValue!= null)
-//            editCardClass.card_address_fontsize_mob=addressFontValue;
-//        else
-//            editCardClass.card_address_fontsize_mob=cardDetailsResponseModel.card_address_fontsize_mob;
-//        if(phoneFontvalue != null)
-//            editCardClass.card_phone_fontsize_mob=phoneFontvalue;
-//        else
-//            editCardClass.card_phone_fontsize_mob=cardDetailsResponseModel.card_phone_fontsize_mob;
-//        if(organisationFontvalue != null)
-//            editCardClass.card_org_fontsize_mob=organisationFontvalue;
-//        else
-//            editCardClass.card_org_fontsize_mob=cardDetailsResponseModel.card_org_fontsize_mob;
-//        if(nameFontValue != null)
-//            editCardClass.card_name_fontsize_mob=nameFontValue;
-//        else
-//            editCardClass.card_name_fontsize_mob=cardDetailsResponseModel.card_name_fontsize_mob;
-//        if(emailFontvalue != null)
-//            editCardClass.card_email_fontsize_mob=emailFontvalue;
-//        else
-//            editCardClass.card_email_fontsize_mob=cardDetailsResponseModel.card_email_fontsize_mob;
-//        Gson gson=new Gson();
-//        JsonElement jsonElement=gson.toJsonTree(editCardClass);
         RequestBody apiUser=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
         RequestBody apiPass=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
         RequestBody userId=RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
@@ -1575,29 +1472,16 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         }
         RequestBody userfname=null;
         RequestBody userlName=null;
-        String[] namearray=tvName.getText().toString().split(" ");
         userfname=RequestBody.create(MediaType.parse("multipart/form-data"), tvName.getText().toString());
         userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
-        /*if(namearray.length>2){
-            if(!namearray[1].isEmpty() && !namearray[2].isEmpty()){
-                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]+" "+namearray[2]);
-            }else if(!namearray[1].isEmpty()){
-                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]);
-            }else{
-                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            }
-        }else{
-            if(!namearray[1].isEmpty()){
-                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), namearray[1]);
-            }else{
-                userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            }
-        }*/
         String[] addressArray=tvAddress.getText().toString().split("-");
         RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"),addressArray[0]);
         RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"),tvemailAddress.getText().toString());
         RequestBody bordercolor=RequestBody.create(MediaType.parse("multipart/form-data"),borderColor);
-        RequestBody org=RequestBody.create(MediaType.parse("multipart/form-data"),tvOrganisationName.getText().toString());
+        StringBuilder sb = new StringBuilder(tvOrganisationName.getText().toString());
+        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        organisationName=sb.toString();
+        RequestBody org=RequestBody.create(MediaType.parse("multipart/form-data"),organisationName);
         RequestBody phoneFont = null;
         if(phoneFontvalue != null){
             phoneFont=RequestBody.create(MediaType.parse("multipart/form-data"), phoneFontvalue);

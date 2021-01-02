@@ -102,10 +102,9 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public MyPreference myPreference;
     public RecyclerView rvGallery, rvYoutube;
     public EditText etNumber;
-    public RelativeLayout rlYoutube, rlAlert,rlSms,rlWhatsappShare;
-    public Button btnFollow,btnShare;
-    public TextView tvEmptyText, tvEmptyTextYoutube, tvProfile,tvCardHolderName,tvUserType,tvUserDecsp;
-    public ImageView ivInstagram, ivCard, ivTwitter, ivFacebook,ivCardHolderPhone,ivContact,ivCardHolderWhatsapp;
+    public RelativeLayout rlYoutube, rlAlert,rlSms,rlWhatsappShare,rlFollow,rlWapp,rlCall,rlshare,rlWokkYoutubeLink;
+    public TextView tvEmptyText, tvEmptyTextYoutube, tvProfile,tvCardHolderName,tvUserType,tvUserDecsp,tvFollow;
+    public ImageView ivInstagram, ivCard, ivTwitter, ivFacebook,ivCardHolderPhone,ivContact,ivCardHolderWhatsapp,ivFollow;
     public GetCardResponseDataModel getCardResponseDataModel;
     public CardDetailsResponseModel cardDetailsResponseModel;
     public ArrayList<GalleryResponseModel> galleryCardList;
@@ -240,41 +239,44 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
 
     private void setData() {
         if (follow_count == null) {
+            ivFollow.setVisibility(View.VISIBLE);
             if (follow_status == 0) {
-                btnFollow.setText("Follow");
-                btnFollow.setClickable(true);
-                btnFollow.setEnabled(true);
-                btnFollow.setFocusable(true);
-                btnFollow.setAlpha(1.0f);
+                tvFollow.setText("Follow");
+                rlFollow.setClickable(true);
+                rlFollow.setEnabled(true);
+                rlFollow.setFocusable(true);
+                rlFollow.setAlpha(1.0f);
             } else if (follow_status == 1) {
-                btnFollow.setText("Followed");
-                btnFollow.setClickable(false);
-                btnFollow.setEnabled(false);
-                btnFollow.setFocusable(false);
-                btnFollow.setAlpha(0.4f);
+                tvFollow.setText("Followed");
+                tvFollow.setTextSize(getResources().getDimensionPixelSize(R.dimen._3sdp));
+                rlFollow.setClickable(false);
+                rlFollow.setEnabled(false);
+                rlFollow.setFocusable(false);
+                rlFollow.setAlpha(0.4f);
             }
         } else {
-            btnFollow.setText("Followers: " + follow_count);
-            btnFollow.setClickable(false);
-            btnFollow.setEnabled(false);
-            btnFollow.setFocusable(false);
-            btnFollow.setAlpha(0.4f);
-            btnFollow.setTextSize(getResources().getDimensionPixelSize(R.dimen._4sdp));
-            ivCardHolderWhatsapp.setAlpha(0.4f);
-            ivCardHolderWhatsapp.setClickable(false);
-            ivCardHolderWhatsapp.setEnabled(false);
-            ivCardHolderWhatsapp.setFocusable(false);
-            ivCardHolderPhone.setAlpha(0.4f);
-            ivCardHolderPhone.setClickable(false);
-            ivCardHolderPhone.setEnabled(false);
-            ivCardHolderPhone.setFocusable(false);
+            ivFollow.setVisibility(View.GONE);
+            tvFollow.setText("Followers: " + follow_count);
+            rlFollow.setClickable(false);
+            rlFollow.setEnabled(false);
+            rlFollow.setFocusable(false);
+            rlFollow.setAlpha(0.4f);
+            tvFollow.setTextSize(getResources().getDimensionPixelSize(R.dimen._3sdp));
+            rlCall.setAlpha(0.4f);
+            rlCall.setClickable(false);
+            rlCall.setEnabled(false);
+            rlCall.setFocusable(false);
+            rlWapp.setAlpha(0.4f);
+            rlWapp.setClickable(false);
+            rlWapp.setEnabled(false);
+            rlWapp.setFocusable(false);
         }
         if (validity_status) {
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
             Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(ivCard);
-            tvCardHolderName.setText(getCardResponseDataModel.user_fname+" "+getCardResponseDataModel.user_lname+", "+getCardResponseDataModel.user_organization_name);
+            tvCardHolderName.setText(getCardResponseDataModel.user_fname+", "+getCardResponseDataModel.user_organization_name);
             for(int i=0;i<servicesList.size();i++){
                 if(servicesList.get(i).service_id.equals(getCardResponseDataModel.user_service_id)){
                     tvUserType.setText(servicesList.get(i).service_name);
@@ -282,11 +284,23 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             }
             tvUserDecsp.setText(getCardResponseDataModel.user_organization_desc);
             if (cardDetailsResponseModel.card_phone_show.equals("1")) {
-                ivCardHolderPhone.setVisibility(View.VISIBLE);
-                ivCardHolderWhatsapp.setVisibility(View.VISIBLE);
+                rlCall.setAlpha(1.0f);
+                rlCall.setClickable(true);
+                rlCall.setEnabled(true);
+                rlCall.setFocusable(true);
+                rlWapp.setAlpha(1.0f);
+                rlWapp.setClickable(true);
+                rlWapp.setEnabled(true);
+                rlWapp.setFocusable(true);
             } else {
-                ivCardHolderWhatsapp.setVisibility(View.GONE);
-                ivCardHolderPhone.setVisibility(View.GONE);
+                rlCall.setAlpha(0.4f);
+                rlCall.setClickable(false);
+                rlCall.setEnabled(false);
+                rlCall.setFocusable(false);
+                rlWapp.setAlpha(0.4f);
+                rlWapp.setClickable(false);
+                rlWapp.setEnabled(false);
+                rlWapp.setFocusable(false);
             }
         }else{
             scroll.setVisibility(View.GONE);
@@ -295,6 +309,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void init(View rootView) {
+        tvFollow = rootView.findViewById(R.id.tvFollow);
         ivCard = rootView.findViewById(R.id.ivCard);
         tvUserDecsp = rootView.findViewById(R.id.tvUserDecsp);
         rlAlert = rootView.findViewById(R.id.rlAlert);
@@ -309,23 +324,30 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         ivContact = rootView.findViewById(R.id.ivContact);
         tvEmptyText = rootView.findViewById(R.id.tvEmptyText);
         ivCardHolderPhone = rootView.findViewById(R.id.ivCardHolderPhone);
-        btnShare = rootView.findViewById(R.id.btnShare);
         ivCardHolderWhatsapp = rootView.findViewById(R.id.ivCardHolderWhatsapp);
-        btnFollow = rootView.findViewById(R.id.btnFollow);
         tvCardHolderName = rootView.findViewById(R.id.tvCardHolderName);
         tvUserType = rootView.findViewById(R.id.tvUserType);
         rlWhatsappShare = rootView.findViewById(R.id.rlWhatsappShare);
         rlSms = rootView.findViewById(R.id.rlSms);
         etNumber = rootView.findViewById(R.id.etNumber);
         rvGallery = rootView.findViewById(R.id.rvGallery);
+        rlWokkYoutubeLink = rootView.findViewById(R.id.rlWokkYoutubeLink);
+        rlCall = rootView.findViewById(R.id.rlCall);
+        rlshare = rootView.findViewById(R.id.rlshare);
+        rlFollow = rootView.findViewById(R.id.rlFollow);
+        rlWapp = rootView.findViewById(R.id.rlWapp);
+        ivFollow = rootView.findViewById(R.id.ivFollow);
         clickEvent();
     }
 
     private void clickEvent() {
         ivCardHolderWhatsapp.setOnClickListener(this);
         rlWhatsappShare.setOnClickListener(this);
-        btnFollow.setOnClickListener(this);
-        btnShare.setOnClickListener(this);
+        rlFollow.setOnClickListener(this);
+        rlshare.setOnClickListener(this);
+        rlCall.setOnClickListener(this);
+        rlWapp.setOnClickListener(this);
+        rlWokkYoutubeLink.setOnClickListener(this);
         ivCardHolderPhone.setOnClickListener(this);
         rlSms.setOnClickListener(this);
         tvProfile.setOnClickListener(this);
@@ -335,6 +357,9 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case  R.id.rlWokkYoutubeLink:
+                customAlert("This is is in under development!");
+                break;
             case R.id.tvProfile:
                 Fragment profileFragment = ProfileFragment.newInstance();
                 FragmentTransaction profileTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
@@ -343,7 +368,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 profileTransaction.addToBackStack(null);
                 profileTransaction.commit();
                 break;
-            case R.id.ivCardHolderWhatsapp:
+            case R.id.rlWapp:
                 if (myPreference.getUserID().equals(myPreference.getServiceUserId())) {
                     Intent waIntent = new Intent(Intent.ACTION_SEND);
                     waIntent.setType("text/plain");
@@ -377,17 +402,17 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                     }
                 }
                 break;
-            case R.id.btnFollow:
+            case R.id.rlFollow:
                 doFollow();
                 break;
-            case R.id.btnShare:
+            case R.id.rlshare:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My visiting card");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token);
                 startActivity(Intent.createChooser(sharingIntent, "Share visiting card via"));
                 break;
-            case R.id.ivCardHolderPhone:
+            case R.id.rlCall:
                 requestCallPermission();
                 break;
             case R.id.rlSms:
@@ -430,8 +455,13 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                                 (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
                     }
                     phones.close();
+                    String num="";
+                    if(number.contains("+91")){
+                       num= number.replace("+91","");
+                    }
+                    //String num=number.replaceAll("/+91","");
                     //Do something with number
-                    etNumber.setText(number);
+                    etNumber.setText(num);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Contact list is empty.", Toast.LENGTH_LONG).show();
                 }
@@ -459,11 +489,12 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 try {
                     int status = response.code();
                     if (status == 200) {
-                        btnFollow.setText("Followed");
-                        btnFollow.setClickable(false);
-                        btnFollow.setFocusable(false);
-                        btnFollow.setEnabled(false);
-                        btnFollow.setAlpha(0.4f);
+                        tvFollow.setText("Followed");
+                        tvFollow.setTextSize(getResources().getDimensionPixelOffset(R.dimen._3sdp));
+                        rlFollow.setClickable(false);
+                        rlFollow.setFocusable(false);
+                        rlFollow.setEnabled(false);
+                        rlFollow.setAlpha(0.4f);
                     } else {
                         customAlert("Oops, something went wrong!");
                     }

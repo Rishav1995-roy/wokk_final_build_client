@@ -48,7 +48,7 @@
                                 android:fontFamily="@font/gidole_regular"
                                 android:text="India (+91)"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8sdp" />
+                                android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
                         <View
@@ -78,7 +78,7 @@
                                 android:textAlignment="center"
                                 android:textColor="@color/orange"
                                 android:textColorHint="@color/black"
-                                android:textSize="@dimen/_8sdp" />
+                                android:textSize="@dimen/_10sdp" />
 
                             <ImageView
                                 android:id="@+id/ivContact"
@@ -143,12 +143,14 @@
                         android:layout_below="@id/ivCard"
                         android:background="@drawable/my_card_color_bg"
                         android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_height="match_parent">
                         <RelativeLayout
                             android:id="@+id/rlHeading"
                             android:layout_marginTop="@dimen/_20sdp"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -159,7 +161,6 @@
                                 <TextView
                                     android:id="@+id/tvCardHolderName"
                                     android:ellipsize="end"
-                                    android:maxWidth="@dimen/_180sdp"
                                     style="@style/TextAppearance.MaterialComponents.Headline6"
                                     android:textSize="@dimen/_15sdp"
                                     android:textColor="@color/black"
@@ -171,7 +172,7 @@
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/gidole_regular"
                                     android:textSize="@dimen/_10sdp"
-                                    style="@style/TextAppearance.MaterialComponents.Body2"
+                                    style="@style/TextAppearance.MaterialComponents.Headline5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
                                 <TextView
@@ -179,11 +180,12 @@
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/gidole_regular"
                                     android:textSize="@dimen/_10sdp"
-                                    style="@style/TextAppearance.MaterialComponents.Body2"
+                                    style="@style/TextAppearance.MaterialComponents.Headline4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
                             </LinearLayout>
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_alignParentEnd="true"
                                 android:orientation="horizontal"
                                 android:layout_width="wrap_content"
@@ -207,46 +209,141 @@
                         </RelativeLayout>
                         <LinearLayout
                             android:layout_below="@id/rlHeading"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:orientation="horizontal"
                             android:id="@+id/llButtons"
+                            android:weightSum="4.75"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-                            <Button
-                                android:id="@+id/btnFollow"
-                                android:text="Follow"
-                                android:textSize="@dimen/_8sdp"
-                                style="@style/TextAppearance.AppCompat.Button"
-                                android:fontFamily="@font/gidole_regular"
-                                android:textColor="@color/black"
-                                android:textAllCaps="false"
-                                android:background="@drawable/button_my_card"
-                                android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_25sdp"/>
-                            <Button
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:id="@+id/btnShare"
-                                android:text="Share"
-                                android:textSize="@dimen/_8sdp"
-                                style="@style/TextAppearance.AppCompat.Button"
-                                android:fontFamily="@font/gidole_regular"
-                                android:textColor="@color/black"
-                                android:textAllCaps="false"
-                                android:background="@drawable/button_my_card"
-                                android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_25sdp"/>
+                            <RelativeLayout
+                                android:id="@+id/rlFollow"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:background="@drawable/follow_button_bg"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:id="@+id/tvFollow"
+                                    android:text="Follow"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_8sdp"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <ImageView
+                                    android:padding="@dimen/_5sdp"
+                                    android:id="@+id/ivFollow"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/heart"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                            <View
+                                android:layout_weight="0.25"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
+                                android:id="@+id/rlWapp"
+                                android:layout_weight="1"
+                                android:background="@drawable/whatsaap_button_bg"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:text="W-app"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_8sdp"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <ImageView
+                                    android:padding="@dimen/_5sdp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/whatsapp_white"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                            <View
+                                android:layout_weight="0.25"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
+                                android:id="@+id/rlCall"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:background="@drawable/call_button_bg"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:text="Call"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_8sdp"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <ImageView
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/phone"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:padding="@dimen/_5sdp"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                            <View
+                                android:layout_weight="0.25"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
+                                android:id="@+id/rlshare"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:background="@drawable/share_button_bg"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:text="Share"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_8sdp"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <ImageView
+                                    android:padding="@dimen/_5sdp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/share"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
                         </LinearLayout>
                         <RelativeLayout
                             android:id="@+id/rlWokkYoutubeLink"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_below="@id/llButtons"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_15sdp"
-                            android:layout_marginEnd="20dp"
-                            android:background="@drawable/black_bg"
-                            android:visibility="gone">
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:background="@drawable/black_bg">
 
                             <TextView
                                 android:id="@+id/tvWokkYoutubeLink"
@@ -278,8 +375,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tvGallery"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginEnd="@dimen/_20sdp">
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp">
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvGallery"
@@ -319,8 +416,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tvYoutube"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_5sdp">
 
                             <androidx.recyclerview.widget.RecyclerView

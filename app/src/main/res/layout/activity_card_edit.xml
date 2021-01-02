@@ -20,8 +20,8 @@
         <RelativeLayout
             android:id="@+id/rlCard"
             android:layout_centerInParent="true"
-            android:layout_width="@dimen/_354sdp"
-            android:layout_height="@dimen/_204sdp">
+            android:layout_width="@dimen/_356sdp"
+            android:layout_height="@dimen/_206sdp">
             <RelativeLayout
                 android:layout_width="@dimen/_350sdp"
                 android:layout_height="@dimen/_200sdp"
@@ -32,15 +32,15 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:id="@+id/tvOrganisationName"
                     android:clickable="true"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:ellipsize="end"
                     android:id="@+id/tvName"
                     android:clickable="true"
@@ -58,7 +58,6 @@
                         android:id="@+id/ivAddress"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                        android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/location" />
@@ -90,7 +89,6 @@
                         android:id="@+id/ivMail"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                        android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/at" />
@@ -98,12 +96,11 @@
                     <TextView
                         android:id="@+id/tvemailAddress"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_2sdp"
-                        android:maxWidth="@dimen/_180sdp"/>
+                        android:maxWidth="@dimen/_220sdp"/>
                 </LinearLayout>
 
                 <LinearLayout

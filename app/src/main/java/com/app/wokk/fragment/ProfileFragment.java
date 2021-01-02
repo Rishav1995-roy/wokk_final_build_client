@@ -158,7 +158,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(ivcard);
             tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ContainerActivity.getCardResponseDataModel.user_pin);
-            tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
+            tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname);
             btnEditCard.setVisibility(View.VISIBLE);
             btnCreateCard.setVisibility(View.GONE);
         }else{

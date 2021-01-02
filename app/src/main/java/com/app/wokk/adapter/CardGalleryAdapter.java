@@ -45,6 +45,7 @@ public class CardGalleryAdapter extends RecyclerView.Adapter<GalleryViewHolder> 
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).into(holder.ivGallery);
         }
         holder.tvImageTitle.setText(galleryModelArrayList.get(position).gallery_title);
+        holder.tvImageDesc.setText(galleryModelArrayList.get(position).gallery_caption);
         holder.rlImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

@@ -81,6 +81,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     public File pic;
     public View rootView;
     public MyPreference myPreference;
+    String organisationName="";
     public TextInputEditText etFirstName,etLastname,etPhoneNumber,etEmail,etAddress,etPin,etOrganisationame,etDescription;
     public TextView tvuserType,tvEmptyText,tvOrganisationName,tvName,tvCardAddress,tvemailAddress,tvphoneNumber;
     public RelativeLayout rlUsertype,rlRecyclerView,rlMale,rlFemale,rlOther,rlCard;
@@ -272,7 +273,10 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             @Override
             public void afterTextChanged(Editable s) {
                 if(!s.toString().isEmpty()){
-                    tvOrganisationName.setText(etOrganisationame.getText().toString());
+                    StringBuilder sb = new StringBuilder(etOrganisationame.getText().toString());
+                    sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+                    organisationName=sb.toString();
+                    tvOrganisationName.setText(organisationName);
                     RelativeLayout.LayoutParams tvOrganisationParams = (RelativeLayout.LayoutParams) tvOrganisationName.getLayoutParams();
                     tvOrganisationParams.topMargin=100;
                     tvOrganisationParams.leftMargin=50;
@@ -463,7 +467,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
             gender=RequestBody.create(MediaType.parse("multipart/form-data"), "2");
         }*/
         RequestBody serviceId=RequestBody.create(MediaType.parse("multipart/form-data"), serviceID);
-        RequestBody organisationname=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etOrganisationame.getText()).toString());
+        RequestBody organisationname=RequestBody.create(MediaType.parse("multipart/form-data"), organisationName);
         RequestBody organisationDescription=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etDescription.getText()).toString());
         RequestBody pin=RequestBody.create(MediaType.parse("multipart/form-data"), Objects.requireNonNull(etPin.getText()).toString());
         MultipartBody.Part image = null;
