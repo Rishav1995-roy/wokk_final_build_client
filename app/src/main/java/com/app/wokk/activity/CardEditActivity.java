@@ -59,8 +59,10 @@ import com.app.wokk.retrofit.RestManager;
 import com.app.wokk.utility.ColorPicker;
 import com.app.wokk.utility.OnDragTouchListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -90,23 +92,25 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     public MyPreference myPreference;
     public File pic;
     public File card_pic;
-    String organisationName="";
-    public TextView tvOrganisationName,tvphoneNumber,tvName,tvAddress,tvemailAddress,tvAttributeFont,tvEmptyText;
-    public LinearLayout llAddress,llMail,llPhoneNumber,llEdit,llChangeLayout,llSave,llPreview,llSideView,llLowerView,lllogo;
-    public RelativeLayout rlCard,rlUsertype,rlRecyclerView,rlColorHolder,rlBorderColorHolder,rlBorder;
-    public ImageView ivBack,ivDown, ivCard, ivAddress, ivMail, ivPhone,cardLogo;
+    CircularImageView cardLogo;
+    String organisationName = "";
+    public TextView tvOrganisationName, tvphoneNumber, tvName, tvAddress, tvemailAddress, tvAttributeFont, tvEmptyText, tvWatermark;
+    public LinearLayout llAddress, llMail, llPhoneNumber, llEdit, llChangeLayout, llSave, llPreview, llSideView, llLowerView, lllogo;
+    public RelativeLayout rlCard, rlUsertype, rlRecyclerView, rlColorHolder, rlBorderColorHolder, rlBorder;
+    public ImageView ivBack, ivDown, ivCard, ivAddress, ivMail, ivPhone;
     public ToggleButton toggleAttribute;
     public RecyclerView rvFont;
     public EditText etFont;
-    public boolean oraganisationVisibility,nameVisibility,addressVisibility,emailVisibility,phoneVisibility;
-    public String organisationFontvalue,nameFontValue,addressFontValue,emailFontvalue,phoneFontvalue,organisationColor,nameColor,addressColor,emailColor,phoneColor,borderColor,organisationFont,nameFont,addressFont,emailFont,phoneFont,textSelectd="",layoutId;
-    Typeface organistionTypeface,nameTypeface,addressTypeface,emailtypeface,phoneTypeface;
+    public boolean oraganisationVisibility, nameVisibility, addressVisibility, emailVisibility, phoneVisibility;
+    public String organisationFontvalue, nameFontValue, addressFontValue, emailFontvalue, phoneFontvalue, organisationColor, nameColor, addressColor, emailColor, phoneColor, borderColor, organisationFont, nameFont, addressFont, emailFont, phoneFont, textSelectd = "", layoutId;
+    Typeface organistionTypeface, nameTypeface, addressTypeface, emailtypeface, phoneTypeface;
     ArrayList<String> fontFamilyList;
-    int heightInProtait,widthInProtait;
+    int heightInProtait, widthInProtait;
     DisplayMetrics metrics;
     int tendp;
     int twentydp;
-    String[] permissions = { android.Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,12 +120,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         setContentView(R.layout.activity_card_edit);
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        tendp=getResources().getDimensionPixelOffset(R.dimen._10sdp);
-        twentydp=getResources().getDimensionPixelOffset(R.dimen._20sdp);
+        tendp = getResources().getDimensionPixelOffset(R.dimen._10sdp);
+        twentydp = getResources().getDimensionPixelOffset(R.dimen._20sdp);
         float density = metrics.density;
         heightInProtait = metrics.heightPixels;
-        widthInProtait =metrics.widthPixels;
-        myPreference=new MyPreference(this);
+        widthInProtait = metrics.widthPixels;
+        myPreference = new MyPreference(this);
         //requestPermission();
         initView();
     }
@@ -132,45 +136,45 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         boolean networkCheck = NetworkCheck.getInstant(this).isConnectingToInternet();
         if (networkCheck) {
             getFontFamily();
-        }else{
+        } else {
             customAlert(getResources().getString(R.string.noInternetText));
         }
     }
 
     private void getFontFamily() {
         showRotateDialog();
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-        apiCredentialModel.apiuser= Constant.apiuser;
-        apiCredentialModel.apipass=Constant.apipass;
-        FontFamilyModel fontFamilyModel=new FontFamilyModel();
-        fontFamilyModel.apiCredentialModel=apiCredentialModel;
-        Gson gson=new Gson();
-        JsonElement jsonElement=gson.toJsonTree(fontFamilyModel);
-        Call<FontResponseModel> getFontfamily= RestManager.getInstance().getService().getFontFamily(jsonElement);
+        ApiCredentialModel apiCredentialModel = new ApiCredentialModel();
+        apiCredentialModel.apiuser = Constant.apiuser;
+        apiCredentialModel.apipass = Constant.apipass;
+        FontFamilyModel fontFamilyModel = new FontFamilyModel();
+        fontFamilyModel.apiCredentialModel = apiCredentialModel;
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(fontFamilyModel);
+        Call<FontResponseModel> getFontfamily = RestManager.getInstance().getService().getFontFamily(jsonElement);
         getFontfamily.enqueue(new Callback<FontResponseModel>() {
             @Override
             public void onResponse(@NotNull Call<FontResponseModel> call, @NotNull Response<FontResponseModel> response) {
                 hideRotateDialog();
-                try{
+                try {
                     assert response.body() != null;
-                    int code=response.body().code;
-                    if(code == 1){
-                        fontFamilyList=new ArrayList<>();
+                    int code = response.body().code;
+                    if (code == 1) {
+                        fontFamilyList = new ArrayList<>();
                         fontFamilyList.clear();
                         fontFamilyList.addAll(response.body().fonts);
-                    }else if(code == 9){
+                    } else if (code == 9) {
                         customAlert("An authentication error occured!");
-                    }else{
+                    } else {
                         customAlert("Oops, something went wrong!");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     customAlert("Oops, something went wrong!");
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<FontResponseModel> call,@NotNull Throwable t) {
+            public void onFailure(@NotNull Call<FontResponseModel> call, @NotNull Throwable t) {
                 hideRotateDialog();
                 customAlert("Internal server error. Please try after few minutes.");
             }
@@ -180,39 +184,42 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initView() {
-        cardLogo=findViewById(R.id.cardLogo);
-        lllogo=findViewById(R.id.lllogo);
-        rlBorder=findViewById(R.id.rlBorder);
-        etFont=findViewById(R.id.etFont);
-        ivPhone=findViewById(R.id.ivPhone);
-        ivMail=findViewById(R.id.ivMail);
-        ivAddress=findViewById(R.id.ivAddress);
-        llLowerView=findViewById(R.id.llLowerView);
-        rlBorderColorHolder=findViewById(R.id.rlBorderColorHolder);
-        ivCard=findViewById(R.id.ivCard);
-        llSideView=findViewById(R.id.llSideView);
-        toggleAttribute=findViewById(R.id.toggleAttribute);
-        tvOrganisationName=findViewById(R.id.tvOrganisationName);
-        tvphoneNumber=findViewById(R.id.tvphoneNumber);
-        tvName=findViewById(R.id.tvName);
-        tvAddress=findViewById(R.id.tvAddress);
-        tvemailAddress=findViewById(R.id.tvemailAddress);
-        tvAttributeFont=findViewById(R.id.tvAttributeFont);
-        tvEmptyText=findViewById(R.id.tvEmptyText);
-        llAddress=findViewById(R.id.llAddress);
-        llMail=findViewById(R.id.llMail);
-        llPhoneNumber=findViewById(R.id.llPhoneNumber);
-        llEdit=findViewById(R.id.llEdit);
-        llChangeLayout=findViewById(R.id.llChangeLayout);
-        llSave=findViewById(R.id.llSave);
-        rlCard=findViewById(R.id.rlCard);
-        rlUsertype=findViewById(R.id.rlUsertype);
-        rlRecyclerView=findViewById(R.id.rlRecyclerView);
-        rlColorHolder=findViewById(R.id.rlColorHolder);
-        ivBack=findViewById(R.id.ivBack);
-        ivDown=findViewById(R.id.ivDown);
-        rvFont=findViewById(R.id.rvFont);
-        llPreview=findViewById(R.id.llPreview);
+        tvWatermark = findViewById(R.id.tvWatermark);
+        int alpha = 100;
+        tvWatermark.setTextColor(Color.argb(alpha, 0, 0, 0));
+        cardLogo = findViewById(R.id.cardLogo);
+        lllogo = findViewById(R.id.lllogo);
+        rlBorder = findViewById(R.id.rlBorder);
+        etFont = findViewById(R.id.etFont);
+        ivPhone = findViewById(R.id.ivPhone);
+        ivMail = findViewById(R.id.ivMail);
+        ivAddress = findViewById(R.id.ivAddress);
+        llLowerView = findViewById(R.id.llLowerView);
+        rlBorderColorHolder = findViewById(R.id.rlBorderColorHolder);
+        ivCard = findViewById(R.id.ivCard);
+        llSideView = findViewById(R.id.llSideView);
+        toggleAttribute = findViewById(R.id.toggleAttribute);
+        tvOrganisationName = findViewById(R.id.tvOrganisationName);
+        tvphoneNumber = findViewById(R.id.tvphoneNumber);
+        tvName = findViewById(R.id.tvName);
+        tvAddress = findViewById(R.id.tvAddress);
+        tvemailAddress = findViewById(R.id.tvemailAddress);
+        tvAttributeFont = findViewById(R.id.tvAttributeFont);
+        tvEmptyText = findViewById(R.id.tvEmptyText);
+        llAddress = findViewById(R.id.llAddress);
+        llMail = findViewById(R.id.llMail);
+        llPhoneNumber = findViewById(R.id.llPhoneNumber);
+        llEdit = findViewById(R.id.llEdit);
+        llChangeLayout = findViewById(R.id.llChangeLayout);
+        llSave = findViewById(R.id.llSave);
+        rlCard = findViewById(R.id.rlCard);
+        rlUsertype = findViewById(R.id.rlUsertype);
+        rlRecyclerView = findViewById(R.id.rlRecyclerView);
+        rlColorHolder = findViewById(R.id.rlColorHolder);
+        ivBack = findViewById(R.id.ivBack);
+        ivDown = findViewById(R.id.ivDown);
+        rvFont = findViewById(R.id.rvFont);
+        llPreview = findViewById(R.id.llPreview);
         etFont.setClickable(true);
         etFont.setInputType(InputType.TYPE_NULL);
         //RelativeLayout  mainLayout= (RelativeLayout ) findViewById(R.id.mainLayout);
@@ -222,8 +229,15 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setData() {
-        if(ContainerActivity.getCardResponseDataModel.user_fname != null && ContainerActivity.getCardResponseDataModel.user_lname != null)
-            tvName.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ContainerActivity.getCardResponseDataModel.user_lname);
+        if (cardDetailsResponseModel.inside_image_url != null) {
+            cardLogo.setVisibility(View.VISIBLE);
+            Glide.with(this).load(cardDetailsResponseModel.inside_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(cardLogo);
+        } else {
+            cardLogo.setVisibility(View.GONE);
+        }
+        if (ContainerActivity.getCardResponseDataModel.user_fname != null && ContainerActivity.getCardResponseDataModel.user_lname != null)
+            tvName.setText(ContainerActivity.getCardResponseDataModel.user_fname + " " + ContainerActivity.getCardResponseDataModel.user_lname);
         GradientDrawable gd = new GradientDrawable();
         gd.setStroke(10, Color.parseColor(cardDetailsResponseModel.card_border_color));
         rlCard.setBackgroundDrawable(gd);
@@ -232,391 +246,394 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         tvphoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_phone_fontsize_mob));
         tvAddress.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_address_fontsize_mob));
         tvemailAddress.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(cardDetailsResponseModel.card_email_fontsize_mob));
-        if(myPreference.getLayout().equals("")){
-            Glide.with(this).load(ContainerActivity.layoutUrl + cardDetailsResponseModel.layout_image).into(ivCard);
-        }else{
-            Glide.with(this).load(myPreference.getLayout()).into(ivCard);
+        if (myPreference.getLayout().equals("")) {
+            Glide.with(this).load(ContainerActivity.layoutUrl + cardDetailsResponseModel.layout_image).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(ivCard);
+        } else {
+            Glide.with(this).load(myPreference.getLayout()).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(ivCard);
         }
 
 
-        if(ContainerActivity.getCardResponseDataModel.user_address != null && ContainerActivity.getCardResponseDataModel.user_pin != null)
-            tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ ContainerActivity.getCardResponseDataModel.user_pin);
-        if(ContainerActivity.getCardResponseDataModel.user_phone != null)
+        if (ContainerActivity.getCardResponseDataModel.user_address != null && ContainerActivity.getCardResponseDataModel.user_pin != null)
+            tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address + " - " + ContainerActivity.getCardResponseDataModel.user_pin);
+        if (ContainerActivity.getCardResponseDataModel.user_phone != null)
             tvphoneNumber.setText(ContainerActivity.getCardResponseDataModel.user_phone);
-        if(ContainerActivity.getCardResponseDataModel.user_organization_name != null)
+        if (ContainerActivity.getCardResponseDataModel.user_organization_name != null)
             tvOrganisationName.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
-        if(ContainerActivity.getCardResponseDataModel.user_email != null)
+        if (ContainerActivity.getCardResponseDataModel.user_email != null)
             tvemailAddress.setText(ContainerActivity.getCardResponseDataModel.user_email);
         RelativeLayout.LayoutParams tvNameParams = (RelativeLayout.LayoutParams) tvName.getLayoutParams();
-        if(cardDetailsResponseModel.card_name_top_mob != null) {
+        if (cardDetailsResponseModel.card_name_top_mob != null) {
             //int topmargin=(Integer.parseInt(String.valueOf(ContainerActivity.cardDetailsResponseModel.card_name_top_mob));
             tvNameParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_top_mob));
-        }else
-            tvNameParams.topMargin=0;
-        if(cardDetailsResponseModel.card_name_left_mob != null) {
-            int leftmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_left_mob)));
+        } else
+            tvNameParams.topMargin = 0;
+        if (cardDetailsResponseModel.card_name_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_left_mob)));
             tvNameParams.leftMargin = leftmargin;
-        }else
-            tvNameParams.leftMargin=0;
+        } else
+            tvNameParams.leftMargin = 0;
         tvName.setLayoutParams(tvNameParams);
         RelativeLayout.LayoutParams tvOrganisationParams = (RelativeLayout.LayoutParams) tvOrganisationName.getLayoutParams();
-        if(cardDetailsResponseModel.card_org_top_mob != null) {
-            int topmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_top_mob)));
+        if (cardDetailsResponseModel.card_org_top_mob != null) {
+            int topmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_top_mob)));
             tvOrganisationParams.topMargin = topmargin;
-        }else
-            tvOrganisationParams.topMargin=0;
-        if(cardDetailsResponseModel.card_org_left_mob != null) {
-            int leftmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_left_mob)));
+        } else
+            tvOrganisationParams.topMargin = 0;
+        if (cardDetailsResponseModel.card_org_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_org_left_mob)));
             tvOrganisationParams.leftMargin = leftmargin;
-        }else
-            tvOrganisationParams.leftMargin=0;
+        } else
+            tvOrganisationParams.leftMargin = 0;
         tvOrganisationName.setLayoutParams(tvOrganisationParams);
         RelativeLayout.LayoutParams addressParams = (RelativeLayout.LayoutParams) llAddress.getLayoutParams();
-        if(cardDetailsResponseModel.card_address_top_mob != null) {
-            int topmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_top_mob)));
+        if (cardDetailsResponseModel.card_address_top_mob != null) {
+            int topmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_top_mob)));
             addressParams.topMargin = topmargin;
-        }else
-            addressParams.topMargin=0;
-        if(cardDetailsResponseModel.card_address_left_mob != null) {
-            int leftmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_left_mob)));
+        } else
+            addressParams.topMargin = 0;
+        if (cardDetailsResponseModel.card_address_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_address_left_mob)));
             addressParams.leftMargin = leftmargin;
-        }else
-            addressParams.leftMargin=0;
+        } else
+            addressParams.leftMargin = 0;
         llAddress.setLayoutParams(addressParams);
         RelativeLayout.LayoutParams phoneParams = (RelativeLayout.LayoutParams) llPhoneNumber.getLayoutParams();
-        if(cardDetailsResponseModel.card_phone_top_mob != null) {
-            int topmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_top_mob)));
+        if (cardDetailsResponseModel.card_phone_top_mob != null) {
+            int topmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_top_mob)));
             phoneParams.topMargin = topmargin;
-        }else
-            phoneParams.topMargin=0;
-        if(cardDetailsResponseModel.card_phone_left_mob != null) {
-            int leftmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_left_mob)));
+        } else
+            phoneParams.topMargin = 0;
+        if (cardDetailsResponseModel.card_phone_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_phone_left_mob)));
             phoneParams.leftMargin = leftmargin;
-        }else
-            phoneParams.leftMargin=0;
+        } else
+            phoneParams.leftMargin = 0;
         llPhoneNumber.setLayoutParams(phoneParams);
         RelativeLayout.LayoutParams mailParams = (RelativeLayout.LayoutParams) llMail.getLayoutParams();
-        if(cardDetailsResponseModel.card_email_top_mob != null) {
-            int topmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_top_mob)));
+        if (cardDetailsResponseModel.card_email_top_mob != null) {
+            int topmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_top_mob)));
             mailParams.topMargin = topmargin;
-        }else
-            mailParams.topMargin=0;
-        if(cardDetailsResponseModel.card_email_left_mob != null) {
-            int leftmargin=(Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_left_mob)));
+        } else
+            mailParams.topMargin = 0;
+        if (cardDetailsResponseModel.card_email_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_email_left_mob)));
             mailParams.leftMargin = leftmargin;
-        }else
-            mailParams.leftMargin=0;
+        } else
+            mailParams.leftMargin = 0;
         llMail.setLayoutParams(mailParams);
-        if(cardDetailsResponseModel.card_org_color.contains("0") && cardDetailsResponseModel.card_org_color.length() == 4){
-            tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color+"000"));
-            organisationColor= cardDetailsResponseModel.card_org_color+"000";
-        }else if(cardDetailsResponseModel.card_org_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_org_color.length() == 4){
-            tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color.toLowerCase()+"fff"));
-            organisationColor= cardDetailsResponseModel.card_org_color.toLowerCase()+"fff";
-        }else{
+        if (cardDetailsResponseModel.card_org_color.contains("0") && cardDetailsResponseModel.card_org_color.length() == 4) {
+            tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color + "000"));
+            organisationColor = cardDetailsResponseModel.card_org_color + "000";
+        } else if (cardDetailsResponseModel.card_org_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_org_color.length() == 4) {
+            tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color.toLowerCase() + "fff"));
+            organisationColor = cardDetailsResponseModel.card_org_color.toLowerCase() + "fff";
+        } else {
             tvOrganisationName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_org_color));
-            organisationColor= cardDetailsResponseModel.card_org_color;
+            organisationColor = cardDetailsResponseModel.card_org_color;
         }
-        if(cardDetailsResponseModel.card_name_color.contains("0") && cardDetailsResponseModel.card_name_color.length() == 4){
-            tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color+"000"));
-            nameColor= cardDetailsResponseModel.card_name_color+"000";
-        }else if(cardDetailsResponseModel.card_name_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_name_color.length() == 4){
-            tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color.toLowerCase()+"fff"));
-            nameColor= cardDetailsResponseModel.card_name_color.toLowerCase()+"fff";
-        }else{
+        if (cardDetailsResponseModel.card_name_color.contains("0") && cardDetailsResponseModel.card_name_color.length() == 4) {
+            tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color + "000"));
+            nameColor = cardDetailsResponseModel.card_name_color + "000";
+        } else if (cardDetailsResponseModel.card_name_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_name_color.length() == 4) {
+            tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color.toLowerCase() + "fff"));
+            nameColor = cardDetailsResponseModel.card_name_color.toLowerCase() + "fff";
+        } else {
             tvName.setTextColor(Color.parseColor(cardDetailsResponseModel.card_name_color));
-            nameColor= cardDetailsResponseModel.card_name_color;
+            nameColor = cardDetailsResponseModel.card_name_color;
         }
-        if(cardDetailsResponseModel.card_address_color.contains("0") && cardDetailsResponseModel.card_address_color.length() == 4){
-            tvAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color+"000"));
-            addressColor= cardDetailsResponseModel.card_address_color+"000";
-        }else if(cardDetailsResponseModel.card_address_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_address_color.length() == 4){
-            tvAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color.toLowerCase()+"fff"));
-            addressColor= cardDetailsResponseModel.card_address_color.toLowerCase()+"fff";
-        }else{
+        if (cardDetailsResponseModel.card_address_color.contains("0") && cardDetailsResponseModel.card_address_color.length() == 4) {
+            tvAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color + "000"));
+            addressColor = cardDetailsResponseModel.card_address_color + "000";
+        } else if (cardDetailsResponseModel.card_address_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_address_color.length() == 4) {
+            tvAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color.toLowerCase() + "fff"));
+            addressColor = cardDetailsResponseModel.card_address_color.toLowerCase() + "fff";
+        } else {
             tvAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_address_color));
-            addressColor= cardDetailsResponseModel.card_address_color;
+            addressColor = cardDetailsResponseModel.card_address_color;
         }
         ImageViewCompat.setImageTintMode(ivAddress, PorterDuff.Mode.SRC_ATOP);
         ImageViewCompat.setImageTintList(ivAddress, ColorStateList.valueOf(Color.parseColor(addressColor)));
-        if(cardDetailsResponseModel.card_email_color.contains("0") && cardDetailsResponseModel.card_email_color.length() == 4){
-            tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color+"000"));
-            emailColor= cardDetailsResponseModel.card_email_color+"000";
-        }else if(cardDetailsResponseModel.card_email_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_email_color.length() == 4){
-            tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color.toLowerCase()+"fff"));
-            emailColor= cardDetailsResponseModel.card_email_color.toLowerCase()+"fff";
-        }else{
+        if (cardDetailsResponseModel.card_email_color.contains("0") && cardDetailsResponseModel.card_email_color.length() == 4) {
+            tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color + "000"));
+            emailColor = cardDetailsResponseModel.card_email_color + "000";
+        } else if (cardDetailsResponseModel.card_email_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_email_color.length() == 4) {
+            tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color.toLowerCase() + "fff"));
+            emailColor = cardDetailsResponseModel.card_email_color.toLowerCase() + "fff";
+        } else {
             tvemailAddress.setTextColor(Color.parseColor(cardDetailsResponseModel.card_email_color));
-            emailColor= cardDetailsResponseModel.card_email_color;
+            emailColor = cardDetailsResponseModel.card_email_color;
         }
         ImageViewCompat.setImageTintMode(ivMail, PorterDuff.Mode.SRC_ATOP);
         ImageViewCompat.setImageTintList(ivMail, ColorStateList.valueOf(Color.parseColor(emailColor)));
-        if(cardDetailsResponseModel.card_phone_color.contains("0") && cardDetailsResponseModel.card_phone_color.length() == 4){
-            tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color+"000"));
-            phoneColor= cardDetailsResponseModel.card_phone_color+"000";
-        }else if(cardDetailsResponseModel.card_phone_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_phone_color.length() == 4){
-            tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color.toLowerCase()+"fff"));
-            phoneColor= cardDetailsResponseModel.card_phone_color.toLowerCase()+"fff";
-        }else{
+        if (cardDetailsResponseModel.card_phone_color.contains("0") && cardDetailsResponseModel.card_phone_color.length() == 4) {
+            tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color + "000"));
+            phoneColor = cardDetailsResponseModel.card_phone_color + "000";
+        } else if (cardDetailsResponseModel.card_phone_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_phone_color.length() == 4) {
+            tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color.toLowerCase() + "fff"));
+            phoneColor = cardDetailsResponseModel.card_phone_color.toLowerCase() + "fff";
+        } else {
             tvphoneNumber.setTextColor(Color.parseColor(cardDetailsResponseModel.card_phone_color));
-            phoneColor= cardDetailsResponseModel.card_phone_color;
+            phoneColor = cardDetailsResponseModel.card_phone_color;
         }
         ImageViewCompat.setImageTintMode(ivPhone, PorterDuff.Mode.SRC_ATOP);
         ImageViewCompat.setImageTintList(ivPhone, ColorStateList.valueOf(Color.parseColor(phoneColor)));
-        if(cardDetailsResponseModel.card_org_show.equals("0")){
-            oraganisationVisibility=false;
+        if (cardDetailsResponseModel.card_org_show.equals("0")) {
+            oraganisationVisibility = false;
             //tvOrganisationName.setVisibility(View.GONE);
-        }else{
-            oraganisationVisibility=true;
+        } else {
+            oraganisationVisibility = true;
             //tvOrganisationName.setVisibility(View.VISIBLE);
         }
-        if(cardDetailsResponseModel.card_name_show.equals("0")){
+        if (cardDetailsResponseModel.card_name_show.equals("0")) {
             //tvName.setVisibility(View.GONE);
-            nameVisibility=false;
-        }else{
+            nameVisibility = false;
+        } else {
             //tvName.setVisibility(View.VISIBLE);
-            nameVisibility=true;
+            nameVisibility = true;
         }
-        if(cardDetailsResponseModel.card_address_show.equals("0")){
+        if (cardDetailsResponseModel.card_address_show.equals("0")) {
             //llAddress.setVisibility(View.GONE);
-            addressVisibility=false;
-        }else{
+            addressVisibility = false;
+        } else {
             //llAddress.setVisibility(View.VISIBLE);
-            addressVisibility=true;
+            addressVisibility = true;
         }
-        if(cardDetailsResponseModel.card_email_show.equals("0")){
+        if (cardDetailsResponseModel.card_email_show.equals("0")) {
             //llMail.setVisibility(View.GONE);
-            emailVisibility=false;
-        }else{
+            emailVisibility = false;
+        } else {
             //llMail.setVisibility(View.VISIBLE);
-            emailVisibility=true;
+            emailVisibility = true;
         }
-        if(cardDetailsResponseModel.card_phone_show.equals("0")){
+        if (cardDetailsResponseModel.card_phone_show.equals("0")) {
             //llPhoneNumber.setVisibility(View.GONE);
-            phoneVisibility=false;
-        }else{
+            phoneVisibility = false;
+        } else {
             //llPhoneNumber.setVisibility(View.VISIBLE);
-            phoneVisibility=true;
+            phoneVisibility = true;
         }
-        if(cardDetailsResponseModel.card_org_font != null){
-            if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("courier new, monospace")){
-                organistionTypeface=getResources().getFont(R.font.courierprime_regular);
+        if (cardDetailsResponseModel.card_org_font != null) {
+            if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("courier new, monospace")) {
+                organistionTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("inconsolata")){
-                phoneTypeface=getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("inconsolata")) {
+                phoneTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("recursive")){
-                organistionTypeface=getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("recursive")) {
+                organistionTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("cedarville cursive")){
-                organistionTypeface=getResources().getFont(R.font.courierprime_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("cedarville cursive")) {
+                organistionTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("noto sans")){
-                organistionTypeface=getResources().getFont(R.font.notosans_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("noto sans")) {
+                organistionTypeface = getResources().getFont(R.font.notosans_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("poppins")){
-                organistionTypeface=getResources().getFont(R.font.poppins_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("poppins")) {
+                organistionTypeface = getResources().getFont(R.font.poppins_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("open sans")){
-                organistionTypeface=getResources().getFont(R.font.opensans_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("open sans")) {
+                organistionTypeface = getResources().getFont(R.font.opensans_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("roboto")){
-                organistionTypeface=getResources().getFont(R.font.roboto_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("roboto")) {
+                organistionTypeface = getResources().getFont(R.font.roboto_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("montserrat")){
-                organistionTypeface=getResources().getFont(R.font.montserrat_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("montserrat")) {
+                organistionTypeface = getResources().getFont(R.font.montserrat_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("lato")){
-                organistionTypeface=getResources().getFont(R.font.lato_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("lato")) {
+                organistionTypeface = getResources().getFont(R.font.lato_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("source sans pro")){
-                organistionTypeface=getResources().getFont(R.font.sourcesanspro_regular);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("source sans pro")) {
+                organistionTypeface = getResources().getFont(R.font.sourcesanspro_regular);
                 tvOrganisationName.setTypeface(organistionTypeface);
-            }else if(cardDetailsResponseModel.card_org_font.toLowerCase().equals("raleway, sans-serif")){
-                organistionTypeface=getResources().getFont(R.font.raleway_variablefont_wght);
+            } else if (cardDetailsResponseModel.card_org_font.toLowerCase().equals("raleway, sans-serif")) {
+                organistionTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
                 tvOrganisationName.setTypeface(organistionTypeface);
             }
-            organisationFont= cardDetailsResponseModel.card_org_font;
+            organisationFont = cardDetailsResponseModel.card_org_font;
         }
-        if(cardDetailsResponseModel.card_name_font != null){
-            if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("courier new, monospace")){
-                nameTypeface=getResources().getFont(R.font.courierprime_regular);
+        if (cardDetailsResponseModel.card_name_font != null) {
+            if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("courier new, monospace")) {
+                nameTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("inconsolata")){
-                nameTypeface=getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("inconsolata")) {
+                nameTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("recursive")){
-                nameTypeface=getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("recursive")) {
+                nameTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("cedarville cursive")){
-                nameTypeface=getResources().getFont(R.font.courierprime_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("cedarville cursive")) {
+                nameTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("noto sans")){
-                nameTypeface=getResources().getFont(R.font.notosans_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("noto sans")) {
+                nameTypeface = getResources().getFont(R.font.notosans_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("poppins")){
-                nameTypeface=getResources().getFont(R.font.poppins_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("poppins")) {
+                nameTypeface = getResources().getFont(R.font.poppins_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("open sans")){
-                nameTypeface=getResources().getFont(R.font.opensans_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("open sans")) {
+                nameTypeface = getResources().getFont(R.font.opensans_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("roboto")){
-                nameTypeface=getResources().getFont(R.font.roboto_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("roboto")) {
+                nameTypeface = getResources().getFont(R.font.roboto_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("montserrat")){
-                nameTypeface=getResources().getFont(R.font.montserrat_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("montserrat")) {
+                nameTypeface = getResources().getFont(R.font.montserrat_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("lato")){
-                nameTypeface=getResources().getFont(R.font.lato_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("lato")) {
+                nameTypeface = getResources().getFont(R.font.lato_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("source sans pro")){
-                nameTypeface=getResources().getFont(R.font.sourcesanspro_regular);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("source sans pro")) {
+                nameTypeface = getResources().getFont(R.font.sourcesanspro_regular);
                 tvName.setTypeface(nameTypeface);
-            }else if(cardDetailsResponseModel.card_name_font.toLowerCase().equals("raleway, sans-serif")){
-                nameTypeface=getResources().getFont(R.font.raleway_variablefont_wght);
+            } else if (cardDetailsResponseModel.card_name_font.toLowerCase().equals("raleway, sans-serif")) {
+                nameTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
                 tvName.setTypeface(nameTypeface);
             }
-            nameFont= cardDetailsResponseModel.card_name_font;
+            nameFont = cardDetailsResponseModel.card_name_font;
         }
-        if(cardDetailsResponseModel.card_email_font != null){
-            if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("courier new, monospace")){
-                emailtypeface=getResources().getFont(R.font.courierprime_regular);
+        if (cardDetailsResponseModel.card_email_font != null) {
+            if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("courier new, monospace")) {
+                emailtypeface = getResources().getFont(R.font.courierprime_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("inconsolata")){
-                emailtypeface=getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("inconsolata")) {
+                emailtypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("recursive")){
-                emailtypeface=getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("recursive")) {
+                emailtypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("cedarville cursive")){
-                emailtypeface=getResources().getFont(R.font.courierprime_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("cedarville cursive")) {
+                emailtypeface = getResources().getFont(R.font.courierprime_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("noto sans")){
-                emailtypeface=getResources().getFont(R.font.notosans_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("noto sans")) {
+                emailtypeface = getResources().getFont(R.font.notosans_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("poppins")){
-                emailtypeface=getResources().getFont(R.font.poppins_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("poppins")) {
+                emailtypeface = getResources().getFont(R.font.poppins_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("open sans")){
-                emailtypeface=getResources().getFont(R.font.opensans_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("open sans")) {
+                emailtypeface = getResources().getFont(R.font.opensans_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("roboto")){
-                emailtypeface=getResources().getFont(R.font.roboto_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("roboto")) {
+                emailtypeface = getResources().getFont(R.font.roboto_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("montserrat")){
-                emailtypeface=getResources().getFont(R.font.montserrat_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("montserrat")) {
+                emailtypeface = getResources().getFont(R.font.montserrat_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("lato")){
-                emailtypeface=getResources().getFont(R.font.lato_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("lato")) {
+                emailtypeface = getResources().getFont(R.font.lato_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("source sans pro")){
-                emailtypeface=getResources().getFont(R.font.sourcesanspro_regular);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("source sans pro")) {
+                emailtypeface = getResources().getFont(R.font.sourcesanspro_regular);
                 tvemailAddress.setTypeface(emailtypeface);
-            }else if(cardDetailsResponseModel.card_email_font.toLowerCase().equals("raleway, sans-serif")){
-                emailtypeface=getResources().getFont(R.font.raleway_variablefont_wght);
+            } else if (cardDetailsResponseModel.card_email_font.toLowerCase().equals("raleway, sans-serif")) {
+                emailtypeface = getResources().getFont(R.font.raleway_variablefont_wght);
                 tvemailAddress.setTypeface(emailtypeface);
             }
-            emailFont= cardDetailsResponseModel.card_email_font;
+            emailFont = cardDetailsResponseModel.card_email_font;
         }
-        if(cardDetailsResponseModel.card_address_font != null){
-            if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("courier new, monospace")){
-                addressTypeface=getResources().getFont(R.font.courierprime_regular);
+        if (cardDetailsResponseModel.card_address_font != null) {
+            if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("courier new, monospace")) {
+                addressTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("inconsolata")){
-                addressTypeface=getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("inconsolata")) {
+                addressTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("recursive")){
-                addressTypeface=getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("recursive")) {
+                addressTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("cedarville cursive")){
-                addressTypeface=getResources().getFont(R.font.courierprime_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("cedarville cursive")) {
+                addressTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("noto sans")){
-                addressTypeface=getResources().getFont(R.font.notosans_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("noto sans")) {
+                addressTypeface = getResources().getFont(R.font.notosans_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("poppins")){
-                addressTypeface=getResources().getFont(R.font.poppins_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("poppins")) {
+                addressTypeface = getResources().getFont(R.font.poppins_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("open sans")){
-                addressTypeface=getResources().getFont(R.font.opensans_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("open sans")) {
+                addressTypeface = getResources().getFont(R.font.opensans_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("roboto")){
-                addressTypeface=getResources().getFont(R.font.roboto_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("roboto")) {
+                addressTypeface = getResources().getFont(R.font.roboto_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("montserrat")){
-                addressTypeface=getResources().getFont(R.font.montserrat_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("montserrat")) {
+                addressTypeface = getResources().getFont(R.font.montserrat_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("lato")){
-                addressTypeface=getResources().getFont(R.font.lato_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("lato")) {
+                addressTypeface = getResources().getFont(R.font.lato_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("source sans pro")){
-                addressTypeface=getResources().getFont(R.font.sourcesanspro_regular);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("source sans pro")) {
+                addressTypeface = getResources().getFont(R.font.sourcesanspro_regular);
                 tvAddress.setTypeface(addressTypeface);
-            }else if(cardDetailsResponseModel.card_address_font.toLowerCase().equals("raleway, sans-serif")){
-                addressTypeface=getResources().getFont(R.font.raleway_variablefont_wght);
+            } else if (cardDetailsResponseModel.card_address_font.toLowerCase().equals("raleway, sans-serif")) {
+                addressTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
                 tvAddress.setTypeface(addressTypeface);
             }
-            addressFont= cardDetailsResponseModel.card_address_font;
+            addressFont = cardDetailsResponseModel.card_address_font;
         }
-        if(cardDetailsResponseModel.card_phone_font != null){
-            if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("courier new, monospace")){
-                phoneTypeface=getResources().getFont(R.font.courierprime_regular);
+        if (cardDetailsResponseModel.card_phone_font != null) {
+            if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("courier new, monospace")) {
+                phoneTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("inconsolata")){
-                phoneTypeface=getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("inconsolata")) {
+                phoneTypeface = getResources().getFont(R.font.inconsolata_variablefont_wdth_wght);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("recursive")){
-                phoneTypeface=getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("recursive")) {
+                phoneTypeface = getResources().getFont(R.font.recursive_variablefont_casl_crsv_mono_slnt_wght);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("cedarville cursive")){
-                phoneTypeface=getResources().getFont(R.font.courierprime_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("cedarville cursive")) {
+                phoneTypeface = getResources().getFont(R.font.courierprime_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("noto sans")){
-                phoneTypeface=getResources().getFont(R.font.notosans_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("noto sans")) {
+                phoneTypeface = getResources().getFont(R.font.notosans_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("poppins")){
-                phoneTypeface=getResources().getFont(R.font.poppins_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("poppins")) {
+                phoneTypeface = getResources().getFont(R.font.poppins_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("open sans")){
-                phoneTypeface=getResources().getFont(R.font.opensans_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("open sans")) {
+                phoneTypeface = getResources().getFont(R.font.opensans_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("roboto")){
-                phoneTypeface=getResources().getFont(R.font.roboto_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("roboto")) {
+                phoneTypeface = getResources().getFont(R.font.roboto_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("montserrat")){
-                phoneTypeface=getResources().getFont(R.font.montserrat_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("montserrat")) {
+                phoneTypeface = getResources().getFont(R.font.montserrat_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("lato")){
-                phoneTypeface=getResources().getFont(R.font.lato_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("lato")) {
+                phoneTypeface = getResources().getFont(R.font.lato_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("source sans pro")){
-                phoneTypeface=getResources().getFont(R.font.sourcesanspro_regular);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("source sans pro")) {
+                phoneTypeface = getResources().getFont(R.font.sourcesanspro_regular);
                 tvphoneNumber.setTypeface(phoneTypeface);
-            }else if(cardDetailsResponseModel.card_phone_font.toLowerCase().equals("raleway, sans-serif")){
-                phoneTypeface=getResources().getFont(R.font.raleway_variablefont_wght);
+            } else if (cardDetailsResponseModel.card_phone_font.toLowerCase().equals("raleway, sans-serif")) {
+                phoneTypeface = getResources().getFont(R.font.raleway_variablefont_wght);
                 tvphoneNumber.setTypeface(phoneTypeface);
             }
-            phoneFont= cardDetailsResponseModel.card_phone_font;
+            phoneFont = cardDetailsResponseModel.card_phone_font;
         }
-        if(myPreference.getLayout().equals("")){
-            layoutId= cardDetailsResponseModel.layout_id;
-        }else{
-            layoutId=myPreference.getLayoutID();
+        if (myPreference.getLayout().equals("")) {
+            layoutId = cardDetailsResponseModel.layout_id;
+        } else {
+            layoutId = myPreference.getLayoutID();
         }
-        if(cardDetailsResponseModel.card_border_color.contains("0") && cardDetailsResponseModel.card_border_color.length() == 4){
+        if (cardDetailsResponseModel.card_border_color.contains("0") && cardDetailsResponseModel.card_border_color.length() == 4) {
             //tvOrganisationName.setTextColor(Color.parseColor(ContainerActivity.cardDetailsResponseModel.card_org_color+"000"));
-            borderColor= cardDetailsResponseModel.card_border_color+"000";
-        }else if(cardDetailsResponseModel.card_border_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_border_color.length() == 4){
+            borderColor = cardDetailsResponseModel.card_border_color + "000";
+        } else if (cardDetailsResponseModel.card_border_color.toLowerCase().contains("f") && cardDetailsResponseModel.card_border_color.length() == 4) {
             //tvOrganisationName.setTextColor(Color.parseColor(ContainerActivity.cardDetailsResponseModel.card_org_color.toLowerCase()+"fff"));
-            borderColor= cardDetailsResponseModel.card_border_color.toLowerCase()+"fff";
-        }else{
+            borderColor = cardDetailsResponseModel.card_border_color.toLowerCase() + "fff";
+        } else {
             //tvOrganisationName.setTextColor(Color.parseColor(ContainerActivity.cardDetailsResponseModel.card_org_color));
-            borderColor= cardDetailsResponseModel.card_border_color;
+            borderColor = cardDetailsResponseModel.card_border_color;
         }
         rlBorderColorHolder.setBackgroundColor(Color.parseColor(borderColor));
 
     }
-    private void clickEvent(){
+
+    private void clickEvent() {
         etFont.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -630,7 +647,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(!editable.toString().isEmpty()) {
+                if (!editable.toString().isEmpty()) {
                     switch (textSelectd) {
                         case "organisation":
                             organisationFontvalue = editable.toString();
@@ -669,11 +686,14 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             float dX;
             float dY;
             int lastAction;
+
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        textSelectd="";
+                        textSelectd = "";
+                        dX = view.getX() - event.getRawX();
+                        dY = view.getY() - event.getRawY();
                         break;
 
                     case MotionEvent.ACTION_MOVE:
@@ -701,11 +721,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             float dX;
             float dY;
             int lastAction;
+
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        textSelectd="organisation";
+                        textSelectd = "organisation";
                         tvOrganisationName.setBackground(getResources().getDrawable(R.drawable.black_bg));
                         tvName.setBackground(null);
                         llPhoneNumber.setBackground(null);
@@ -714,13 +735,13 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                         etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etFont.setClickable(false);
                         etFont.setFocusableInTouchMode(true);
-                        if(organisationFontvalue != null)
+                        if (organisationFontvalue != null)
                             etFont.setText(organisationFontvalue);
                         else
                             etFont.setText(cardDetailsResponseModel.card_org_fontsize_mob);
                         toggleAttribute.setChecked(oraganisationVisibility);
                         rlColorHolder.setBackgroundColor(Color.parseColor(organisationColor));
-                        if(cardDetailsResponseModel.card_org_font!= null)
+                        if (cardDetailsResponseModel.card_org_font != null)
                             tvAttributeFont.setText(cardDetailsResponseModel.card_org_font);
                         else
                             tvAttributeFont.setHint("Select font");
@@ -741,7 +762,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                     case MotionEvent.ACTION_UP:
                         if (lastAction == MotionEvent.ACTION_DOWN)
                             //Toast.makeText(DashBoardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
-                        break;
+                            break;
 
                     default:
                         return false;
@@ -750,66 +771,68 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             }
         });
         tvName.setOnTouchListener(new View.OnTouchListener() {
-                float dX;
-                float dY;
-                int lastAction;
-                @Override
-                public boolean onTouch (View view, MotionEvent event){
-                    switch (event.getActionMasked()) {
-                        case MotionEvent.ACTION_DOWN:
-                            textSelectd="name";
-                            tvName.setBackground(getResources().getDrawable(R.drawable.black_bg));
-                            tvOrganisationName.setBackground(null);
-                            llPhoneNumber.setBackground(null);
-                            llAddress.setBackground(null);
-                            llMail.setBackground(null);
-                            toggleAttribute.setChecked(nameVisibility);
-                            etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
-                            etFont.setClickable(false);
-                            etFont.setFocusableInTouchMode(true);
-                            if(nameFontValue != null)
-                                etFont.setText(nameFontValue);
-                            else
-                                etFont.setText(cardDetailsResponseModel.card_name_fontsize_mob);
-                            rlColorHolder.setBackgroundColor(Color.parseColor(nameColor));
-                            if(cardDetailsResponseModel.card_name_font!= null)
-                                tvAttributeFont.setText(cardDetailsResponseModel.card_name_font);
-                            else
-                                tvAttributeFont.setHint("Select font");
-                            dX = view.getX() - event.getRawX();
-                            dY = view.getY() - event.getRawY();
-                            //lastAction = MotionEvent.ACTION_DOWN;
+            float dX;
+            float dY;
+            int lastAction;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        textSelectd = "name";
+                        tvName.setBackground(getResources().getDrawable(R.drawable.black_bg));
+                        tvOrganisationName.setBackground(null);
+                        llPhoneNumber.setBackground(null);
+                        llAddress.setBackground(null);
+                        llMail.setBackground(null);
+                        toggleAttribute.setChecked(nameVisibility);
+                        etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        etFont.setClickable(false);
+                        etFont.setFocusableInTouchMode(true);
+                        if (nameFontValue != null)
+                            etFont.setText(nameFontValue);
+                        else
+                            etFont.setText(cardDetailsResponseModel.card_name_fontsize_mob);
+                        rlColorHolder.setBackgroundColor(Color.parseColor(nameColor));
+                        if (cardDetailsResponseModel.card_name_font != null)
+                            tvAttributeFont.setText(cardDetailsResponseModel.card_name_font);
+                        else
+                            tvAttributeFont.setHint("Select font");
+                        dX = view.getX() - event.getRawX();
+                        dY = view.getY() - event.getRawY();
+                        //lastAction = MotionEvent.ACTION_DOWN;
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        view.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0)
+                                .start();
+                        //lastAction = MotionEvent.ACTION_MOVE;
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (lastAction == MotionEvent.ACTION_DOWN)
+                            //Toast.makeText(DashBoardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
                             break;
 
-                        case MotionEvent.ACTION_MOVE:
-                            view.animate()
-                                    .x(event.getRawX() + dX)
-                                    .y(event.getRawY() + dY)
-                                    .setDuration(0)
-                                    .start();
-                            //lastAction = MotionEvent.ACTION_MOVE;
-                            break;
-
-                        case MotionEvent.ACTION_UP:
-                            if (lastAction == MotionEvent.ACTION_DOWN)
-                                //Toast.makeText(DashBoardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
-                                break;
-
-                        default:
-                            return false;
-                    }
-                    return true;
+                    default:
+                        return false;
                 }
+                return true;
+            }
         });
         llAddress.setOnTouchListener(new View.OnTouchListener() {
             float dX;
             float dY;
             int lastAction;
+
             @Override
-            public boolean onTouch (View view, MotionEvent event){
+            public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        textSelectd="address";
+                        textSelectd = "address";
                         llAddress.setBackground(getResources().getDrawable(R.drawable.black_bg));
                         tvName.setBackground(null);
                         llPhoneNumber.setBackground(null);
@@ -819,12 +842,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                         etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etFont.setClickable(false);
                         etFont.setFocusableInTouchMode(true);
-                        if(addressFontValue != null)
+                        if (addressFontValue != null)
                             etFont.setText(addressFontValue);
                         else
                             etFont.setText(cardDetailsResponseModel.card_address_fontsize_mob);
                         rlColorHolder.setBackgroundColor(Color.parseColor(addressColor));
-                        if(cardDetailsResponseModel.card_address_font!= null)
+                        if (cardDetailsResponseModel.card_address_font != null)
                             tvAttributeFont.setText(cardDetailsResponseModel.card_address_font);
                         else
                             tvAttributeFont.setHint("Select font");
@@ -839,7 +862,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                                 .y(event.getRawY() + dY)
                                 .setDuration(0)
                                 .start();
-                       // lastAction = MotionEvent.ACTION_MOVE;
+                        // lastAction = MotionEvent.ACTION_MOVE;
                         break;
 
                     case MotionEvent.ACTION_UP:
@@ -857,11 +880,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             float dX;
             float dY;
             int lastAction;
+
             @Override
-            public boolean onTouch (View view, MotionEvent event){
+            public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        textSelectd="mail";
+                        textSelectd = "mail";
                         llMail.setBackground(getResources().getDrawable(R.drawable.black_bg));
                         tvName.setBackground(null);
                         llPhoneNumber.setBackground(null);
@@ -871,12 +895,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                         etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etFont.setClickable(false);
                         etFont.setFocusableInTouchMode(true);
-                        if(emailFontvalue != null)
+                        if (emailFontvalue != null)
                             etFont.setText(emailFontvalue);
                         else
                             etFont.setText(cardDetailsResponseModel.card_email_fontsize_mob);
                         rlColorHolder.setBackgroundColor(Color.parseColor(emailColor));
-                        if(cardDetailsResponseModel.card_email_font!= null)
+                        if (cardDetailsResponseModel.card_email_font != null)
                             tvAttributeFont.setText(cardDetailsResponseModel.card_email_font);
                         else
                             tvAttributeFont.setHint("Select font");
@@ -909,11 +933,12 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             float dX;
             float dY;
             int lastAction;
+
             @Override
-            public boolean onTouch (View view, MotionEvent event){
+            public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        textSelectd="phone";
+                        textSelectd = "phone";
                         llPhoneNumber.setBackground(getResources().getDrawable(R.drawable.black_bg));
                         tvName.setBackground(null);
                         tvOrganisationName.setBackground(null);
@@ -923,18 +948,18 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                         etFont.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etFont.setClickable(false);
                         etFont.setFocusableInTouchMode(true);
-                        if(phoneFontvalue != null)
+                        if (phoneFontvalue != null)
                             etFont.setText(phoneFontvalue);
                         else
                             etFont.setText(cardDetailsResponseModel.card_phone_fontsize_mob);
                         rlColorHolder.setBackgroundColor(Color.parseColor(phoneColor));
-                        if(cardDetailsResponseModel.card_phone_font!= null)
+                        if (cardDetailsResponseModel.card_phone_font != null)
                             tvAttributeFont.setText(cardDetailsResponseModel.card_phone_font);
                         else
                             tvAttributeFont.setHint("Select font");
                         dX = view.getX() - event.getRawX();
                         dY = view.getY() - event.getRawY();
-                       // lastAction = MotionEvent.ACTION_DOWN;
+                        // lastAction = MotionEvent.ACTION_DOWN;
                         break;
 
                     case MotionEvent.ACTION_MOVE:
@@ -959,7 +984,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         toggleAttribute.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     switch (textSelectd) {
                         case "organisation":
                             oraganisationVisibility = true;
@@ -982,11 +1007,11 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                             //llPhoneNumber.setVisibility(View.VISIBLE);
                             break;
                         default:
-                            Toast.makeText(CardEditActivity.this,"Please select a attribute",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CardEditActivity.this, "Please select a attribute", Toast.LENGTH_SHORT).show();
                             toggleAttribute.setChecked(false);
                             break;
                     }
-                }else{
+                } else {
                     switch (textSelectd) {
                         case "organisation":
                             oraganisationVisibility = false;
@@ -1038,40 +1063,45 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 201:
-                if (resultCode == RESULT_OK) {
-                    assert data != null;
+                if (resultCode == RESULT_OK && data != null) {
                     Uri selectedImage = data.getData();
-                    String[] filePath = {MediaStore.Images.Media.DATA};
-                    assert selectedImage != null;
-                    Cursor c = Objects.requireNonNull(CardEditActivity.this).getContentResolver().query(selectedImage, filePath, null, null, null);
-                    assert c != null;
-                    c.moveToFirst();
-                    int columnIndex = c.getColumnIndex(filePath[0]);
-                    String picturePath = c.getString(columnIndex);
-                    c.close();
-                    BitmapFactory.Options Options = new BitmapFactory.Options();
-                    Options.inSampleSize = 4;
-                    Options.inJustDecodeBounds = false;
-                    Bitmap bitmap = (BitmapFactory.decodeFile(picturePath,Options));
-                    Uri uri = getImageUri(Objects.requireNonNull(CardEditActivity.this), bitmap);
-                    pic = new File(getRealPathFromURI(uri));
-                    cardLogo.setImageBitmap(bitmap);
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    if (selectedImage != null) {
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        if (cursor != null) {
+                            cardLogo.setVisibility(View.VISIBLE);
+                            cursor.moveToFirst();
+
+                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                            String picturePath = cursor.getString(columnIndex);
+                            BitmapFactory.Options Options = new BitmapFactory.Options();
+                            Options.inSampleSize = 4;
+                            Options.inJustDecodeBounds = false;
+                            Bitmap bitmap = (BitmapFactory.decodeFile(picturePath, Options));
+                            cardLogo.setImageBitmap(bitmap);
+                            //Uri uri=getImageUri(CardEditActivity.this,bitmap);
+                            pic = new File(getRealPathFromURI(selectedImage));
+                            cursor.close();
+                        }
+                    }
+
                 }
                 break;
         }
     }
 
-    Uri getImageUri(Context inContext, Bitmap inImage){
+    Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "image", null);
         return Uri.parse(path);
     }
 
-    String getRealPathFromURI(Uri uri){
+    String getRealPathFromURI(Uri uri) {
         String path = "";
-        if (Objects.requireNonNull(CardEditActivity.this).getContentResolver() != null) {
-            Cursor cursor = Objects.requireNonNull(CardEditActivity.this).getContentResolver().query(uri, null, null, null, null);
+        if (CardEditActivity.this.getContentResolver() != null) {
+            Cursor cursor = CardEditActivity.this.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
                 int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -1085,13 +1115,13 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lllogo:
                 hideKeyBoardLinearlayout(lllogo);
                 requestPermission();
                 break;
             case R.id.rlCard:
-                textSelectd="";
+                textSelectd = "";
                 etFont.setClickable(true);
                 etFont.setInputType(InputType.TYPE_NULL);
                 etFont.setText("");
@@ -1106,46 +1136,46 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 llMail.setBackground(null);
                 break;
             case R.id.etFont:
-                if(textSelectd.equals(""))
-                    Toast.makeText(CardEditActivity.this,"Please select a attribute first",Toast.LENGTH_SHORT).show();
+                if (textSelectd.equals(""))
+                    Toast.makeText(CardEditActivity.this, "Please select a attribute first", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.llPreview:
                 llSideView.setVisibility(View.GONE);
                 llLowerView.setVisibility(View.GONE);
                 ivBack.setTag("preview");
-                if(oraganisationVisibility){
+                if (oraganisationVisibility) {
                     tvOrganisationName.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tvOrganisationName.setVisibility(View.GONE);
                 }
-                if(nameVisibility){
+                if (nameVisibility) {
                     tvName.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tvName.setVisibility(View.GONE);
                 }
-                if(addressVisibility){
+                if (addressVisibility) {
                     llAddress.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     llAddress.setVisibility(View.GONE);
                 }
-                if(phoneVisibility){
+                if (phoneVisibility) {
                     llPhoneNumber.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     llPhoneNumber.setVisibility(View.GONE);
                 }
-                if(emailVisibility){
+                if (emailVisibility) {
                     llMail.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     llMail.setVisibility(View.GONE);
                 }
                 break;
             case R.id.llEdit:
-                if(textSelectd.equals("")){
-                    Toast.makeText(CardEditActivity.this,"Please select a attribute first",Toast.LENGTH_SHORT).show();
-                }else{
+                if (textSelectd.equals("")) {
+                    Toast.makeText(CardEditActivity.this, "Please select a attribute first", Toast.LENGTH_SHORT).show();
+                } else {
                     switch (textSelectd) {
                         case "organisation":
-                            editDialog(tvOrganisationName,textSelectd);
+                            editDialog(tvOrganisationName, textSelectd);
                             break;
                         case "name":
                             editDialog(tvName, textSelectd);
@@ -1157,24 +1187,34 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                             editDialog(tvemailAddress, textSelectd);
                             break;
                         case "phone":
-                            Toast.makeText(CardEditActivity.this,"You caan't edit the phone number.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CardEditActivity.this, "You caan't edit the phone number.", Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }
                 break;
             case R.id.llSave:
                 hideKeyBoardLinearlayout(llSave);
+                if(!nameVisibility)
+                    tvName.setVisibility(View.GONE);
+                if(!oraganisationVisibility)
+                    tvOrganisationName.setVisibility(View.GONE);
+                if(!addressVisibility)
+                    llAddress.setVisibility(View.GONE);
+                if(!emailVisibility)
+                    llMail.setVisibility(View.GONE);
+                if(!phoneVisibility)
+                    llPhoneNumber.setVisibility(View.GONE);
                 llPhoneNumber.setBackground(null);
                 tvName.setBackground(null);
                 tvOrganisationName.setBackground(null);
                 llAddress.setBackground(null);
                 llMail.setBackground(null);
-                Bitmap bitmap=Bitmap.createBitmap(rlCard.getWidth(),rlCard.getHeight(),Bitmap.Config.ARGB_8888);
-                Canvas canvas=new Canvas(bitmap);
-                Drawable drawable=rlCard.getBackground();
-                if(drawable != null){
+                Bitmap bitmap = Bitmap.createBitmap(rlCard.getWidth(), rlCard.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                Drawable drawable = rlCard.getBackground();
+                if (drawable != null) {
                     drawable.draw(canvas);
-                }else{
+                } else {
                     canvas.drawColor(Color.WHITE);
                 }
                 rlCard.draw(canvas);
@@ -1183,8 +1223,8 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 try {
                     card_pic = File.createTempFile("card", ".png", Environment.getExternalStorageDirectory());
                     FileOutputStream ostream = new FileOutputStream(card_pic);
-                    if(bitmap == null){
-                        Log.d("tag","true");
+                    if (bitmap == null) {
+                        Log.d("tag", "true");
                     }
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
                     ostream.close();
@@ -1204,9 +1244,9 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 //onBackPressed();
                 break;
             case R.id.rlUsertype:
-                if(textSelectd.equals("")){
-                    Toast.makeText(CardEditActivity.this,"Please select a attribute first",Toast.LENGTH_SHORT).show();
-                }else {
+                if (textSelectd.equals("")) {
+                    Toast.makeText(CardEditActivity.this, "Please select a attribute first", Toast.LENGTH_SHORT).show();
+                } else {
                     if (ivDown.getTag().toString().toLowerCase().equals("down")) {
                         ivDown.setTag("up");
                         ivDown.setImageResource(R.drawable.up_red);
@@ -1220,16 +1260,16 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 }
                 break;
             case R.id.rlColorHolder:
-                if(textSelectd.equals("")){
-                    Toast.makeText(CardEditActivity.this,"Please select a attribute first",Toast.LENGTH_SHORT).show();
-                }else{
+                if (textSelectd.equals("")) {
+                    Toast.makeText(CardEditActivity.this, "Please select a attribute first", Toast.LENGTH_SHORT).show();
+                } else {
                     GridView gvOrganisation = (GridView) ColorPicker.getColorPicker(this);
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setView(gvOrganisation);
                     final AlertDialog dialog = builder.create();
                     dialog.show();
 
-                    Objects.requireNonNull(dialog.getWindow()).setLayout(1000,600);
+                    Objects.requireNonNull(dialog.getWindow()).setLayout(1000, 600);
                     dialog.getWindow().setBackgroundDrawableResource(R.color.white);
                     gvOrganisation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -1281,7 +1321,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 final AlertDialog dialog = builder.create();
                 dialog.show();
 
-                Objects.requireNonNull(dialog.getWindow()).setLayout(1000,600);
+                Objects.requireNonNull(dialog.getWindow()).setLayout(1000, 600);
                 dialog.getWindow().setBackgroundDrawableResource(R.color.white);
                 gvOrganisation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -1300,11 +1340,11 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 });
                 break;
             case R.id.ivBack:
-                if(ivBack.getTag().toString().toLowerCase().equals("back")){
+                if (ivBack.getTag().toString().toLowerCase().equals("back")) {
                     myPreference.setLayout("");
                     myPreference.setLayoutID("");
                     onBackPressed();
-                }else if(ivBack.getTag().toString().toLowerCase().equals("preview")){
+                } else if (ivBack.getTag().toString().toLowerCase().equals("preview")) {
                     llLowerView.setVisibility(View.VISIBLE);
                     llSideView.setVisibility(View.VISIBLE);
                     ivBack.setTag("back");
@@ -1319,10 +1359,10 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     }
 
     private void editDialog(final TextView textView, final String textSelectd) {
-        final EditCardDialog editCardDialog=new EditCardDialog(this);
-        if(!editCardDialog.isShowing()){
+        final EditCardDialog editCardDialog = new EditCardDialog(this);
+        if (!editCardDialog.isShowing()) {
             editCardDialog.show();
-            switch (textSelectd){
+            switch (textSelectd) {
                 case "organisation":
                     editCardDialog.tvHeading.setText("Edit Organisation name");
                     editCardDialog.etTitle.setText(ContainerActivity.getCardResponseDataModel.user_organization_name);
@@ -1331,7 +1371,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                     break;
                 case "name":
                     editCardDialog.tvHeading.setText("Edit name");
-                    editCardDialog.etTitle.setText(ContainerActivity.getCardResponseDataModel.user_fname+" "+ ContainerActivity.getCardResponseDataModel.user_lname);
+                    editCardDialog.etTitle.setText(ContainerActivity.getCardResponseDataModel.user_fname + " " + ContainerActivity.getCardResponseDataModel.user_lname);
                     editCardDialog.etTitle.setMaxLines(1);
                     editCardDialog.etTitle.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
                     break;
@@ -1357,22 +1397,22 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             editCardDialog.btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(Objects.requireNonNull(editCardDialog.etTitle.getText()).toString().isEmpty()){
-                        Toast.makeText(CardEditActivity.this,"Field cann't be blank.",Toast.LENGTH_SHORT).show();
-                    }else{
-                       editCardDialog.dismiss();
-                        switch (textSelectd){
+                    if (Objects.requireNonNull(editCardDialog.etTitle.getText()).toString().isEmpty()) {
+                        Toast.makeText(CardEditActivity.this, "Field cann't be blank.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        editCardDialog.dismiss();
+                        switch (textSelectd) {
                             case "organisation":
                                 StringBuilder sb = new StringBuilder(editCardDialog.etTitle.getText().toString());
                                 sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-                                organisationName=sb.toString();
+                                organisationName = sb.toString();
                                 textView.setText(organisationName);
                                 break;
                             case "name":
                                 textView.setText(editCardDialog.etTitle.getText().toString());
                                 break;
                             case "address":
-                                textView.setText(editCardDialog.etTitle.getText().toString()+"-"+ContainerActivity.getCardResponseDataModel.user_pin);
+                                textView.setText(editCardDialog.etTitle.getText().toString() + "-" + ContainerActivity.getCardResponseDataModel.user_pin);
                                 break;
                             case "mail":
                                 textView.setText(editCardDialog.etTitle.getText().toString());
@@ -1386,162 +1426,171 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
 
     private void doEdit(File card_pic) {
         showRotateDialog();
-        int marginleftOragnisation= (int) tvOrganisationName.getX();
-        int margintopOragnisation= (int) tvOrganisationName.getY();
-        int marginLeftName=(int) tvName.getX();
-        int marginTopName=(int) tvName.getY();
-        int marginLeftAddress=(int) llAddress.getX();
-        int marginBottomAddress=(int) llAddress.getY();
-        int marginRightMail=(int) llMail.getX();
-        int marginBottomMail=(int) llMail.getY();
-        int marginRightPhone=(int) llPhoneNumber.getX();
-        int marginBottomPhone=(int) llPhoneNumber.getY();
-        RequestBody apiUser=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
-        RequestBody apiPass=RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
-        RequestBody userId=RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
-        RequestBody layoutid=RequestBody.create(MediaType.parse("multipart/form-data"), layoutId);
-        RequestBody orgcolor=RequestBody.create(MediaType.parse("multipart/form-data"), organisationColor);
-        RequestBody orgfont=null;
-        if(organisationFont != null)
-            orgfont= RequestBody.create(MediaType.parse("multipart/form-data"),organisationFont);
+        int marginleftOragnisation = (int) tvOrganisationName.getX();
+        int margintopOragnisation = (int) tvOrganisationName.getY();
+        int marginLeftName = (int) tvName.getX();
+        int marginTopName = (int) tvName.getY();
+        int marginLeftAddress = (int) llAddress.getX();
+        int marginBottomAddress = (int) llAddress.getY();
+        int marginRightMail = (int) llMail.getX();
+        int marginBottomMail = (int) llMail.getY();
+        int marginRightPhone = (int) llPhoneNumber.getX();
+        int marginBottomPhone = (int) llPhoneNumber.getY();
+        int marginleftInsideImage = (int) cardLogo.getX();
+        int margintopInsideImage = (int) cardLogo.getY();
+        RequestBody insideImageTop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(margintopInsideImage));
+        RequestBody insideImageleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginleftInsideImage));
+        MultipartBody.Part insideImage = null;
+        if (pic != null) {
+            RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), pic);
+            insideImage = MultipartBody.Part.createFormData("inside_card_image", "insideImage.png", propertyImage);
+        }
+        RequestBody apiUser = RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
+        RequestBody apiPass = RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
+        RequestBody userId = RequestBody.create(MediaType.parse("multipart/form-data"), myPreference.getUserID());
+        RequestBody layoutid = RequestBody.create(MediaType.parse("multipart/form-data"), layoutId);
+        RequestBody orgcolor = RequestBody.create(MediaType.parse("multipart/form-data"), organisationColor);
+        RequestBody orgfont = null;
+        if (organisationFont != null)
+            orgfont = RequestBody.create(MediaType.parse("multipart/form-data"), organisationFont);
         else
-            orgfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
-        RequestBody orgtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(margintopOragnisation));
-        RequestBody orgleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginleftOragnisation));
+            orgfont = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        RequestBody orgtop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(margintopOragnisation));
+        RequestBody orgleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginleftOragnisation));
         RequestBody orgvisibility = null;
-        if(oraganisationVisibility){
-            orgvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        }else {
-            orgvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (oraganisationVisibility) {
+            orgvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            orgvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }
-        RequestBody namecolor=RequestBody.create(MediaType.parse("multipart/form-data"), nameColor);
-        RequestBody namefont=null;
-        if(nameFont != null)
-            namefont= RequestBody.create(MediaType.parse("multipart/form-data"),nameFont);
+        RequestBody namecolor = RequestBody.create(MediaType.parse("multipart/form-data"), nameColor);
+        RequestBody namefont = null;
+        if (nameFont != null)
+            namefont = RequestBody.create(MediaType.parse("multipart/form-data"), nameFont);
         else
-            namefont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
-        RequestBody nametop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginTopName));
-        RequestBody nameleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftName));
+            namefont = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        RequestBody nametop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginTopName));
+        RequestBody nameleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftName));
         RequestBody namevisibility = null;
-        if(nameVisibility){
-            namevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        }else {
-            namevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (nameVisibility) {
+            namevisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            namevisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }
-        RequestBody addcolor=RequestBody.create(MediaType.parse("multipart/form-data"), addressColor);
-        RequestBody addfont=null;
-        if(addressFont != null)
-            addfont= RequestBody.create(MediaType.parse("multipart/form-data"),addressFont);
+        RequestBody addcolor = RequestBody.create(MediaType.parse("multipart/form-data"), addressColor);
+        RequestBody addfont = null;
+        if (addressFont != null)
+            addfont = RequestBody.create(MediaType.parse("multipart/form-data"), addressFont);
         else
-            addfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
-        RequestBody addtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomAddress));
-        RequestBody addleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftAddress));
+            addfont = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        RequestBody addtop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomAddress));
+        RequestBody addleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginLeftAddress));
         RequestBody addvisibility = null;
-        if(addressVisibility){
-            addvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        }else {
-            addvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (addressVisibility) {
+            addvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            addvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }
-        RequestBody emailcolor=RequestBody.create(MediaType.parse("multipart/form-data"), emailColor);
-        RequestBody emailfont=null;
-        if(emailfont != null)
-            emailfont= RequestBody.create(MediaType.parse("multipart/form-data"),emailFont);
+        RequestBody emailcolor = RequestBody.create(MediaType.parse("multipart/form-data"), emailColor);
+        RequestBody emailfont = null;
+        if (emailfont != null)
+            emailfont = RequestBody.create(MediaType.parse("multipart/form-data"), emailFont);
         else
-            emailfont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
-        RequestBody emailtop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomMail));
-        RequestBody emailleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightMail));
+            emailfont = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        RequestBody emailtop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomMail));
+        RequestBody emailleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightMail));
         RequestBody emailvisibility = null;
-        if(emailVisibility){
-            emailvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        }else {
-            emailvisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (emailVisibility) {
+            emailvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            emailvisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }
-        RequestBody phonecolor=RequestBody.create(MediaType.parse("multipart/form-data"), phoneColor);
-        RequestBody phonefont=null;
-        if(phoneFont != null)
-            phonefont= RequestBody.create(MediaType.parse("multipart/form-data"),phoneFont);
+        RequestBody phonecolor = RequestBody.create(MediaType.parse("multipart/form-data"), phoneColor);
+        RequestBody phonefont = null;
+        if (phoneFont != null)
+            phonefont = RequestBody.create(MediaType.parse("multipart/form-data"), phoneFont);
         else
-           phonefont= RequestBody.create(MediaType.parse("multipart/form-data"),"");
-        RequestBody phonetop=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomPhone));
-        RequestBody phoneleft=RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightPhone));
+            phonefont = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        RequestBody phonetop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginBottomPhone));
+        RequestBody phoneleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginRightPhone));
         RequestBody phonevisibility = null;
-        if(emailVisibility){
-            phonevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        }else {
-            phonevisibility=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        if (phoneVisibility) {
+            phonevisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            phonevisibility = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
         }
-        RequestBody userfname=null;
-        RequestBody userlName=null;
-        userfname=RequestBody.create(MediaType.parse("multipart/form-data"), tvName.getText().toString());
-        userlName=RequestBody.create(MediaType.parse("multipart/form-data"), "");
-        String[] addressArray=tvAddress.getText().toString().split("-");
-        RequestBody address=RequestBody.create(MediaType.parse("multipart/form-data"),addressArray[0]);
-        RequestBody email=RequestBody.create(MediaType.parse("multipart/form-data"),tvemailAddress.getText().toString());
-        RequestBody bordercolor=RequestBody.create(MediaType.parse("multipart/form-data"),borderColor);
+        RequestBody userfname = null;
+        RequestBody userlName = null;
+        userfname = RequestBody.create(MediaType.parse("multipart/form-data"), tvName.getText().toString());
+        userlName = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        String[] addressArray = tvAddress.getText().toString().split("-");
+        RequestBody address = RequestBody.create(MediaType.parse("multipart/form-data"), addressArray[0]);
+        RequestBody email = RequestBody.create(MediaType.parse("multipart/form-data"), tvemailAddress.getText().toString());
+        RequestBody bordercolor = RequestBody.create(MediaType.parse("multipart/form-data"), borderColor);
         StringBuilder sb = new StringBuilder(tvOrganisationName.getText().toString());
         sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-        organisationName=sb.toString();
-        RequestBody org=RequestBody.create(MediaType.parse("multipart/form-data"),organisationName);
+        organisationName = sb.toString();
+        RequestBody org = RequestBody.create(MediaType.parse("multipart/form-data"), organisationName);
         RequestBody phoneFont = null;
-        if(phoneFontvalue != null){
-            phoneFont=RequestBody.create(MediaType.parse("multipart/form-data"), phoneFontvalue);
-        }else {
-            phoneFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_phone_fontsize_mob);
+        if (phoneFontvalue != null) {
+            phoneFont = RequestBody.create(MediaType.parse("multipart/form-data"), phoneFontvalue);
+        } else {
+            phoneFont = RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_phone_fontsize_mob);
         }
         RequestBody nameFont = null;
-        if(nameFontValue != null){
-            nameFont=RequestBody.create(MediaType.parse("multipart/form-data"), nameFontValue);
-        }else {
-            nameFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_name_fontsize_mob);
+        if (nameFontValue != null) {
+            nameFont = RequestBody.create(MediaType.parse("multipart/form-data"), nameFontValue);
+        } else {
+            nameFont = RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_name_fontsize_mob);
         }
         RequestBody addressFont = null;
-        if(addressFontValue != null){
-            addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), addressFontValue);
-        }else {
-            addressFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_address_fontsize_mob);
+        if (addressFontValue != null) {
+            addressFont = RequestBody.create(MediaType.parse("multipart/form-data"), addressFontValue);
+        } else {
+            addressFont = RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_address_fontsize_mob);
         }
         RequestBody emailFont = null;
-        if(emailFontvalue != null){
-            emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), emailFontvalue);
-        }else {
-            emailFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_email_fontsize_mob);
+        if (emailFontvalue != null) {
+            emailFont = RequestBody.create(MediaType.parse("multipart/form-data"), emailFontvalue);
+        } else {
+            emailFont = RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_email_fontsize_mob);
         }
         RequestBody orgFont = null;
-        if(organisationFontvalue != null){
-            orgFont=RequestBody.create(MediaType.parse("multipart/form-data"), organisationFontvalue);
-        }else {
-            orgFont=RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_org_fontsize_mob);
+        if (organisationFontvalue != null) {
+            orgFont = RequestBody.create(MediaType.parse("multipart/form-data"), organisationFontvalue);
+        } else {
+            orgFont = RequestBody.create(MediaType.parse("multipart/form-data"), cardDetailsResponseModel.card_org_fontsize_mob);
         }
         MultipartBody.Part image = null;
         if (card_pic != null) {
             RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), card_pic);
             image = MultipartBody.Part.createFormData("card_image", "card.png", propertyImage);
         }
-        Call<ResponseBody> doEdit= RestManager.getInstance().getService().edit_card(apiUser,apiPass,userId,layoutid,orgcolor,orgfont,orgtop,orgleft,orgvisibility,namecolor,namefont,nametop,nameleft,namevisibility,addcolor,addfont,addtop,addleft,addvisibility,emailcolor,emailfont,emailtop,emailleft,emailvisibility,phonecolor,phonefont,phonetop,phoneleft,phonevisibility,userfname,userlName,address,email,org,bordercolor,phoneFont,addressFont,emailFont,nameFont,orgFont,image);
+        Call<ResponseBody> doEdit = RestManager.getInstance().getService().edit_card(apiUser, apiPass, userId, layoutid, orgcolor, orgfont, orgtop, orgleft, orgvisibility, namecolor, namefont, nametop, nameleft, namevisibility, addcolor, addfont, addtop, addleft, addvisibility, emailcolor, emailfont, emailtop, emailleft, emailvisibility, phonecolor, phonefont, phonetop, phoneleft, phonevisibility, userfname, userlName, address, email, org, bordercolor, phoneFont, addressFont, emailFont, nameFont, orgFont, image, insideImageTop, insideImageleft, insideImage);
         doEdit.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NotNull Call<ResponseBody> call,@NotNull Response<ResponseBody> response) {
-                try{
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                try {
                     assert response.body() != null;
                     String val = response.body().string();
                     JSONObject jsonObject = new JSONObject(val);
                     if (jsonObject.optInt("code") == 1) {
                         getProfile();
-                    }else if(jsonObject.optInt("code") == 9){
+                    } else if (jsonObject.optInt("code") == 9) {
                         hideRotateDialog();
                         customAlert("Authentication error occurred.");
-                    }else{
+                    } else {
                         hideRotateDialog();
                         customAlert("Oops, something went wrong!");
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     hideRotateDialog();
                     customAlert("Oops, something went wrong!");
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<ResponseBody> call,@NotNull Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 hideRotateDialog();
                 customAlert("Internal server error. Please try after few minutes.");
             }
@@ -1549,46 +1598,46 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     }
 
     private void getProfile() {
-        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
-        apiCredentialModel.apiuser= Constant.apiuser;
-        apiCredentialModel.apipass=Constant.apipass;
-        GetCardClass getCardClass=new GetCardClass();
-        getCardClass.apiCredentialModel=apiCredentialModel;
-        getCardClass.user_id=myPreference.getUserID();
-        getCardClass.logged_in_user_id=myPreference.getUserID();
-        Gson gson=new Gson();
-        JsonElement jsonElement=gson.toJsonTree(getCardClass);
-        Call<GetCardResponseModel> getprofile= RestManager.getInstance().getService().get_profile(jsonElement);
+        ApiCredentialModel apiCredentialModel = new ApiCredentialModel();
+        apiCredentialModel.apiuser = Constant.apiuser;
+        apiCredentialModel.apipass = Constant.apipass;
+        GetCardClass getCardClass = new GetCardClass();
+        getCardClass.apiCredentialModel = apiCredentialModel;
+        getCardClass.user_id = myPreference.getUserID();
+        getCardClass.logged_in_user_id = myPreference.getUserID();
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(getCardClass);
+        Call<GetCardResponseModel> getprofile = RestManager.getInstance().getService().get_profile(jsonElement);
         getprofile.enqueue(new Callback<GetCardResponseModel>() {
             @Override
             public void onResponse(@NotNull Call<GetCardResponseModel> call, @NotNull Response<GetCardResponseModel> response) {
                 hideRotateDialog();
-                try{
+                try {
                     assert response.body() != null;
-                    int code=response.body().code;
-                    if(code == 1){
+                    int code = response.body().code;
+                    if (code == 1) {
                         ContainerActivity.galleryList.clear();
                         ContainerActivity.layoutList.clear();
                         ContainerActivity.youtubeDetailsModelArrayList.clear();
-                        ContainerActivity.layoutUrl=response.body().layout_url;
-                        ContainerActivity.viewCount=response.body().view_count;
-                        ContainerActivity.galleryList=response.body().gallery_details;
-                        cardDetailsResponseModel=response.body().card_details;
-                        ContainerActivity.layoutList=response.body().all_layouts;
-                        ContainerActivity.youtubeDetailsModelArrayList=response.body().youtube_details;
-                        ContainerActivity.getCardResponseDataModel=response.body().user_details;
-                        ContainerActivity.follow_status=response.body().follow_status;
-                        ContainerActivity.follow_count=response.body().no_of_followers;
-                        ContainerActivity.validity_status=response.body().validity_status;
-                        ContainerActivity.validityDate=response.body().user_details.user_card_valid_until;
+                        ContainerActivity.layoutUrl = response.body().layout_url;
+                        ContainerActivity.viewCount = response.body().view_count;
+                        ContainerActivity.galleryList = response.body().gallery_details;
+                        cardDetailsResponseModel = response.body().card_details;
+                        ContainerActivity.layoutList = response.body().all_layouts;
+                        ContainerActivity.youtubeDetailsModelArrayList = response.body().youtube_details;
+                        ContainerActivity.getCardResponseDataModel = response.body().user_details;
+                        ContainerActivity.follow_status = response.body().follow_status;
+                        ContainerActivity.follow_count = response.body().no_of_followers;
+                        ContainerActivity.validity_status = response.body().validity_status;
+                        ContainerActivity.validityDate = response.body().user_details.user_card_valid_until;
                         customAlertForSave("Your card has been edited successfully.");
                         //onBackPressed();
-                    }else if(code == 9){
+                    } else if (code == 9) {
                         customAlert("An authentication error occured!");
-                    }else{
+                    } else {
                         customAlert("Oops, something went wrong!");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     customAlert("Oops, something went wrong!");
                 }
@@ -1604,8 +1653,8 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     }
 
     private void customAlertForSave(String s) {
-        final CustomAlertWithOneButton customAlertWithOneButton=new CustomAlertWithOneButton(this);
-        if(!customAlertWithOneButton.isShowing()){
+        final CustomAlertWithOneButton customAlertWithOneButton = new CustomAlertWithOneButton(this);
+        if (!customAlertWithOneButton.isShowing()) {
             customAlertWithOneButton.show();
             customAlertWithOneButton.setCanceledOnTouchOutside(false);
             customAlertWithOneButton.setCancelable(false);
@@ -1624,46 +1673,46 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
     }
 
     private void setFontAdapter(ArrayList<String> fontFamilyList) {
-        if(fontFamilyList.size() > 0){
+        if (fontFamilyList.size() > 0) {
             rvFont.setVisibility(View.VISIBLE);
             rvFont.setLayoutManager(new LinearLayoutManager(this));
             tvEmptyText.setVisibility(View.GONE);
             switch (textSelectd) {
                 case "organisation": {
-                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont,fontFamilyList,this, rlRecyclerView, ivDown, organisationFont, organistionTypeface, tvOrganisationName);
+                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont, fontFamilyList, this, rlRecyclerView, ivDown, organisationFont, organistionTypeface, tvOrganisationName);
                     rvFont.setAdapter(fontFamilyAdapter);
                     break;
                 }
                 case "name": {
-                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont,fontFamilyList,this, rlRecyclerView, ivDown, addressFont, addressTypeface, tvName);
+                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont, fontFamilyList, this, rlRecyclerView, ivDown, addressFont, addressTypeface, tvName);
                     rvFont.setAdapter(fontFamilyAdapter);
                     break;
                 }
                 case "address": {
-                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont,fontFamilyList,this, rlRecyclerView, ivDown, addressFont, addressTypeface, tvAddress);
+                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont, fontFamilyList, this, rlRecyclerView, ivDown, addressFont, addressTypeface, tvAddress);
                     rvFont.setAdapter(fontFamilyAdapter);
                     break;
                 }
                 case "mail": {
-                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont,fontFamilyList,this, rlRecyclerView, ivDown, emailFont, emailtypeface, tvemailAddress);
+                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont, fontFamilyList, this, rlRecyclerView, ivDown, emailFont, emailtypeface, tvemailAddress);
                     rvFont.setAdapter(fontFamilyAdapter);
                     break;
                 }
                 case "phone": {
-                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont,fontFamilyList,this, rlRecyclerView, ivDown, phoneFont, phoneTypeface, tvphoneNumber);
+                    FontFamilyAdapter fontFamilyAdapter = new FontFamilyAdapter(tvAttributeFont, fontFamilyList, this, rlRecyclerView, ivDown, phoneFont, phoneTypeface, tvphoneNumber);
                     rvFont.setAdapter(fontFamilyAdapter);
                     break;
                 }
             }
-        }else{
+        } else {
             rvFont.setVisibility(View.GONE);
             tvEmptyText.setVisibility(View.VISIBLE);
         }
     }
 
     public void customAlert(String s) {
-        final CustomAlertWithOneButton customAlertWithOneButton=new CustomAlertWithOneButton(this);
-        if(!customAlertWithOneButton.isShowing()){
+        final CustomAlertWithOneButton customAlertWithOneButton = new CustomAlertWithOneButton(this);
+        if (!customAlertWithOneButton.isShowing()) {
             customAlertWithOneButton.show();
             customAlertWithOneButton.setCanceledOnTouchOutside(false);
             customAlertWithOneButton.setCancelable(false);

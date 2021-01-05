@@ -83,7 +83,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     public MyPreference myPreference;
     String organisationName="";
     public TextInputEditText etFirstName,etLastname,etPhoneNumber,etEmail,etAddress,etPin,etOrganisationame,etDescription;
-    public TextView tvuserType,tvEmptyText,tvOrganisationName,tvName,tvCardAddress,tvemailAddress,tvphoneNumber;
+    public TextView tvuserType,tvEmptyText,tvOrganisationName,tvName,tvCardAddress,tvemailAddress,tvphoneNumber,tvWatermark;
     public RelativeLayout rlUsertype,rlRecyclerView,rlMale,rlFemale,rlOther,rlCard;
     public LinearLayout llAddress,llMail,llPhoneNumber;
     public RecyclerView rvuserType;
@@ -107,6 +107,9 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
 
     private void init(View rootView) {
         servicesList=new ArrayList<>();
+        tvWatermark=rootView.findViewById(R.id.tvWatermark);
+        int alpha = 100;
+        tvWatermark.setTextColor(Color.argb(alpha, 0, 0, 0));
         llAddress=rootView.findViewById(R.id.llAddress);
         llMail=rootView.findViewById(R.id.llMail);
         llPhoneNumber=rootView.findViewById(R.id.llPhoneNumber);

@@ -147,6 +147,7 @@
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_height="match_parent">
                         <RelativeLayout
+                            android:visibility="gone"
                             android:id="@+id/rlHeading"
                             android:layout_marginTop="@dimen/_20sdp"
                             android:layout_marginStart="@dimen/_10sdp"
@@ -209,6 +210,7 @@
                         </RelativeLayout>
                         <LinearLayout
                             android:layout_below="@id/rlHeading"
+                            android:layout_marginTop="@dimen/_20sdp"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:orientation="horizontal"
@@ -355,67 +357,304 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12sdp" />
                         </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/tvGallery"
-                            style="@style/TextAppearance.MaterialComponents.Headline6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@id/rlWokkYoutubeLink"
-                            android:layout_marginTop="@dimen/_25sdp"
-                            android:textSize="@dimen/_15sdp"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:text="Gallery"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/gidole_regular" />
-
-                        <RelativeLayout
-                            android:id="@+id/rlGallery"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvGallery"
+                        <LinearLayout
+                            android:id="@+id/llAboutGallery"
+                            android:orientation="horizontal"
                             android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_10sdp">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvGallery"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-
-                            <TextView
-                                android:id="@+id/tvEmptyText"
-                                style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_below="@+id/rlWokkYoutubeLink"
+                            android:layout_marginTop="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:id="@+id/llgallery"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:fontFamily="@font/gidole_regular"
-                                android:layout_marginTop="@dimen/_20sdp"
-                                android:layout_marginBottom="@dimen/_25sdp"
-                                android:text="No items available."
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_8sdp"
-                                android:visibility="gone" />
-                        </RelativeLayout>
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/ivGallery"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/mycard_gallery_active"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_width="@dimen/_25sdp"
+                                    android:layout_height="@dimen/_25sdp"/>
+                                <TextView
+                                    android:id="@+id/tvGallery"
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_15sdp"
+                                    android:text="Gallery"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@color/orange"
+                                    android:fontFamily="@font/gidole_regular" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/llabout"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/ivAbout"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/mycard_about"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_width="@dimen/_25sdp"
+                                    android:layout_height="@dimen/_25sdp"/>
+                                <TextView
+                                    android:id="@+id/tvAbout"
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_15sdp"
+                                    android:text="About"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/gidole_regular" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvYoutube"
-                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                        </LinearLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlGalleryAbout"
+                            android:layout_below="@id/llAboutGallery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/rlGallery"
-                            android:layout_centerHorizontal="true"
-                            android:fontFamily="@font/gidole_regular"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp">
+                            <RelativeLayout
+                                android:id="@+id/rlGallery"
+                                android:visibility="visible"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvGallery"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                                <TextView
+                                    android:id="@+id/tvEmptyText"
+                                    style="@style/TextAppearance.MaterialComponents.Body2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:fontFamily="@font/gidole_regular"
+                                    android:layout_marginTop="@dimen/_20sdp"
+                                    android:layout_marginBottom="@dimen/_25sdp"
+                                    android:text="No items available."
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_8sdp"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
+                            <LinearLayout
+                                android:visibility="gone"
+                                android:orientation="vertical"
+                                android:id="@+id/llAbout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Service: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvService"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llname"
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Name: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvName"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llOrg"
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Organisation name: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvOrg"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llPhoneNumber"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Phone number: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvPh"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llEmail"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Email: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvEmail"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llAddress"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Address: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvAddress"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/llPin"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:text="Pin: "
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:textSize="@dimen/_15sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                    <TextView
+                                        
+                                        android:id="@+id/tvPin"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/gidole_regular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/llYoutube"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:text="Youtube Links"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_below="@id/rlGalleryAbout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/ivYouTube"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/mycard_youtube_active"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"/>
+                            <TextView
+                                android:id="@+id/tvYoutube"
+                                android:layout_toEndOf="@id/ivYouTube"
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
+                                android:layout_width="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/gidole_regular"
+                                android:text="Youtube Links"
+                                android:textColor="@color/orange"
+                                android:textSize="@dimen/_15sdp" />
+                        </RelativeLayout>
+
+
                         <RelativeLayout
                             android:id="@+id/rlYoutube"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tvYoutube"
+                            android:layout_below="@id/llYoutube"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_5sdp">

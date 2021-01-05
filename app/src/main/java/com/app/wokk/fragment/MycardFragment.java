@@ -90,6 +90,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.app.wokk.activity.ContainerActivity.cardDetailsResponseModel;
 import static com.app.wokk.activity.ContainerActivity.tvViews;
 
 public class MycardFragment extends BaseFragment implements View.OnClickListener {
@@ -102,9 +103,10 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public MyPreference myPreference;
     public RecyclerView rvGallery, rvYoutube;
     public EditText etNumber;
-    public RelativeLayout rlYoutube, rlAlert,rlSms,rlWhatsappShare,rlFollow,rlWapp,rlCall,rlshare,rlWokkYoutubeLink;
-    public TextView tvEmptyText, tvEmptyTextYoutube, tvProfile,tvCardHolderName,tvUserType,tvUserDecsp,tvFollow;
-    public ImageView ivInstagram, ivCard, ivTwitter, ivFacebook,ivCardHolderPhone,ivContact,ivCardHolderWhatsapp,ivFollow;
+    public LinearLayout llabout,llgallery,llAbout,llname,llOrg,llPhoneNumber,llPin,llAddress,llEmail;
+    public RelativeLayout rlYoutube, rlAlert,rlSms,rlWhatsappShare,rlFollow,rlWapp,rlCall,rlshare,rlWokkYoutubeLink,rlGallery;
+    public TextView tvEmptyText, tvEmptyTextYoutube, tvProfile,tvCardHolderName,tvUserType,tvUserDecsp,tvFollow,tvEmail,tvPin,tvAddress,tvPh,tvOrg,tvName,tvService,tvAbout,tvGallery;
+    public ImageView ivInstagram, ivCard, ivTwitter, ivFacebook,ivCardHolderPhone,ivContact,ivCardHolderWhatsapp,ivFollow,ivAbout,ivGallery;
     public GetCardResponseDataModel getCardResponseDataModel;
     public CardDetailsResponseModel cardDetailsResponseModel;
     public ArrayList<GalleryResponseModel> galleryCardList;
@@ -276,13 +278,45 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             rlAlert.setVisibility(View.GONE);
             Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(ivCard);
-            tvCardHolderName.setText(getCardResponseDataModel.user_fname+", "+getCardResponseDataModel.user_organization_name);
+            tvName.setText(getCardResponseDataModel.user_fname);
+            tvOrg.setText(getCardResponseDataModel.user_organization_name);
+            tvAddress.setText(getCardResponseDataModel.user_address);
+            tvPh.setText(getCardResponseDataModel.user_phone);
+            tvPin.setText(getCardResponseDataModel.user_pin);
+            tvEmail.setText(getCardResponseDataModel.user_email);
             for(int i=0;i<servicesList.size();i++){
                 if(servicesList.get(i).service_id.equals(getCardResponseDataModel.user_service_id)){
-                    tvUserType.setText(servicesList.get(i).service_name);
+                    tvService.setText(servicesList.get(i).service_name);
                 }
             }
-            tvUserDecsp.setText(getCardResponseDataModel.user_organization_desc);
+            if (cardDetailsResponseModel.card_name_show.equals("0")) {
+                tvName.setVisibility(View.GONE);
+            } else {
+                tvName.setVisibility(View.VISIBLE);
+            }
+            if (cardDetailsResponseModel.card_org_show.equals("0")) {
+                tvOrg.setVisibility(View.GONE);
+            } else {
+                tvOrg.setVisibility(View.VISIBLE);
+            }
+            if (cardDetailsResponseModel.card_phone_show.equals("0")) {
+                tvPh.setVisibility(View.GONE);
+            } else {
+                tvPh.setVisibility(View.VISIBLE);
+            }
+            if (cardDetailsResponseModel.card_email_show.equals("0")) {
+                tvEmail.setVisibility(View.GONE);
+            } else {
+                tvEmail.setVisibility(View.VISIBLE);
+            }
+            if (cardDetailsResponseModel.card_address_show.equals("0")) {
+                tvPin.setVisibility(View.GONE);
+                tvAddress.setVisibility(View.GONE);
+            } else {
+                tvPin.setVisibility(View.VISIBLE);
+                tvAddress.setVisibility(View.VISIBLE);
+            }
+            //tvUserDecsp.setText(getCardResponseDataModel.user_organization_desc);
             if (cardDetailsResponseModel.card_phone_show.equals("1")) {
                 rlCall.setAlpha(1.0f);
                 rlCall.setClickable(true);
@@ -309,6 +343,27 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void init(View rootView) {
+        tvAddress = rootView.findViewById(R.id.tvAddress);
+        rlGallery = rootView.findViewById(R.id.rlGallery);
+        ivGallery = rootView.findViewById(R.id.ivGallery);
+        tvGallery = rootView.findViewById(R.id.tvGallery);
+        llabout = rootView.findViewById(R.id.llabout);
+        llgallery = rootView.findViewById(R.id.llgallery);
+        llAbout = rootView.findViewById(R.id.llAbout);
+        ivAbout = rootView.findViewById(R.id.ivAbout);
+        llname = rootView.findViewById(R.id.llname);
+        llOrg = rootView.findViewById(R.id.llOrg);
+        llPhoneNumber = rootView.findViewById(R.id.llPhoneNumber);
+        llEmail = rootView.findViewById(R.id.llEmail);
+        llAddress = rootView.findViewById(R.id.llAddress);
+        tvEmail = rootView.findViewById(R.id.tvEmail);
+        tvPin = rootView.findViewById(R.id.tvPin);
+        tvPh = rootView.findViewById(R.id.tvPh);
+        tvOrg = rootView.findViewById(R.id.tvOrg);
+        tvService = rootView.findViewById(R.id.tvService);
+        tvName = rootView.findViewById(R.id.tvName);
+        tvAbout = rootView.findViewById(R.id.tvAbout);
+        tvGallery = rootView.findViewById(R.id.tvGallery);
         tvFollow = rootView.findViewById(R.id.tvFollow);
         ivCard = rootView.findViewById(R.id.ivCard);
         tvUserDecsp = rootView.findViewById(R.id.tvUserDecsp);
@@ -337,10 +392,13 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         rlFollow = rootView.findViewById(R.id.rlFollow);
         rlWapp = rootView.findViewById(R.id.rlWapp);
         ivFollow = rootView.findViewById(R.id.ivFollow);
+        rlGallery.setVisibility(View.VISIBLE);
         clickEvent();
     }
 
     private void clickEvent() {
+        llabout.setOnClickListener(this);
+        llgallery.setOnClickListener(this);
         ivCardHolderWhatsapp.setOnClickListener(this);
         rlWhatsappShare.setOnClickListener(this);
         rlFollow.setOnClickListener(this);
@@ -357,6 +415,22 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.llabout:
+                llAbout.setVisibility(View.VISIBLE);
+                rlGallery.setVisibility(View.GONE);
+                ivAbout.setImageResource(R.drawable.mycard_about_active);
+                ivGallery.setImageResource(R.drawable.mycard_gallery);
+                tvGallery.setTextColor(getResources().getColor(R.color.black));
+                tvAbout.setTextColor(getResources().getColor(R.color.orange));
+                break;
+            case R.id.llgallery:
+                llAbout.setVisibility(View.GONE);
+                rlGallery.setVisibility(View.VISIBLE);
+                ivAbout.setImageResource(R.drawable.mycard_about);
+                ivGallery.setImageResource(R.drawable.mycard_gallery_active);
+                tvGallery.setTextColor(getResources().getColor(R.color.orange));
+                tvAbout.setTextColor(getResources().getColor(R.color.black));
+                break;
             case  R.id.rlWokkYoutubeLink:
                 customAlert("This is is in under development!");
                 break;

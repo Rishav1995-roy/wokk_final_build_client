@@ -215,4 +215,16 @@ public class CardDetailsResponseModel {
     @Expose
     public String modified_by;
 
+    @SerializedName("inside_image_url")
+    @Expose
+    public String inside_image_url;
+
+    @SerializedName("inside_image_top_mob")
+    @Expose
+    public String inside_image_top_mob;
+
+    @SerializedName("insdie_image_left_mob")
+    @Expose
+    public String insdie_image_left_mob;
+
 }

@@ -71,13 +71,21 @@
                         android:maxWidth="@dimen/_120sdp"
                         android:maxLines="4" />
                 </LinearLayout>
-                <ImageView
-                    android:id="@+id/cardLogo"
+                <TextView
+                    android:text="Wokk"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="@dimen/_20sdp"
+                    android:fontFamily="@font/gidole_regular"
+                    android:id="@+id/tvWatermark"
                     android:adjustViewBounds="true"
-                    android:layout_marginStart="@dimen/_90sdp"
-                    android:layout_marginTop="@dimen/_90sdp"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"/>
+                    android:scaleType="fitXY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/cardLogo"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
                 <LinearLayout
                     android:id="@+id/llMail"
                     android:clickable="true"
@@ -90,6 +98,7 @@
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:adjustViewBounds="true"
+                        android:layout_gravity="center_vertical"
                         android:scaleType="fitCenter"
                         android:src="@drawable/at" />
 
@@ -334,7 +343,7 @@
         android:background="#FAE7DF"
         android:orientation="horizontal"
         android:layout_width="@dimen/_450sdp"
-        android:weightSum="5"
+        android:weightSum="6"
         android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/llEdit"
@@ -367,7 +376,6 @@
             android:layout_height="match_parent"
             android:background="@color/orange"/>
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/lllogo"
             android:layout_width="0dp"
             android:layout_weight="0.995"
@@ -382,7 +390,7 @@
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"/>
             <TextView
-                android:text="Add logo"
+                android:text="Add image"
                 android:fontFamily="@font/gidole_regular"
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/orange"

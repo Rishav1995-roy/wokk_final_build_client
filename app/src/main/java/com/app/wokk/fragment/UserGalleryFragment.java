@@ -170,25 +170,30 @@ public class UserGalleryFragment extends BaseFragment  implements View.OnClickLi
                 }
                 break;
             case 201:
-                if (resultCode == RESULT_OK) {
-
-                    assert data != null;
+                if (resultCode == RESULT_OK && data != null) {
                     Uri selectedImage = data.getData();
-                    String[] filePath = {MediaStore.Images.Media.DATA};
-                    assert selectedImage != null;
-                    Cursor c = Objects.requireNonNull(getActivity()).getContentResolver().query(selectedImage, filePath, null, null, null);
-                    assert c != null;
-                    c.moveToFirst();
-                    int columnIndex = c.getColumnIndex(filePath[0]);
-                    String picturePath = c.getString(columnIndex);
-                    c.close();
-                    BitmapFactory.Options Options = new BitmapFactory.Options();
-                    Options.inSampleSize = 4;
-                    Options.inJustDecodeBounds = false;
-                    Bitmap bitmap = (BitmapFactory.decodeFile(picturePath,Options));
-                    uri = getImageUri(Objects.requireNonNull(getActivity()), bitmap);
-                    pic = new File(getRealPathFromURI(uri));
-                    pictureShowAlert(pic, bitmap);
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    if (selectedImage != null) {
+                        Cursor cursor = Objects.requireNonNull(getActivity()).getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        if (cursor != null) {
+                            //cardLogo.setVisibility(View.VISIBLE);
+                            cursor.moveToFirst();
+
+                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                            String picturePath = cursor.getString(columnIndex);
+                            BitmapFactory.Options Options = new BitmapFactory.Options();
+                            Options.inSampleSize = 4;
+                            Options.inJustDecodeBounds = false;
+                            Bitmap bitmap = (BitmapFactory.decodeFile(picturePath, Options));
+                            //cardLogo.setImageBitmap(bitmap);
+                            //Uri uri=getImageUri(CardEditActivity.this,bitmap);
+                            pic = new File(getRealPathFromURI(selectedImage));
+                            cursor.close();
+                            pictureShowAlert(pic,bitmap);
+                        }
+                    }
+
                 }
                 break;
         }

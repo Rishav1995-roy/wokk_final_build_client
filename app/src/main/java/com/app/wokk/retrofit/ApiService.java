@@ -116,7 +116,10 @@ public interface ApiService {
                                  @Part(Constant.EditCard.Email_fontsize)RequestBody card_email_fontsize_mob,
                                  @Part(Constant.EditCard.Name_fontsize)RequestBody card_name_fontsize_mob,
                                  @Part(Constant.EditCard.Org_fontsize)RequestBody card_org_fontsize_mob,
-                                 @Part MultipartBody.Part card_image);
+                                 @Part MultipartBody.Part card_image,
+                                 @Part(Constant.EditCard.Inside_Image_top)RequestBody inside_image_top_mob,
+                                 @Part(Constant.EditCard.Inside_image_left)RequestBody inside_image_left_mob,
+                                 @Part MultipartBody.Part inside_card_image);
 
     @POST(Constant.Edit_profile)
     Call<ResponseBody> edit_profile(@Body JsonElement jsonElement);

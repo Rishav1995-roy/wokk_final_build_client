@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@null">
 
     <androidx.core.widget.NestedScrollView
@@ -12,23 +12,25 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
-                android:translationZ="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:translationZ="1dp">
 
                 <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/gidole_regular"
                     android:text="Create Card"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@color/orange"
-                    android:textSize="@dimen/_15sdp"
-                    android:fontFamily="@font/gidole_regular" />
+                    android:textSize="@dimen/_15sdp" />
+
                 <RelativeLayout
                     android:id="@+id/rlUsertype"
                     android:layout_width="match_parent"
@@ -37,21 +39,22 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
-                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_alignParentStart="true"
-                        android:src="@drawable/user"
+                        android:layout_centerVertical="true"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/user" />
 
                     <TextView
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:id="@+id/tvuserType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_25sdp"
                         android:ellipsize="end"
                         android:hint="Select service type"
                         android:textColor="@color/black"
@@ -88,9 +91,9 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvuserType"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                     <TextView
                         android:id="@+id/tvEmptyText"
@@ -99,9 +102,9 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_20sdp"
+                        android:fontFamily="@font/gidole_regular"
                         android:text="No items available."
                         android:textColor="@color/offBlack"
-                        android:fontFamily="@font/gidole_regular"
                         android:textSize="@dimen/_8sdp"
                         android:visibility="gone" />
                 </RelativeLayout>
@@ -113,27 +116,29 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/user"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/user" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFirstName"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:maxLines="1"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Proprietor name"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/gidole_regular"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -146,46 +151,48 @@
                     android:background="@color/offBlack" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/phone"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/phone" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etLastname"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Last name"
                         android:imeOptions="actionNext"
-                        android:nextFocusForward="@id/etEmail"
                         android:inputType="textPersonName"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/gidole_regular"
                         android:maxLines="1"
+                        android:nextFocusForward="@id/etEmail"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
                 <View
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/offBlack" />
+                    android:background="@color/offBlack"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -194,29 +201,31 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/phone"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/phone" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPhoneNumber"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="Phone number"
-                        android:imeOptions="actionNext"
                         android:clickable="false"
                         android:focusable="false"
-                        android:maxLength="10"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/gidole_regular"
+                        android:hint="Phone number"
+                        android:imeOptions="actionNext"
+                        android:maxLength="10"
                         android:maxLines="1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -235,27 +244,29 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/at"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/at" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
-                        android:paddingEnd="@dimen/_5sdp"
-                        android:paddingStart="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Email id"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/gidole_regular"
                         android:maxLines="1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -275,26 +286,28 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:minHeight="@dimen/_40sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/location"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/location" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="Address"
                         android:fontFamily="@font/gidole_regular"
+                        android:hint="Address"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:maxLines="3"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
@@ -315,27 +328,29 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:minHeight="@dimen/_40sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/location"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/location" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPin"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Pincode"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="6"
                         android:maxLines="1"
-                        android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
@@ -355,26 +370,28 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/organisation"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/organisation" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOrganisationame"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Organisation name"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
@@ -394,26 +411,28 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:orientation="horizontal">
+
                     <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/organisation"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"/>
+                        android:src="@drawable/organisation" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDescription"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:fontFamily="@font/gidole_regular"
                         android:hint="Organisation description"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/offBlack"
                         android:textSize="@dimen/_12sdp" />
@@ -427,40 +446,41 @@
                     android:background="@color/offBlack" />
 
                 <TextView
-                    android:visibility="gone"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:text="Gender: "
                     android:fontFamily="@font/gidole_regular"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:text="Gender: "
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone" />
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/rlOther"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/ivOther"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:adjustViewBounds="true"
-                        android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/uncheck"
                         android:tag="unselected" />
 
                     <TextView
+                        style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -468,58 +488,57 @@
                         android:layout_toEndOf="@id/ivOther"
                         android:fontFamily="@font/gidole_regular"
                         android:text="Do not specify gender"
-                        style="@style/TextAppearance.MaterialComponents.Body2"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/rlMale"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/ivMale"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:adjustViewBounds="true"
-                        android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/uncheck"
                         android:tag="unselected" />
 
                     <TextView
+                        style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_toEndOf="@id/ivMale"
-                        android:text="Male"
                         android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:text="Male"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/rlFemale"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/ivFemale"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
@@ -527,14 +546,14 @@
                         android:tag="unselected" />
 
                     <TextView
+                        style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_toEndOf="@id/ivFemale"
-                        android:text="Female"
                         android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:text="Female"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
@@ -551,39 +570,40 @@
 
                     <Button
                         android:id="@+id/btnCreate"
+                        style="@style/TextAppearance.MaterialComponents.Button"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/button_background"
+                        android:fontFamily="@font/gidole_regular"
                         android:text="Create card"
                         android:textAllCaps="false"
-                        android:fontFamily="@font/gidole_regular"
-                        style="@style/TextAppearance.MaterialComponents.Button"
                         android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rlCard"
-                android:background="@drawable/create_card_bg"
                 android:layout_width="@dimen/_350sdp"
-                android:layout_height="@dimen/_200sdp">
+                android:layout_height="@dimen/_200sdp"
+                android:background="@drawable/create_card_bg">
 
                 <TextView
-                    android:singleLine="false"
                     android:id="@+id/tvOrganisationName"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_15sdp"
+                    android:singleLine="false"
                     android:textColor="@color/black"
-                    style="@style/TextAppearance.MaterialComponents.Headline6" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <TextView
                     android:id="@+id/tvName"
-                    android:singleLine="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
                     style="@style/TextAppearance.MaterialComponents.Headline1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:singleLine="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
 
                 <LinearLayout
                     android:id="@+id/llAddress"
@@ -601,15 +621,15 @@
 
                     <TextView
                         android:id="@+id/tvCardAddress"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_2sdp"
                         android:maxWidth="@dimen/_120sdp"
-                        android:maxLines="4" />
+                        android:maxLines="4"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -628,14 +648,14 @@
 
                     <TextView
                         android:id="@+id/tvemailAddress"
-                        android:textSize="@dimen/_10sdp"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_2sdp"/>
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -655,16 +675,28 @@
 
                     <TextView
                         android:id="@+id/tvphoneNumber"
-                        android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/black"
-                        android:maxLines="1"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_2sdp"
-                        android:maxWidth="@dimen/_100sdp" />
+                        android:maxWidth="@dimen/_100sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
                 </LinearLayout>
+
+                <TextView
+                    android:text="Wokk"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="@dimen/_20sdp"
+                    android:fontFamily="@font/gidole_regular"
+                    android:id="@+id/tvWatermark"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
         </FrameLayout>
 
