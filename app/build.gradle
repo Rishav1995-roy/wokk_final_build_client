@@ -68,6 +68,8 @@ dependencies {
     //crashlytics
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
+    //Compressor
+    implementation 'id.zelory:compressor:3.0.0'
 
 
 }

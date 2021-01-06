@@ -11,8 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp">
 
+        <TextView
+            android:fontFamily="@font/gidole_regular"
+            android:id="@+id/tvImageTitle"
+            android:layout_marginTop="@dimen/_5sdp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_15sdp" />
+
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtubePlayerView"
+            android:layout_below="@id/tvImageTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_120sdp"
             android:layout_centerHorizontal="true"
@@ -21,16 +34,5 @@
             app:enableAutomaticInitialization="false"
             tools:ignore="Instantiatable" />
 
-        <TextView
-            android:fontFamily="@font/gidole_regular"
-            android:id="@+id/tvImageTitle"
-            android:layout_marginTop="@dimen/_5sdp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/youtubePlayerView"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10sdp" />
     </RelativeLayout>
 </RelativeLayout>

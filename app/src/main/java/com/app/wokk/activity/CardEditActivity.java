@@ -1087,7 +1087,9 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                             BitmapFactory.Options Options = new BitmapFactory.Options();
                             Options.inSampleSize = 4;
                             Options.inJustDecodeBounds = false;
-                            Bitmap bitmap = (BitmapFactory.decodeFile(picturePath, Options));
+                            Bitmap bitmap = BitmapFactory.decodeFile(picturePath, Options);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
                             cardLogo.setImageBitmap(bitmap);
                             //Uri uri=getImageUri(CardEditActivity.this,bitmap);
                             pic = new File(getRealPathFromURI(selectedImage));
@@ -1098,13 +1100,6 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                 }
                 break;
         }
-    }
-
-    Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "image", null);
-        return Uri.parse(path);
     }
 
     String getRealPathFromURI(Uri uri) {
@@ -1450,9 +1445,15 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
         RequestBody insideImageTop = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(margintopInsideImage));
         RequestBody insideImageleft = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(marginleftInsideImage));
         MultipartBody.Part insideImage = null;
+        RequestBody change=null;
         if (pic != null) {
+            change=RequestBody.create(MediaType.parse("multipart/form-data"), "1");
             RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), pic);
-            insideImage = MultipartBody.Part.createFormData("inside_card_image", "insideImage.png", propertyImage);
+            insideImage = MultipartBody.Part.createFormData("inside_card_image", "image.jpg", propertyImage);
+        }else{
+            change=RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+            RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            insideImage = MultipartBody.Part.createFormData("inside_card_image", "image.jpg", propertyImage);
         }
         RequestBody apiUser = RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apiuser);
         RequestBody apiPass = RequestBody.create(MediaType.parse("multipart/form-data"), Constant.apipass);
@@ -1575,7 +1576,7 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             RequestBody propertyImage = RequestBody.create(MediaType.parse("multipart/form-data"), card_pic);
             image = MultipartBody.Part.createFormData("card_image", "card.png", propertyImage);
         }
-        Call<ResponseBody> doEdit = RestManager.getInstance().getService().edit_card(apiUser, apiPass, userId, layoutid, orgcolor, orgfont, orgtop, orgleft, orgvisibility, namecolor, namefont, nametop, nameleft, namevisibility, addcolor, addfont, addtop, addleft, addvisibility, emailcolor, emailfont, emailtop, emailleft, emailvisibility, phonecolor, phonefont, phonetop, phoneleft, phonevisibility, userfname, userlName, address, email, org, bordercolor, phoneFont, addressFont, emailFont, nameFont, orgFont, image, insideImageTop, insideImageleft, insideImage);
+        Call<ResponseBody> doEdit = RestManager.getInstance().getService().edit_card(apiUser, apiPass, userId, layoutid, orgcolor, orgfont, orgtop, orgleft, orgvisibility, namecolor, namefont, nametop, nameleft, namevisibility, addcolor, addfont, addtop, addleft, addvisibility, emailcolor, emailfont, emailtop, emailleft, emailvisibility, phonecolor, phonefont, phonetop, phoneleft, phonevisibility, userfname, userlName, address, email, org, bordercolor, phoneFont, addressFont, emailFont, nameFont, orgFont, image, insideImageTop, insideImageleft,change, insideImage);
         doEdit.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {

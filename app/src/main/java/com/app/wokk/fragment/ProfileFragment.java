@@ -182,7 +182,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private void setTabIcons() {
         Objects.requireNonNull(tabs.getTabAt(0)).setIcon(R.drawable.tab_about_icon);
         Objects.requireNonNull(tabs.getTabAt(1)).setIcon(R.drawable.tab_gallery_icon);
-        Objects.requireNonNull(tabs.getTabAt(2)).setIcon(R.drawable.tab_gallery_icon);
+        Objects.requireNonNull(tabs.getTabAt(2)).setIcon(R.drawable.tab_youtube_icon);
     }
 
     private void setUpViewPager(SwipeDisableViewpager viewPager) {

@@ -119,6 +119,7 @@ public interface ApiService {
                                  @Part MultipartBody.Part card_image,
                                  @Part(Constant.EditCard.Inside_Image_top)RequestBody inside_image_top_mob,
                                  @Part(Constant.EditCard.Inside_image_left)RequestBody inside_image_left_mob,
+                                 @Part(Constant.EditCard.Inside_image_change)RequestBody inside_image_change,
                                  @Part MultipartBody.Part inside_card_image);
 
     @POST(Constant.Edit_profile)
