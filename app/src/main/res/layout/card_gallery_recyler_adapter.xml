@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/tvImageDesc"
             android:layout_below="@id/tvImageTitle"
-            android:textColor="@color/orange"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/_5sdp"
             android:maxLines="3"
             android:ellipsize="end"

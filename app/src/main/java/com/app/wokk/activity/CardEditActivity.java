@@ -254,7 +254,17 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
                     .skipMemoryCache(true).into(ivCard);
         }
 
-
+        RelativeLayout.LayoutParams insideImageParmas = (RelativeLayout.LayoutParams) cardLogo.getLayoutParams();
+        if (cardDetailsResponseModel.inside_image_top_mob != null) {
+            insideImageParmas.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.inside_image_top_mob));
+        } else
+            insideImageParmas.topMargin = 0;
+        if (cardDetailsResponseModel.insdie_image_left_mob != null) {
+            int leftmargin = (Integer.parseInt(String.valueOf(cardDetailsResponseModel.insdie_image_left_mob)));
+            insideImageParmas.leftMargin = leftmargin;
+        } else
+            insideImageParmas.leftMargin = 0;
+        cardLogo.setLayoutParams(insideImageParmas);
         if (ContainerActivity.getCardResponseDataModel.user_address != null && ContainerActivity.getCardResponseDataModel.user_pin != null)
             tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address + " - " + ContainerActivity.getCardResponseDataModel.user_pin);
         if (ContainerActivity.getCardResponseDataModel.user_phone != null)
@@ -265,7 +275,6 @@ public class CardEditActivity extends BaseClass implements View.OnClickListener 
             tvemailAddress.setText(ContainerActivity.getCardResponseDataModel.user_email);
         RelativeLayout.LayoutParams tvNameParams = (RelativeLayout.LayoutParams) tvName.getLayoutParams();
         if (cardDetailsResponseModel.card_name_top_mob != null) {
-            //int topmargin=(Integer.parseInt(String.valueOf(ContainerActivity.cardDetailsResponseModel.card_name_top_mob));
             tvNameParams.topMargin = Integer.parseInt(String.valueOf(cardDetailsResponseModel.card_name_top_mob));
         } else
             tvNameParams.topMargin = 0;
