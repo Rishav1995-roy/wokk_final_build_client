@@ -23,7 +23,7 @@
         android:requestLegacyExternalStorage="true"
         tools:replace="android:allowBackup"
         android:theme="@style/AppTheme"
-        tools:targetApi="q">
+        >
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

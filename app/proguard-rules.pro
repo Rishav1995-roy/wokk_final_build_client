@@ -25,4 +25,4 @@
 
 -dontwarn android.databinding.**
 -keep class android.databinding.** { *; }
--keepclassmembers class com.app_wokk_model.** {*;}
+-keepclassmembers class com.app.wokk.model.** {*;}
