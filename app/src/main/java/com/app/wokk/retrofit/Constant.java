@@ -2,10 +2,20 @@ package com.app.wokk.retrofit;
 
 public class Constant {
 
-    public static final String BaseUrl = "https://wokk.co.in/api/";
+    static {
+        System.loadLibrary("Wokk");
+    }
 
-    public static final String apiuser="sarasij94";
-    public static final String apipass="123";
+
+    private native static String getUsername();
+
+    private native static String getPassword();
+
+    private native static String getBaseURL();
+
+    public static final String BaseUrl = getBaseURL();
+    public static final String apiuser = getUsername();
+    public static final String apipass = getPassword();
 
     public static final String login="login";
     public static final String Register="register";
