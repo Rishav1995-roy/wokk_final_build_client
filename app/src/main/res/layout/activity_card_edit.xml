@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_height="match_parent">
 
@@ -20,14 +21,15 @@
         <RelativeLayout
             android:id="@+id/rlCard"
             android:layout_centerInParent="true"
-            android:layout_width="@dimen/_356sdp"
-            android:layout_height="@dimen/_206sdp">
+            android:layout_width="@dimen/_360sdp"
+            android:layout_height="@dimen/_210sdp">
             <RelativeLayout
-                android:layout_width="@dimen/_350sdp"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_width="@dimen/_355sdp"
+                android:layout_height="@dimen/_205sdp"
                 android:layout_centerInParent="true">
                 <ImageView
                     android:id="@+id/ivCard"
+                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
@@ -84,6 +86,7 @@
                     android:layout_height="wrap_content"/>
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/cardLogo"
+                    app:civ_border="false"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"/>
                 <LinearLayout

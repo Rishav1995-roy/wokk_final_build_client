@@ -50,13 +50,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -185,9 +182,11 @@ public class UserGalleryFragment extends BaseFragment  implements View.OnClickLi
                             BitmapFactory.Options Options = new BitmapFactory.Options();
                             Options.inSampleSize = 4;
                             Options.inJustDecodeBounds = false;
-                            Bitmap bitmap = (BitmapFactory.decodeFile(picturePath, Options));
+                            Bitmap bitmap = BitmapFactory.decodeFile(picturePath, Options);
                             //cardLogo.setImageBitmap(bitmap);
-                            //Uri uri=getImageUri(CardEditActivity.this,bitmap);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+                            //uri=getImageUri(Objects.requireNonNull(getContext()),bitmap);
                             pic = new File(getRealPathFromURI(selectedImage));
                             cursor.close();
                             pictureShowAlert(pic,bitmap);
@@ -366,7 +365,7 @@ public class UserGalleryFragment extends BaseFragment  implements View.OnClickLi
     Uri getImageUri(Context inContext, Bitmap inImage){
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "image", null);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "image", "");
         return Uri.parse(path);
     }
 
