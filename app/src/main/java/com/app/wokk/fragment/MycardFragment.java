@@ -118,7 +118,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     public boolean validity_status;
     public String validityDate;
     public String follow_count, viewCount, layoutUrl;
-    String[] permissions = {Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS};
+    String[] permissions = { Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
@@ -494,7 +494,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
                 if (etNumber.getText().toString().isEmpty()) {
                     customAlert("Please enter a mobile number to continue!");
                 } else {
-                    requestSmsPermission();
+                    sendSms();
                 }
                 break;
             case R.id.ivContact:
@@ -590,10 +590,6 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
         requestPermissions(permissions, 100);
     }
 
-    private void requestSmsPermission() {
-        requestPermissions(permissions, 101);
-    }
-
     private void requestContactAccessPermission() {
         requestPermissions(permissions, 102);
     }
@@ -611,13 +607,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             } else {
                 requestCallPermission();
             }
-        } else if (requestCode == 101) {
-            if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                sendSms();
-            } else {
-                requestSmsPermission();
-            }
-        } else if (requestCode == 102) {
+        }  else if (requestCode == 102) {
             if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent, 100);
@@ -629,9 +619,12 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
 
     private void sendSms() {
         try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(etNumber.getText().toString(), null, "https://wokk.co.in/card/" + getCardResponseDataModel.user_token, null, null);
-            Toast.makeText(getActivity(), "Message Sent", Toast.LENGTH_LONG).show();
+            Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+            smsIntent.setType("vnd.android-dir/mms-sms");
+            smsIntent.putExtra("address",etNumber.getText().toString());
+            smsIntent.putExtra("sms_body","https://wokk.co.in/card/" + getCardResponseDataModel.user_token);
+            smsIntent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(smsIntent);
         } catch (Exception ex) {
             Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();

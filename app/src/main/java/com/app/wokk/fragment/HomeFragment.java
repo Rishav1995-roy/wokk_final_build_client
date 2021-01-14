@@ -87,7 +87,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Handler handler;
     private Runnable update;
     private boolean timerIsRunning;
-    String[] permissions = {Manifest.permission.SEND_SMS};
+
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -347,34 +347,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             if(etNumber.getText().toString().isEmpty()){
                 customAlert("Please enter a mobile number to continue!");
             }else {
-                requestPermission();
-            }
-        }
-    }
-
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, 100);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100) {
-            if ((grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 sendSms();
-            } else {
-                requestPermission();
             }
         }
     }
+
 
     private void sendSms() {
         try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(etNumber.getText().toString(), null, "https://wokk.co.in/card/" + ContainerActivity.getCardResponseDataModel.user_token, null, null);
-            Toast.makeText(getActivity(), "Message Sent", Toast.LENGTH_LONG).show();
+            Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+            smsIntent.setType("vnd.android-dir/mms-sms");
+            smsIntent.putExtra("address",etNumber.getText().toString());
+            smsIntent.putExtra("sms_body","https://wokk.co.in/card/" + ContainerActivity.getCardResponseDataModel.user_token);
+            smsIntent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(smsIntent);
+
         } catch (Exception ex) {
             Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();
