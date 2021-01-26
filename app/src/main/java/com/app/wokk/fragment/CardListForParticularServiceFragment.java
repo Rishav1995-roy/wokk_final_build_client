@@ -63,7 +63,7 @@ public class CardListForParticularServiceFragment extends BaseFragment {
     public ArrayList<AllCardsResponseModel> filterCardList;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         rootView=inflater.inflate(R.layout.fragment_card_for_particular_service,container,false);
         //ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
         //ContainerActivity.rlMyCardViews.setVisibility(View.GONE);

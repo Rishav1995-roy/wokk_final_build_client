@@ -50,4 +50,9 @@ public class GetCardResponseModel {
     @SerializedName("validity_status")
     @Expose
     public boolean  validity_status;
+
+
+    @SerializedName("default_card_layout")
+    @Expose
+    public int  default_card_layout;
 }

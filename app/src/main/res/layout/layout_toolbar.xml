@@ -15,8 +15,8 @@
         android:src="@drawable/menu" />
 
     <ImageView
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

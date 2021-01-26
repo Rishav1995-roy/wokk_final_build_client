@@ -68,7 +68,7 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_login);
         myPreference=new MyPreference(this);
         presenter=new LoginPresenter(this);
@@ -99,7 +99,11 @@ public class LoginActivity extends BaseClass implements View.OnClickListener, Lo
         switch(view.getId()){
             case R.id.tvForgot:
                 hideKeyBoardText(tvForgot);
-                customAlert("This section is under development.");
+                myPreference.setForgotPasswordLoadStatus(true);
+                myPreference.setOtpLoad(false);
+                Intent forgotIntent=new Intent(this,PhonenumberActivity.class);
+                startActivity(forgotIntent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
             case R.id.llSignIn:
                 hideKeyBoardLinearlayout(llSignIn);

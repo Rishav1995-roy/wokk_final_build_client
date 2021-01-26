@@ -133,7 +133,6 @@
             android:layout_height="match_parent"/>
     </RelativeLayout>
     <TextView
-        android:visibility="gone"
         android:layout_below="@id/rlSignIn"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_20sdp"

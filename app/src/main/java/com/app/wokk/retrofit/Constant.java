@@ -31,8 +31,8 @@ public class Constant {
     public static final String Edit_profile="edit_profile";
     public static final String Card_List_For_Particular_service="all_card_by_service";
     public static final String Follow_Card="follow_card";
-    public static final String Verify_Conatct_For_Forgot_Password=""; //Due for Api Format
-    public static final String Rest_Password=""; //Due for Api Format
+    public static final String Verify_Conatct_For_Forgot_Password="change_password";
+    public static final String Reset_Password="reset_password";
     public static final String Font_Family="fonts_families";
     public static final String VIEWS="increase_view_count";
     public static final String ADD_YOUTUBE_LINK="add_youtube";

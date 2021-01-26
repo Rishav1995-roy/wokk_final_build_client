@@ -48,7 +48,7 @@ public class ServicesFragment extends BaseFragment {
     public ArrayList<ServiceListDataModel> servicesList;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         rootView=inflater.inflate(R.layout.fragment_services,container,false);
         //ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
         //ContainerActivity.rlMyCardViews.setVisibility(View.GONE);

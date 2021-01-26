@@ -65,6 +65,14 @@ public class MyPreference {
         sharedPreferences.edit().putBoolean("otpLoad",load).apply();
     }
 
+    public Boolean getForPasswordLoad(){
+        return  sharedPreferences.getBoolean("forgotLoad",false);
+    }
+
+    public void setForgotPasswordLoad(Boolean load){
+        sharedPreferences.edit().putBoolean("forgotLoad",load).apply();
+    }
+
     public String getPhoneNumber(){
         return sharedPreferences.getString("phoneNumber","");
     }
@@ -127,6 +135,22 @@ public class MyPreference {
 
     public void setEmail(String email){
         sharedPreferences.edit().putString("email",email).apply();
+    }
+
+    public String getOtpForForgot(){
+        return sharedPreferences.getString("otp","");
+    }
+
+    public void setOtpForForgot(String otp){
+        sharedPreferences.edit().putString("otp",otp).apply();
+    }
+
+    public String getUserIDForForgot(){
+        return sharedPreferences.getString("userIDForgot","");
+    }
+
+    public void setUserIDForgot(String userId){
+        sharedPreferences.edit().putString("userIDForgot",userId).apply();
     }
 
     public String getFireBaseToken(){

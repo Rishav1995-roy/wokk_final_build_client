@@ -134,10 +134,13 @@
                         android:layout_below="@+id/llNumber"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:id="@+id/ivCard"
+                        android:scaleType="fitXY"
                         android:adjustViewBounds="true"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_200sdp"/>
+                        android:layout_height="@dimen/_170sdp"/>
 
                     <RelativeLayout
                         android:layout_below="@id/ivCard"

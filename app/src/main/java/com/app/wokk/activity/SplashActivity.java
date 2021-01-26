@@ -25,7 +25,7 @@ public class SplashActivity extends BaseClass {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_splash);
         myPreference=new MyPreference(this);
         mHandler=new Handler();
@@ -48,6 +48,11 @@ public class SplashActivity extends BaseClass {
                     myPreference.setLoad(false);
                     myPreference.setFromCardEdit(false);
                     Intent intent = new Intent(getApplicationContext(), ContainerActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }else if(myPreference.getForgotPasswordLoad()){
+                    Intent intent = new Intent(getApplicationContext(), OtpActivity.class);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

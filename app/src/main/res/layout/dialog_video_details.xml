@@ -7,13 +7,13 @@
         android:layout_centerInParent="true"
         android:background="@drawable/alert_background"
         android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_250sdp">
+        android:layout_height="@dimen/_270sdp">
         <ImageView
             android:id="@+id/tvappname"
             android:src="@drawable/wokk_logo"
             android:layout_centerHorizontal="true"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_70sdp"/>
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_90sdp"/>
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitle"
             android:layout_below="@id/tvappname"

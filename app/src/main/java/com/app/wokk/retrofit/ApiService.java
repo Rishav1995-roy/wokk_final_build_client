@@ -5,8 +5,10 @@ import com.app.wokk.model.FontResponseModel;
 import com.app.wokk.model.GetCardResponseModel;
 import com.app.wokk.model.LoginResponseModel;
 import com.app.wokk.model.OtpResponseModel;
+import com.app.wokk.model.PhoneNumberResponseModel;
 import com.app.wokk.model.RegisterResponseModel;
 import com.app.wokk.model.ResendResponseModel;
+import com.app.wokk.model.ResetPasswordResponseModel;
 import com.app.wokk.model.ServiceResponseModelClass;
 import com.google.gson.JsonElement;
 
@@ -35,6 +37,12 @@ public interface ApiService {
 
     @POST(Constant.Resend_otp)
     Call<ResendResponseModel> resend_otp(@Body JsonElement jsonElement);
+
+    @POST(Constant.Verify_Conatct_For_Forgot_Password)
+    Call<PhoneNumberResponseModel> doVerifyPhoneNumber(@Body JsonElement jsonElement);
+
+    @POST(Constant.Reset_Password)
+    Call<ResetPasswordResponseModel> doResetPassword(@Body JsonElement jsonElement);
 
     @POST(Constant.Get_Profile)
     Call<GetCardResponseModel> get_profile(@Body JsonElement jsonElement);

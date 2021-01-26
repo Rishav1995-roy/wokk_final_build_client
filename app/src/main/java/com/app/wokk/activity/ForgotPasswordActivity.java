@@ -19,27 +19,40 @@ import androidx.annotation.Nullable;
 import com.app.wokk.R;
 import com.app.wokk.combine.BaseClass;
 import com.app.wokk.customAlert.CustomAlertWithOneButton;
+import com.app.wokk.model.ApiCredentialModel;
+import com.app.wokk.model.PhoneNumberResponseModel;
+import com.app.wokk.model.PhoneNumberVerificationModel;
+import com.app.wokk.model.ResetPasswordModel;
+import com.app.wokk.model.ResetPasswordResponseModel;
 import com.app.wokk.preference.MyPreference;
+import com.app.wokk.retrofit.Constant;
+import com.app.wokk.retrofit.RestManager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ForgotPasswordActivity extends BaseClass implements View.OnClickListener{
 
-    public ImageView ivBack;
+    public ImageView ivBack,ivForgot;
     public TextInputEditText etNewPassword,etConfirmPassword;
     public LinearLayout llForgot;
-    public Button btnSubmit;
-    public ImageView ivLoadder;
     public MyPreference myPreference;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_forgot);
         myPreference=new MyPreference(this);
         initView();
@@ -50,15 +63,14 @@ public class ForgotPasswordActivity extends BaseClass implements View.OnClickLis
         etNewPassword=findViewById(R.id.etNewPassword);
         etConfirmPassword=findViewById(R.id.etConfirmPassword);
         llForgot=findViewById(R.id.llForgot);
-        btnSubmit=findViewById(R.id.btnSubmit);
-        ivLoadder=findViewById(R.id.ivLoadder);
+        ivForgot=findViewById(R.id.ivForgot);
         clickEvent();
     }
 
     private void clickEvent() {
         llForgot.setOnClickListener(this);
         ivBack.setOnClickListener(this);
-        btnSubmit.setOnClickListener(this);
+        ivForgot.setOnClickListener(this);
     }
 
     @Override
@@ -75,12 +87,52 @@ public class ForgotPasswordActivity extends BaseClass implements View.OnClickLis
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
-            case R.id.btnSubmit:
+            case R.id.ivForgot:
                 if(validation()){
-                    //new asyncTask().execute();
+                    doForgot();
                 }
                 break;
         }
+    }
+
+    private void doForgot() {
+        showRotateDialog();
+        ApiCredentialModel apiCredentialModel=new ApiCredentialModel();
+        apiCredentialModel.apiuser= Constant.apiuser;
+        apiCredentialModel.apipass=Constant.apipass;
+        ResetPasswordModel resetPasswordModel=new ResetPasswordModel();
+        resetPasswordModel.apiCredentialModel=apiCredentialModel;
+        resetPasswordModel.user_id=myPreference.getUserIDForForgot();
+        resetPasswordModel.password= Objects.requireNonNull(etNewPassword.getText()).toString();
+        Gson gson=new Gson();
+        JsonElement jsonElement=gson.toJsonTree(resetPasswordModel);
+        Call<ResetPasswordResponseModel> doReset= RestManager.getInstance().getService().doResetPassword(jsonElement);
+        doReset.enqueue(new Callback<ResetPasswordResponseModel>() {
+            @Override
+            public void onResponse(@NotNull Call<ResetPasswordResponseModel> call, @NotNull Response<ResetPasswordResponseModel> response) {
+                hideRotateDialog();
+                try{
+                    assert response.body() != null;
+                    int code=response.body().code;
+                    if(code == 1){
+                       customAlert(response.body().message,true);
+                    }else if(code == 9){
+                        customAlert("An authentication error occured!",false);
+                    }else{
+                        customAlert("Oops, something went wrong!",false);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    customAlert("Oops, something went wrong!",false);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResetPasswordResponseModel> call, @NotNull Throwable t) {
+                hideRotateDialog();
+                customAlert("Internal server error. Please try after few minutes.",false);
+            }
+        });
     }
 
     private boolean validation() {
@@ -89,8 +141,8 @@ public class ForgotPasswordActivity extends BaseClass implements View.OnClickLis
            etNewPassword.requestFocus();
            return false;
         }
-        if(etNewPassword.getText().toString().length() < 8 ){
-            customAlert("Password must have 8 chrarcters",false);
+        if(etNewPassword.getText().toString().length() < 6 ){
+            customAlert("Password must have 6 chrarcters",false);
             etNewPassword.requestFocus();
             return false;
         }

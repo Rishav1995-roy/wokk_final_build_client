@@ -17,10 +17,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_60sdp"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_15sdp"
                     android:src="@drawable/wokk_logo"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"/>

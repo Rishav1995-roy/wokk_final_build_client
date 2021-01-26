@@ -7,7 +7,7 @@
         android:layout_centerInParent="true"
         android:background="@drawable/alert_background"
         android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_180sdp">
+        android:layout_height="@dimen/_200sdp">
         <ImageView
             android:id="@+id/tvappname"
             android:src="@drawable/wokk_logo"
@@ -15,8 +15,8 @@
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_70sdp"/>
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_90sdp"/>
         <TextView
             android:id="@+id/tvHeading"
             android:layout_marginTop="@dimen/_40sdp"

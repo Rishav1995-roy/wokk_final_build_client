@@ -7,7 +7,9 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/ivBack"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_30sdp"
         android:src="@drawable/back_top"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -16,103 +18,97 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:text="@string/forgotPasswordHeading"
-        android:textSize="@dimen/_20sdp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textSize="@dimen/_40sdp"
+        android:fontFamily="@font/gidole_regular"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
         android:textColor="@color/orange" />
     <LinearLayout
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:id="@+id/ll_password"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp">
-        <ImageView
-            android:src="@drawable/password"
-            android:layout_gravity="center_vertical"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"/>
+        android:layout_height="@dimen/_35sdp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNewPassword"
             android:layout_width="match_parent"
             android:background="@null"
-            android:hint="Enter new password"
-            android:textColor="@color/orange"
+            android:hint="@string/newPasswordHint"
+            android:textColor="@color/black"
             android:inputType="textPassword"
-            android:textColorHint="@color/violet"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_20sdp"
+            android:singleLine="true"
+            android:fontFamily="@font/gidole_regular"
+            android:textColorHint="@color/offBlack"
             android:textSize="@dimen/_12sdp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_height="match_parent"/>
     </LinearLayout>
     <View
-        android:background="@color/violet"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/offBlack"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1ssp"/>
     <LinearLayout
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:id="@+id/ll_Confirmpassword"
+        android:layout_below="@id/email_view"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp">
-        <ImageView
-            android:src="@drawable/password"
-            android:layout_gravity="center_vertical"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"/>
+        android:layout_height="@dimen/_35sdp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:background="@null"
-            android:hint="Confirm new password"
-            android:textColor="@color/orange"
+            android:hint="@string/newPasswordConfirmHint"
+            android:textColor="@color/black"
             android:inputType="textPassword"
-            android:textColorHint="@color/violet"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_20sdp"
+            android:singleLine="true"
+            android:fontFamily="@font/gidole_regular"
+            android:textColorHint="@color/offBlack"
             android:textSize="@dimen/_12sdp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_height="match_parent"/>
     </LinearLayout>
     <View
-        android:background="@color/violet"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/offBlack"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1ssp"/>
     <RelativeLayout
-        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/rlSubmit"
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:animateLayoutChanges="true"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_height="@dimen/_40sdp">
-        <Button
-            android:id="@+id/btnSubmit"
+        <TextView
+            android:id="@+id/tvLogin"
+            android:animateLayoutChanges="true"
             android:text="Submit"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            android:textSize="@dimen/_12sdp"
-            android:layout_width="match_parent"
-            android:background="@drawable/button_background"
-            android:layout_height="@dimen/_40sdp"/>
-        <ImageView
-            android:id="@+id/ivLoadder"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            style="@style/TextAppearance.MaterialComponents.Headline2"
+            android:fontFamily="@font/gidole_regular"
+            android:textSize="@dimen/_22sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/ivForgot"
+            android:src="@drawable/right_arrow"
+            android:adjustViewBounds="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -68,6 +68,7 @@ import com.app.wokk.retrofit.Constant;
 import com.app.wokk.retrofit.RestManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
@@ -121,7 +122,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
     String[] permissions = { Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         rootView = inflater.inflate(R.layout.fragment_my_card, container, false);
         myPreference = new MyPreference(getActivity());
         init(rootView);
@@ -277,7 +278,7 @@ public class MycardFragment extends BaseFragment implements View.OnClickListener
             scroll.setVisibility(View.VISIBLE);
             rlAlert.setVisibility(View.GONE);
             Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).into(ivCard);
+                    .skipMemoryCache(true).apply(new RequestOptions().placeholder(R.drawable.demo_placeholder_image_store)).into(ivCard);
             tvName.setText(getCardResponseDataModel.user_fname);
             tvOrg.setText(getCardResponseDataModel.user_organization_name);
             tvAddress.setText(getCardResponseDataModel.user_address);

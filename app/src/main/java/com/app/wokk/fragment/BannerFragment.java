@@ -3,6 +3,7 @@ package com.app.wokk.fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.app.wokk.R;
 import com.app.wokk.activity.ContainerActivity;
@@ -60,6 +62,7 @@ public class BannerFragment extends BaseFragment {
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void init(View rootView) {
         ivBanner =(ImageView)  rootView.findViewById(R.id.ivBanner);
         youTubePlayerView=(YouTubePlayerView)rootView.findViewById(R.id.youtubePlayerView);

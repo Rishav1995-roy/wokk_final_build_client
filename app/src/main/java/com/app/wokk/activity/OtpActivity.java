@@ -69,7 +69,7 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_otp);
         myPreference = new MyPreference(this);
         presenter=new OtpPresenter(this);
@@ -157,7 +157,18 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
                         ivLoadder.setVisibility(View.VISIBLE);
                         Glide.with(getApplicationContext()).load(R.raw.loadder).into(ivLoadder);
                         String otp=Objects.requireNonNull(tvFirst.getText()).toString() + Objects.requireNonNull(tvSecond.getText()).toString() + Objects.requireNonNull(tvThird.getText()).toString() + Objects.requireNonNull(tvFourth.getText()).toString();
-                        presenter.doCheckOtp(otp,myPreference.getPhoneNumber(),myPreference.getUserID());
+                        if(myPreference.getForgotPasswordLoad()){
+                            if(otp.equals(myPreference.getOtpForForgot())){
+                                Intent forgotIntent=new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                                startActivity(forgotIntent);
+                                finish();
+                                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                            }else{
+                                customAlert("Please enter the correct otp for change your password!");
+                            }
+                        }else {
+                            presenter.doCheckOtp(otp, myPreference.getPhoneNumber(), myPreference.getUserID());
+                        }
                     }else{
                         doError(getResources().getString(R.string.noInternetText));
                     }
@@ -367,7 +378,11 @@ public class OtpActivity extends BaseClass implements View.OnClickListener, OtpM
         ResendModelClass resendModelClass=new ResendModelClass();
         resendModelClass.apiCredentialModel=apiCredentialModel;
         resendModelClass.phone=myPreference.getPhoneNumber();
-        resendModelClass.user_id=myPreference.getUserID();
+        if(myPreference.getForgotPasswordLoad()){
+            resendModelClass.user_id=myPreference.getUserIDForForgot();
+        }else {
+            resendModelClass.user_id = myPreference.getUserID();
+        }
         Gson gson=new Gson();
         JsonElement jsonElement=gson.toJsonTree(resendModelClass);
         Call<ResendResponseModel> doResend=RestManager.getInstance().getService().resend_otp(jsonElement);

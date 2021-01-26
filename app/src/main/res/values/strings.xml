@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Wokk</string>
     <string name="loginSubText">Please login to continue</string>
-    <string name="phoneNumberHeading">Enter your mobile number</string>
+    <string name="phoneNumberHeading">Enter mobile number</string>
     <string name="phonenumbersubheadingForSignUp">A verification code has been sent your mobile number for verification.</string>
     <string name="phoneNumberSubHeadingForForgot">A verification code has been sent your registered mobile number for verification.</string>
     <string name="signInHeading">Create your account</string>
@@ -11,6 +11,8 @@
     <string name="terms_and_privacy"><font color='#132743'>By signing up, you agree to our </font><font color='#DB1D4B'><u>Terms</u></font><font color='#132743'> and </font><font color='#DB1D4B'><u>Conditions</u></font></string>
     <string name="editPhoneNumberHint">Phone number</string>
     <string name="editPasswordHint">Password</string>
+    <string name="newPasswordHint">Enter your new password</string>
+    <string name="newPasswordConfirmHint">Re-enter your new password</string>
     <string name="forgotPassword"><u>Forgot password?</u></string>
     <string name="signInText">Don\'t have an account?</string>
     <string name="signInClick"><u>Create account</u></string>

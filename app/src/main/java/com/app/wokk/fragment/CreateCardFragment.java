@@ -96,7 +96,7 @@ public class CreateCardFragment extends BaseFragment implements View.OnClickList
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         rootView=inflater.inflate(R.layout.fragment_create_card,container,false);
         myPreference=new MyPreference(getActivity());
         //ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);

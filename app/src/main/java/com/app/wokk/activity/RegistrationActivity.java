@@ -163,6 +163,7 @@ public class RegistrationActivity extends BaseClass implements View.OnClickListe
                         myPreference.setOtpLoad(true);
                         myPreference.setUserID(response.body().user_id);
                         myPreference.setRegistrationStatus(true);
+                        myPreference.setForgotPasswordLoad(false);
                         myPreference.setPhoneNumber(Objects.requireNonNull(etPhoneNumber.getText()).toString());
                         myPreference.setPassword(Objects.requireNonNull(etPassword.getText()).toString());
                         myPreference.setEmail(Objects.requireNonNull(etEmail.getText()).toString());
@@ -205,8 +206,8 @@ public class RegistrationActivity extends BaseClass implements View.OnClickListe
             etPassword.requestFocus();
             return false;
         }
-        if(etPassword.getText().toString().length() < 8 ){
-            customAlert("Paswword must have 8 characters!");
+        if(etPassword.getText().toString().length() < 6 ){
+            customAlert("Paswword must have 6 characters!");
             etPassword.requestFocus();
             return false;
         }

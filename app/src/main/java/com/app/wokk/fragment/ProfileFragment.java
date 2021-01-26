@@ -40,6 +40,7 @@ import com.app.wokk.preference.MyPreference;
 import com.app.wokk.utility.SwipeDisableViewpager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -69,7 +70,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     public static TextView tvAddress;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        Objects.requireNonNull(getActivity()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         rootView=inflater.inflate(R.layout.fragment_profile,container,false);
         myPreference=new MyPreference(getActivity());
         //ContainerActivity.btnCreateVisitingCard.setVisibility(View.GONE);
@@ -155,8 +156,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private void setUpDataForProfile() {
         if(ContainerActivity.getCardResponseDataModel != null && cardDetailsResponseModel != null){
             ivcard.setVisibility(View.VISIBLE);
-            Glide.with(getActivity()).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).into(ivcard);
+            Glide.with(Objects.requireNonNull(getActivity())).load(cardDetailsResponseModel.card_image_url).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).apply(new RequestOptions().placeholder(R.drawable.demo_placeholder_image_store)).into(ivcard);
             tvAddress.setText(ContainerActivity.getCardResponseDataModel.user_address+" - "+ContainerActivity.getCardResponseDataModel.user_pin);
             tvUsername.setText(ContainerActivity.getCardResponseDataModel.user_fname);
             btnEditCard.setVisibility(View.VISIBLE);
